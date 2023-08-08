@@ -1,0 +1,9 @@
+{
+  "scss.validate": false,
+  "css.validate": false,
+  "less.validate": false,
+  "stylelint.validate": ["css", "scss"],
+  "[json]": {
+    "editor.formatOnSave": false
+  }
+}
