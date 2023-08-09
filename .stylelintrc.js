@@ -1,6 +1,6 @@
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-clean-order'],
-  plugins: ['stylelint-scss', 'stylelint-order', 'stylelint-prettier'],
+  extends: ['stylelint-config-standard'],
+  plugins: ['stylelint-scss', 'stylelint-prettier'],
   overrides: [
     {
       files: ['**/*.scss'],
