@@ -4,6 +4,15 @@
   padding: 0;
 }
 
+$font-stack: 'Inter';
+$color-white: #fff;
+$color-black: #323232;
+$color-start-gradient: #eb3349;
+$color-end-gradient: #f45c43;
+
 body {
-  background-color: #ff907f5d;
+  max-width: 1440px;
+  font-family: $font-stack;
+  font-style: normal;
+  background-color: $color-white;
 }
