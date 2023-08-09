@@ -7,6 +7,7 @@
 $font-stack: 'Inter';
 $color-white: #fff;
 $color-black: #323232;
+$color-grey: #F5F5F5;
 $color-start-gradient: #eb3349;
 $color-end-gradient: #f45c43;
 
@@ -15,4 +16,13 @@ body {
   font-family: $font-stack;
   font-style: normal;
   background-color: $color-white;
+}
+
+input {
+  outline: 0;
+  background-color: $color-grey;
+}
+
+li {
+  list-style-type: none;
 }
