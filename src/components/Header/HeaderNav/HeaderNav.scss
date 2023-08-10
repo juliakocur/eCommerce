@@ -19,10 +19,10 @@
 }
 
 .dropdown .dropbtn {
-  border: none;
   outline: none;
   padding: 14px 20px;
   margin: 0;
+  border-bottom: 1px solid transparent;
 }
 
 .dropdownContent {
@@ -30,10 +30,6 @@
   position: absolute;
   min-width: 115px;
   z-index: 1;
-}
-
-.dropbtn:hover {
-  border: inherit 2px $color-black;
 }
 
 .dropdownContent a {
@@ -54,7 +50,7 @@
   display: block;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:hover {
   border-bottom: 1px solid $color-black;
 }
 
@@ -98,4 +94,24 @@
 
 .dropdown:hover .dropArrow::after {
   transform: rotate(40deg);
+}
+
+.active span:after {
+  transform: rotate(40deg);
+}
+
+.active span:before {
+  transform: rotate(-40deg);
+}
+
+.active .dropdownContent {
+  display: block;
+}
+
+.open {
+  border-bottom: 1px solid $color-black;
+}
+
+.dropdown.active {
+  border-bottom: 1px solid $color-black;
 }
