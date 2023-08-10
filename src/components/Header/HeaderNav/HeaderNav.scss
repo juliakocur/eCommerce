@@ -1,0 +1,101 @@
+@import '../../../style.scss';
+
+.headerNav {
+  overflow: hidden;
+  background-color: $color-white;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+  color: $color-black;
+}
+
+.dropdown .dropbtn {
+  border: none;
+  outline: none;
+  padding: 14px 20px;
+  margin: 0;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  min-width: 115px;
+  z-index: 1;
+}
+
+.dropbtn:hover {
+  border: inherit 2px $color-black;
+}
+
+.dropdownContent a {
+  float: none;
+  color: $color-black;
+  padding: 12px 20px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdownContent a:hover,
+.dropbtn:hover {
+  color: #f00;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  border-bottom: 1px solid $color-black;
+}
+
+.dropdown:hover .dropdownContent a {
+  border-bottom: 1px solid $color-black;
+}
+
+.dropArrow {
+  position: relative;
+}
+
+.dropArrow::before {
+  content: '';
+  width: 8px;
+  height: 1px;
+  background-color: $color-black;
+  top: 11px;
+  margin-left: 4px;
+  position: absolute;
+  transition: all 0.3s ease 0s;
+  transform: rotate(40deg);
+  left: -2px;
+}
+
+.dropArrow::after {
+  content: '';
+  width: 8px;
+  height: 1px;
+  background-color: $color-black;
+  top: 11px;
+  margin-left: 4px;
+  position: absolute;
+  transition: all 0.3s ease 0s;
+  transform: rotate(-40deg);
+  left: 4px;
+}
+
+.dropdown:hover .dropArrow::before {
+  transform: rotate(-40deg);
+}
+
+.dropdown:hover .dropArrow::after {
+  transform: rotate(40deg);
+}

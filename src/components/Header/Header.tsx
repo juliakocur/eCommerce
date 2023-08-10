@@ -1,11 +1,12 @@
 import './Header.scss';
 import HeaderLogo from './HeaderLogo/HeaderLogo';
+import HeaderNav from './HeaderNav/HeaderNav';
 
 const Header = () => {
     return (
         <div className="wrapperHeader">
             <HeaderLogo />
-            <div className="headerNav"></div>
+            <HeaderNav />
             <div className="headerSearch"></div>
         </div>
     );
