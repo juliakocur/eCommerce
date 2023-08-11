@@ -2,6 +2,8 @@
   overflow: hidden;
   background-color: var(--color-white);
   display: flex;
+  align-items: center;
+  max-width: 429px;
 }
 
 .navbar a {
@@ -119,7 +121,6 @@
 
 .link {
   margin: 0 15px;
-  padding: 14px 20px;
   text-decoration: none;
   color: var(--color-black);
 }
