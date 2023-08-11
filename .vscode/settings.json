@@ -5,5 +5,6 @@
   "stylelint.validate": ["css", "scss"],
   "[json]": {
     "editor.formatOnSave": false
-  }
+  },
+  "files.eol": "\n"
 }
