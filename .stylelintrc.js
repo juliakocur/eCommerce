@@ -8,7 +8,12 @@ module.exports = {
     },
   ],
   rules: {
-    'prettier/prettier': true,
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'at-rule-no-unknown': [
       true,
       {
