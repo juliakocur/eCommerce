@@ -6,5 +6,5 @@
   "[json]": {
     "editor.formatOnSave": false
   },
-  "files.eol": "\r\n"
+  "files.eol": "\n"
 }
