@@ -1,6 +1,7 @@
 .headerNav {
   overflow: hidden;
   background-color: var(--color-white);
+  display: flex;
 }
 
 .navbar a {
@@ -29,6 +30,7 @@
   position: absolute;
   min-width: 115px;
   z-index: 1;
+  cursor: pointer;
 }
 
 .dropdownContent a {
@@ -118,4 +120,10 @@
 .link {
   margin: 0 15px;
   padding: 14px 20px;
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+.link:hover {
+  color: #f00;
 }
