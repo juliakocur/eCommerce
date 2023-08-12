@@ -1,3 +1,67 @@
 .registrationPage {
   color: brown;
 }
+.wrapperEmail,
+.wrapperPassword {
+  margin: 25px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  color: #000;
+  font-weight: 600;
+  font-size: 13px;
+  width: 490px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+input {
+  display: block;
+  margin: 5px auto;
+  padding: 12px 28px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  background: #f5f5f5;
+  color: #b9b9b9;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  width: 490px;
+}
+
+.inputPasswordWrapper {
+  display: flex;
+  background: #f5f5f5;
+  width: 490px;
+  color: #b9b9b9;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  width: 490px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--color-start-gradient) 0%,
+    var(--color-end-gradient) 100%
+  );
+}
+
+span {
+  color: #f00;
+}
+
+.error {
+  text-align: left;
+  width: 490px;
+  margin: 0 auto;
+  font-size: 12px;
+  font-weight: 500;
+}
