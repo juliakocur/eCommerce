@@ -7,22 +7,25 @@ const RegistrationPage = () => {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [name, setName] = useState<string>();
+    const [surname, setSurname] = useState<string>();
     const [emailDirty, setEmailDirty] = useState<boolean>(false);
     const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
     const [nameDirty, setNameDirty] = useState<boolean>(false);
+    const [surnameDirty, setSurnameDirty] = useState<boolean>(false);
     const [emailError, setEmailError] = useState<string>('Все плохо');
     const [passwordError, setPasswordError] = useState<string>('Все плохо');
     const [nameError, setNameError] = useState<string>('Все плохо');
+    const [surnameError, setSurnameError] = useState<string>('Все плохо');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [formValid, setFormValid] = useState(false);
   
     useEffect(() => {
-      if (emailError || passwordError || nameError) {
+      if (emailError || passwordError || nameError || surnameError) {
         setFormValid(false);
       } else {
         setFormValid(true);
       }
-    }, [emailError, passwordError, nameError]);
+    }, [emailError, passwordError, nameError, surnameError]);
   
     const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value);
@@ -66,6 +69,20 @@ const RegistrationPage = () => {
         setNameError('');
       }
     }
+
+    const surnameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newSurname = e.target.value;
+      setSurname(newSurname);
+
+      const surnameRegex = /^[a-zA-Z ]+$/;
+      if (!newSurname) {
+        setSurnameError('Имя не должно быть пустое');
+      } else if (!surnameRegex.test(newSurname)) {
+        setSurnameError('Имя не соответствует требованиям');
+      } else {
+        setSurnameError('');
+      }
+    }
   
     const blurHandler = (e: React.FocusEvent<HTMLInputElement>) => {
       switch (e.target.name) {
@@ -78,6 +95,9 @@ const RegistrationPage = () => {
         case 'name':
           setNameDirty(true);
           break;
+        case 'surname':
+          setSurnameDirty(true);
+          break;  
       }
     };
   
@@ -151,6 +171,26 @@ const RegistrationPage = () => {
             {nameDirty && nameError && (
               <div className="error" style={{ color: 'red' }}>
                 {nameError}
+              </div>
+            )}
+          </div>
+
+          <div className="wrapperSurname">
+            <p>
+              Surname <span>*</span>
+            </p>
+
+            <input
+              onChange={(e) => surnameHandler(e)}
+              value={surname || ""}
+              onBlur={(e) => blurHandler(e)}
+              name="surname"
+              type="text"
+              placeholder="Enter your surname...."
+            />
+            {surnameDirty && surnameError && (
+              <div className="error" style={{ color: 'red' }}>
+                {surnameError}
               </div>
             )}
           </div>
