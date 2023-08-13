@@ -10,10 +10,10 @@ const HeaderIcons = () => {
         <img src={user} alt="search" className="userImg" />
         Account
       </Link>
-      <div className="userBasket">
+      <Link to="/cart" className="userBasket">
         <img src={basket} alt="search" className="basketImg" />
         Basket
-      </div>
+      </Link>
     </div>
   );
 };

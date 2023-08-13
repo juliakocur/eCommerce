@@ -1,28 +1,24 @@
 .wrapperIcons {
   display: flex;
+  gap: 20px;
 }
 
 .userAccount,
 .userBasket {
-  margin: 10px;
   width: 46px;
-  height: 40px;
   font-weight: 500;
   font-size: 12px;
   display: flex;
   flex-direction: column;
+  gap: 5px;
   align-items: center;
   color: var(--color-black);
   cursor: pointer;
 }
 
-.userAccount {
-  text-decoration: none;
-}
-
 .userAccount:hover,
 .userBasket:hover {
-  color: #f00;
+  color: var(--color-red);
 }
 
 .userImg,

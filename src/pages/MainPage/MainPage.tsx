@@ -1,6 +1,6 @@
 import './MainPage.scss';
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footre';
+import Footer from '../../components/Footer/Footer';
 
 const MainPage = () => {
   return (

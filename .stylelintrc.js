@@ -9,6 +9,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': true,
+    'media-feature-range-notation': null,
     'at-rule-no-unknown': [
       true,
       {

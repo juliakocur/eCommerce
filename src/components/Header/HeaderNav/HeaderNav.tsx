@@ -1,28 +1,49 @@
 import './HeaderNav.scss';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import arrow from '../../../shared/assets/icons/arrow.svg';
 
 const HeaderNav = () => {
   const [open, setOpen] = useState(false);
+  const [category, setCategory] = useState('Categories');
+
+  const clickHandler = (cat: string) => {
+    setCategory(cat);
+    setOpen(false);
+  };
+
   return (
     <div className="headerNav">
       <div
-        className={`dropdown ${open ? 'active' : ''}`}
+        className={`dropdown `}
         onClick={() => {
           setOpen(!open);
         }}
       >
-        <div className="dropbtn">
-          Collection<span className="dropArrow"></span>
+        <div className="dropBtn">
+          {category}
+          <img
+            src={arrow}
+            alt=""
+            className={`arrow ${open ? 'upArrow' : ''}`}
+          />
         </div>
-        <div className="dropdownContent">
-          <a href="#" className={`dropLink ${open ? 'open' : ''}`}>
-            Men
-          </a>
-          <a href="#" className={`dropLink ${open ? 'open' : ''}`}>
-            Women
-          </a>
-        </div>
+        {!!open && (
+          <div className="dropdownContent">
+            <div className={`dropLink`} onClick={() => clickHandler('Men')}>
+              Men
+            </div>
+            <div className={`dropLink`} onClick={() => clickHandler('Women')}>
+              Women
+            </div>
+            <div
+              className={`dropLink`}
+              onClick={() => clickHandler('Categories')}
+            >
+              Categories
+            </div>
+          </div>
+        )}
       </div>
       <Link to="/about-us" className="link">
         About us
