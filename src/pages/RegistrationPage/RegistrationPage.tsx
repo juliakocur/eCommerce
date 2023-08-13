@@ -9,26 +9,29 @@ const RegistrationPage = () => {
     const [name, setName] = useState<string>();
     const [surname, setSurname] = useState<string>();
     const [birthday, setBirthday] = useState<string>();
+    const [country, setCountry] = useState<string>();
     const [emailDirty, setEmailDirty] = useState<boolean>(false);
     const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
     const [nameDirty, setNameDirty] = useState<boolean>(false);
     const [surnameDirty, setSurnameDirty] = useState<boolean>(false);
     const [birthdayDirty, setBirthdayDirty] = useState<boolean>(false);
+    const [countryDirty, setCountryDirty] = useState<boolean>(false);
     const [emailError, setEmailError] = useState<string>('Все плохо');
     const [passwordError, setPasswordError] = useState<string>('Все плохо');
     const [nameError, setNameError] = useState<string>('Все плохо');
     const [surnameError, setSurnameError] = useState<string>('Все плохо');
     const [birthdayError, setBirthdayError] = useState<string>('Все плохо');
+    const [countryError, setCountryError] = useState<string>('Все плохо');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [formValid, setFormValid] = useState(false);
   
     useEffect(() => {
-      if (emailError || passwordError || nameError || surnameError || birthdayError) {
+      if (emailError || passwordError || nameError || surnameError || birthdayError || countryError) {
         setFormValid(false);
       } else {
         setFormValid(true);
       }
-    }, [emailError, passwordError, nameError, surnameError, birthdayError]);
+    }, [emailError, passwordError, nameError, surnameError, birthdayError, countryError]);
   
     const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value);
@@ -103,10 +106,18 @@ const RegistrationPage = () => {
           break;  
         case 'birthday':
           setBirthdayDirty(true);
-          break;    
+          break;        
       }
     };
-  
+
+    const blurSelectHandler = (e: React.FocusEvent<HTMLSelectElement>) => {
+      switch (e.target.name) {
+        case 'country':
+          setCountryDirty(true);
+        break;  
+      }
+    }
+
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
@@ -132,6 +143,17 @@ const RegistrationPage = () => {
       setBirthdayError('Дата не соответствует требованиям');
     } else {
       setBirthdayError('');
+    }
+  }
+
+  const countryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCountry = e.target.value;
+    setCountry(newCountry);
+
+    if (!newCountry) {
+      setCountryError('Выберите страну из предложенного списка');
+    } else {
+      setCountryError('');
     }
   }
   
@@ -244,7 +266,31 @@ const RegistrationPage = () => {
               </div>
             )}
           </div>
-  
+
+          <h1>Address</h1>
+          
+          <div className="wrapperCountry">
+            <p>
+              Country <span>*</span>
+            </p>
+
+            <select
+              onChange={(e) => countryHandler(e)}
+              value={country || ""}
+              onBlur={(e) => blurSelectHandler(e)}
+              name="country"
+              placeholder="Select the country...">
+                <option value="United States">United States</option>
+                <option value="Germany">Germany</option>
+                <option value="Spanish">Spanish</option>
+              </select>
+            {countryDirty && countryError && (
+              <div className="error" style={{ color: 'red' }}>
+                {countryError}
+              </div>
+            )}
+          </div>
+
           <button disabled={!formValid} type="submit">
             Register
           </button>

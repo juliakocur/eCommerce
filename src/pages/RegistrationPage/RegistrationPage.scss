@@ -17,7 +17,12 @@ p {
   text-align: left;
 }
 
-input {
+h1 {
+  margin: 0 auto;
+}
+
+input,
+select {
   display: block;
   margin: 5px auto;
   padding: 12px 28px;
