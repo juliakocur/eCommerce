@@ -10,28 +10,34 @@ const RegistrationPage = () => {
     const [surname, setSurname] = useState<string>();
     const [birthday, setBirthday] = useState<string>();
     const [country, setCountry] = useState<string>();
+    const [city, setCity] = useState<string>();
+    const [street, setStreet] = useState<string>();
     const [emailDirty, setEmailDirty] = useState<boolean>(false);
     const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
     const [nameDirty, setNameDirty] = useState<boolean>(false);
     const [surnameDirty, setSurnameDirty] = useState<boolean>(false);
     const [birthdayDirty, setBirthdayDirty] = useState<boolean>(false);
     const [countryDirty, setCountryDirty] = useState<boolean>(false);
+    const [cityDirty, setCityDirty] = useState<boolean>(false);
+    const [streetDirty, setStreetDirty] = useState<boolean>(false);
     const [emailError, setEmailError] = useState<string>('Все плохо');
     const [passwordError, setPasswordError] = useState<string>('Все плохо');
     const [nameError, setNameError] = useState<string>('Все плохо');
     const [surnameError, setSurnameError] = useState<string>('Все плохо');
     const [birthdayError, setBirthdayError] = useState<string>('Все плохо');
     const [countryError, setCountryError] = useState<string>('Все плохо');
+    const [cityError, setCityError] = useState<string>('Все плохо');
+    const [streetError, setStreetError] = useState<string>('Все плохо');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [formValid, setFormValid] = useState(false);
   
     useEffect(() => {
-      if (emailError || passwordError || nameError || surnameError || birthdayError || countryError) {
+      if (emailError || passwordError || nameError || surnameError || birthdayError || countryError || cityError || streetError) {
         setFormValid(false);
       } else {
         setFormValid(true);
       }
-    }, [emailError, passwordError, nameError, surnameError, birthdayError, countryError]);
+    }, [emailError, passwordError, nameError, surnameError, birthdayError, countryError, cityError, streetError]);
   
     const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value);
@@ -106,7 +112,13 @@ const RegistrationPage = () => {
           break;  
         case 'birthday':
           setBirthdayDirty(true);
-          break;        
+          break;      
+        case 'city':
+          setCityDirty(true);
+          break;    
+        case 'street':
+          setStreetDirty(true);
+          break;  
       }
     };
 
@@ -154,6 +166,31 @@ const RegistrationPage = () => {
       setCountryError('Выберите страну из предложенного списка');
     } else {
       setCountryError('');
+    }
+  }
+
+  const cityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newCity = e.target.value;
+    setCity(newCity);
+
+    const surnameRegex = /^[a-zA-Z ]+$/;
+    if (!newCity) {
+      setCityError('Город не должен быть пустым');
+    } else if (!surnameRegex.test(newCity)) {
+      setCityError('Назв. города не соответствует требованиям');
+    } else {
+      setCityError('');
+    }
+  }
+
+  const streetHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newStreet = e.target.value;
+    setStreet(newStreet);
+
+    if (!newStreet) {
+      setStreetError('Улица не должна быть пустой');
+    } else {
+      setStreetError('');
     }
   }
   
@@ -273,7 +310,6 @@ const RegistrationPage = () => {
             <p>
               Country <span>*</span>
             </p>
-
             <select
               onChange={(e) => countryHandler(e)}
               value={country || ""}
@@ -287,6 +323,46 @@ const RegistrationPage = () => {
             {countryDirty && countryError && (
               <div className="error" style={{ color: 'red' }}>
                 {countryError}
+              </div>
+            )}
+          </div>
+
+          <div className="wrapperCity">
+            <p>
+              City <span>*</span>
+            </p>
+
+            <input
+              onChange={(e) => cityHandler(e)}
+              value={city || ""}
+              onBlur={(e) => blurHandler(e)}
+              name="city"
+              type="string"
+              placeholder="Enter the city..."
+            />
+            {cityDirty && cityError && (
+              <div className="error" style={{ color: 'red' }}>
+                {cityError}
+              </div>
+            )}
+          </div>
+
+          <div className="wrapperStreet">
+            <p>
+              Street <span>*</span>
+            </p>
+
+            <input
+              onChange={(e) => streetHandler(e)}
+              value={street || ""}
+              onBlur={(e) => blurHandler(e)}
+              name="street"
+              type="string"
+              placeholder="Enter the street name..."
+            />
+            {streetDirty && streetError && (
+              <div className="error" style={{ color: 'red' }}>
+                {streetError}
               </div>
             )}
           </div>
