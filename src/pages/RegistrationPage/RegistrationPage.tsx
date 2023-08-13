@@ -8,24 +8,27 @@ const RegistrationPage = () => {
     const [password, setPassword] = useState<string>();
     const [name, setName] = useState<string>();
     const [surname, setSurname] = useState<string>();
+    const [birthday, setBirthday] = useState<string>();
     const [emailDirty, setEmailDirty] = useState<boolean>(false);
     const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
     const [nameDirty, setNameDirty] = useState<boolean>(false);
     const [surnameDirty, setSurnameDirty] = useState<boolean>(false);
+    const [birthdayDirty, setBirthdayDirty] = useState<boolean>(false);
     const [emailError, setEmailError] = useState<string>('Все плохо');
     const [passwordError, setPasswordError] = useState<string>('Все плохо');
     const [nameError, setNameError] = useState<string>('Все плохо');
     const [surnameError, setSurnameError] = useState<string>('Все плохо');
+    const [birthdayError, setBirthdayError] = useState<string>('Все плохо');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [formValid, setFormValid] = useState(false);
   
     useEffect(() => {
-      if (emailError || passwordError || nameError || surnameError) {
+      if (emailError || passwordError || nameError || surnameError || birthdayError) {
         setFormValid(false);
       } else {
         setFormValid(true);
       }
-    }, [emailError, passwordError, nameError, surnameError]);
+    }, [emailError, passwordError, nameError, surnameError, birthdayError]);
   
     const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value);
@@ -98,12 +101,39 @@ const RegistrationPage = () => {
         case 'surname':
           setSurnameDirty(true);
           break;  
+        case 'birthday':
+          setBirthdayDirty(true);
+          break;    
       }
     };
   
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
+
+    const getAge = (dateString: string) => {
+      const today = new Date();
+      const birthDate = new Date(dateString);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+      return age;
+  }
+
+  const birthdayHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newBirthday = e.target.value;
+    setBirthday(newBirthday);
+    const age = getAge(newBirthday);
+    if (!newBirthday) {
+      setBirthdayError('Дата не должна быть пустой');
+    } else if (age < 18) {
+      setBirthdayError('Дата не соответствует требованиям');
+    } else {
+      setBirthdayError('');
+    }
+  }
   
     return (
       <div className="mainPage">
@@ -191,6 +221,26 @@ const RegistrationPage = () => {
             {surnameDirty && surnameError && (
               <div className="error" style={{ color: 'red' }}>
                 {surnameError}
+              </div>
+            )}
+          </div>
+
+          <div className="wrapperBirthday">
+            <p>
+              Birthday <span>*</span>
+            </p>
+
+            <input
+              onChange={(e) => birthdayHandler(e)}
+              value={birthday || ""}
+              onBlur={(e) => blurHandler(e)}
+              name="birthday"
+              type="date"
+              placeholder="dd-mm-yyyy"
+            />
+            {birthdayDirty && birthdayError && (
+              <div className="error" style={{ color: 'red' }}>
+                {birthdayError}
               </div>
             )}
           </div>
