@@ -1,0 +1,18 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 0 110px;
+  flex: 1;
+}
+
+@media (max-width: 1310px) {
+  main {
+    padding: 0 30px;
+  }
+}
