@@ -1,3 +1,64 @@
 .notFoundPage {
-  color: tomato;
+  color: var(--color-black);
+  margin: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5% 0;
+  font-weight: bold;
+}
+
+.bcgNotFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--color-grey);
+  background-image: url('../../shared/assets/image/bgNotFound.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.textNotFound {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  line-height: 1;
+  z-index: 1;
+  margin: 10% 0;
+}
+
+.gradientText {
+  font-size: 1.25em;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  letter-spacing: -1px;
+}
+
+.gradientColor {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-start-gradient) 0%,
+    var(--color-end-gradient) 100%
+  );
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.errorNumb {
+  font-size: 9.6em;
+  margin: 0;
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -5px;
+}
+
+.linkNotFound:hover {
+  text-shadow: 1px 1px 15px var(--color-grey-dark);
 }
