@@ -32,7 +32,12 @@ module.exports = {
         '@typescript-eslint/lines-between-class-members': 0,
         'react/react-in-jsx-scope': 0,
         'import/no-named-as-default': 0,
-      }
+        'import/extensions': [
+          'error',
+          'ignorePackages',
+          { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' },
+        ],
+      },
     },
   ],
 };
