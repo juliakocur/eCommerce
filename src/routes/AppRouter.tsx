@@ -69,6 +69,7 @@ const allRoutes: RouteObject = {
     { path: routes.notFound.path, element: <NotFoundPage /> },
     { path: routes.user.path, element: <UserPage /> },
     { path: routes.registration.path, element: <RegistrationPage /> },
+    { path: `*`, element: <NotFoundPage /> },
   ],
 };
 
