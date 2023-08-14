@@ -8,8 +8,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>();
   const [emailDirty, setEmailDirty] = useState<boolean>(false);
   const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<string>('Все плохо');
-  const [passwordError, setPasswordError] = useState<string>('Все плохо');
+  const [emailError, setEmailError] = useState<string>('Field must not be empty');
+  const [passwordError, setPasswordError] = useState<string>('Field must not be empty');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [formValid, setFormValid] = useState(false);
 
@@ -27,7 +27,7 @@ const LoginPage = () => {
       /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
     if (!re.test(String(e.target.value).toLowerCase())) {
-      setEmailError('Все плохо');
+      setEmailError('Enter an existing email(e.g., example@mail.com)');
     } else {
       setEmailError('');
     }
@@ -41,9 +41,9 @@ const LoginPage = () => {
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])\S{8,}$/;
 
     if (!newPassword) {
-      setPasswordError('Пароль не должен быть пустым');
+      setPasswordError('Field must not be empty');
     } else if (!passwordRegex.test(newPassword)) {
-      setPasswordError('Пароль не соответствует требованиям');
+      setPasswordError('Password must contain minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number');
     } else {
       setPasswordError('');
     }
@@ -69,16 +69,16 @@ const LoginPage = () => {
       <form>
         <div className="wrapperEmail">
           <p>
-            Почта <span>*</span>
+            Email <span>*</span>
           </p>
 
           <input
             onChange={(e) => emailHandler(e)}
-            value={email}
+            value={email || ""}
             onBlur={(e) => blurHandler(e)}
             name="email"
             type="text"
-            placeholder="Enter your email...."
+            placeholder="Enter your email.."
           />
           {emailDirty && emailError && (
             <div className="error" style={{ color: 'red' }}>
@@ -88,16 +88,16 @@ const LoginPage = () => {
         </div>
         <div className="wrapperPassword">
           <p>
-            Пароль <span>*</span>
+            Password <span>*</span>
           </p>
           <div className="inputPasswordWrapper">
             <input
               onChange={(e) => passwordHandler(e)}
-              value={password}
+              value={password || ""}
               onBlur={(e) => blurHandler(e)}
               name="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="Enter your password...."
+              placeholder="Enter your password.."
             />
 
             <img
@@ -115,7 +115,7 @@ const LoginPage = () => {
         </div>
 
         <button disabled={!formValid} type="submit">
-          Войти
+          Login
         </button>
       </form>
     </div>
