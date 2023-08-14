@@ -8,6 +8,7 @@ import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import UserPage from '../pages/UserPage/UserPage';
 import ProductDetailPage from '../pages/ProductDetailPage/ProductDetailPage';
 import RegistrationPage from '../pages/RegistrationPage/RegistrationPage';
+import BasePage from '../pages/BasePage/BasePage';
 
 export const routes = {
   root: {
@@ -54,6 +55,7 @@ export const routes = {
 
 const allRoutes: RouteObject = {
   path: routes.root.path,
+  element: <BasePage />,
   children: [
     { index: true, element: <Navigate to={routes.main.path} replace /> },
     { path: routes.login.path, element: <LoginPage /> },

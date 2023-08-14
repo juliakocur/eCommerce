@@ -1,10 +1,10 @@
 import { HashRouter } from 'react-router-dom';
-import BasePage from '../BasePage/BasePage';
+import { AppRouter } from '../../routes/AppRouter';
 
 const App = () => {
   return (
     <HashRouter>
-      <BasePage />
+      <AppRouter />
     </HashRouter>
   );
 };
