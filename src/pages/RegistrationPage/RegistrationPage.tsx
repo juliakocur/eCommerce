@@ -12,6 +12,7 @@ const RegistrationPage = () => {
     const [country, setCountry] = useState<string>();
     const [city, setCity] = useState<string>();
     const [street, setStreet] = useState<string>();
+    const [postcode, setPostcode] = useState<string>();
     const [emailDirty, setEmailDirty] = useState<boolean>(false);
     const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
     const [nameDirty, setNameDirty] = useState<boolean>(false);
@@ -20,6 +21,7 @@ const RegistrationPage = () => {
     const [countryDirty, setCountryDirty] = useState<boolean>(false);
     const [cityDirty, setCityDirty] = useState<boolean>(false);
     const [streetDirty, setStreetDirty] = useState<boolean>(false);
+    const [postcodeDirty, setPostcodeDirty] = useState<boolean>(false);
     const [emailError, setEmailError] = useState<string>('Все плохо');
     const [passwordError, setPasswordError] = useState<string>('Все плохо');
     const [nameError, setNameError] = useState<string>('Все плохо');
@@ -28,16 +30,17 @@ const RegistrationPage = () => {
     const [countryError, setCountryError] = useState<string>('Все плохо');
     const [cityError, setCityError] = useState<string>('Все плохо');
     const [streetError, setStreetError] = useState<string>('Все плохо');
+    const [postcodeError, setPostcodeError] = useState<string>('Все плохо');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [formValid, setFormValid] = useState(false);
   
     useEffect(() => {
-      if (emailError || passwordError || nameError || surnameError || birthdayError || countryError || cityError || streetError) {
+      if (emailError || passwordError || nameError || surnameError || birthdayError || countryError || cityError || streetError || postcodeError) {
         setFormValid(false);
       } else {
         setFormValid(true);
       }
-    }, [emailError, passwordError, nameError, surnameError, birthdayError, countryError, cityError, streetError]);
+    }, [emailError, passwordError, nameError, surnameError, birthdayError, countryError, cityError, streetError, postcodeError]);
   
     const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value);
@@ -119,6 +122,9 @@ const RegistrationPage = () => {
         case 'street':
           setStreetDirty(true);
           break;  
+        case 'postcode':
+          setPostcodeDirty(true);
+          break;  
       }
     };
 
@@ -191,6 +197,28 @@ const RegistrationPage = () => {
       setStreetError('Улица не должна быть пустой');
     } else {
       setStreetError('');
+    }
+  }
+
+  const postcodeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPostcode = e.target.value;
+    setPostcode(newPostcode);
+    const cntr = country;
+
+    const usRegex = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+    const spanishRegex = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/;
+    const germanRegex = /^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/;
+
+    if (!newPostcode) {
+      setPostcodeError('Postal code не должeн быть пустой');
+    } else if (cntr==='United States' && !usRegex.test(newPostcode)) {
+      setPostcodeError('Код не соответствует требованиям');
+    } else if (cntr==='Germany' && !germanRegex.test(newPostcode)) {
+      setPostcodeError('Код не соответствует требованиям');
+    }  else if (cntr==='Spain' && !spanishRegex.test(newPostcode)) {
+      setPostcodeError('Код не соответствует требованиям');
+    } else {
+      setPostcodeError('');
     }
   }
   
@@ -318,7 +346,7 @@ const RegistrationPage = () => {
               placeholder="Select the country...">
                 <option value="United States">United States</option>
                 <option value="Germany">Germany</option>
-                <option value="Spanish">Spanish</option>
+                <option value="Spain">Spain</option>
               </select>
             {countryDirty && countryError && (
               <div className="error" style={{ color: 'red' }}>
@@ -363,6 +391,26 @@ const RegistrationPage = () => {
             {streetDirty && streetError && (
               <div className="error" style={{ color: 'red' }}>
                 {streetError}
+              </div>
+            )}
+          </div>
+
+          <div className="wrapperPostcode">
+            <p>
+              Postal code <span>*</span>
+            </p>
+
+            <input
+              onChange={(e) => postcodeHandler(e)}
+              value={postcode || ""}
+              onBlur={(e) => blurHandler(e)}
+              name="postcode"
+              type="string"
+              placeholder="Enter the postal code..."
+            />
+            {postcodeDirty && postcodeError && (
+              <div className="error" style={{ color: 'red' }}>
+                {postcodeError}
               </div>
             )}
           </div>
