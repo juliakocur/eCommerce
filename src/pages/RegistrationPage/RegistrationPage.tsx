@@ -236,7 +236,7 @@ const RegistrationPage = () => {
               onBlur={(e) => blurHandler(e)}
               name="email"
               type="text"
-              placeholder="Enter your email...."
+              placeholder="Enter your email.."
             />
             {emailDirty && emailError && (
               <div className="error" style={{ color: 'red' }}>
@@ -255,7 +255,7 @@ const RegistrationPage = () => {
                 onBlur={(e) => blurHandler(e)}
                 name="password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Enter your password...."
+                placeholder="Enter your password.."
               />
   
               <img
@@ -272,46 +272,50 @@ const RegistrationPage = () => {
             )}
           </div>
 
-          <div className="wrapperName">
-            <p>
-              Name <span>*</span>
-            </p>
+          <div className="nameContainer">
+            <div className="wrapperName">
+              <p className="shortName">
+                Name <span>*</span>
+              </p>
 
-            <input
-              onChange={(e) => nameHandler(e)}
-              value={name || ""}
-              onBlur={(e) => blurHandler(e)}
-              name="name"
-              type="text"
-              placeholder="Enter your name...."
-            />
-            {nameDirty && nameError && (
-              <div className="error" style={{ color: 'red' }}>
-                {nameError}
-              </div>
-            )}
+              <input
+                className="shortInput"
+                onChange={(e) => nameHandler(e)}
+                value={name || ""}
+                onBlur={(e) => blurHandler(e)}
+                name="name"
+                type="text"
+                placeholder="Enter your name.."
+              />
+              {nameDirty && nameError && (
+                <div className="error shortError" style={{ color: 'red' }}>
+                  {nameError}
+                </div>
+              )}
+            </div>
+
+            <div className="wrapperSurname">
+              <p className="shortName">
+                Surname <span>*</span>
+              </p>
+
+              <input
+                className="shortInput"
+                onChange={(e) => surnameHandler(e)}
+                value={surname || ""}
+                onBlur={(e) => blurHandler(e)}
+                name="surname"
+                type="text"
+                placeholder="Enter your surname.."
+              />
+              {surnameDirty && surnameError && (
+                <div className="error shortError" style={{ color: 'red' }}>
+                  {surnameError}
+                </div>
+              )}
+            </div>
           </div>
-
-          <div className="wrapperSurname">
-            <p>
-              Surname <span>*</span>
-            </p>
-
-            <input
-              onChange={(e) => surnameHandler(e)}
-              value={surname || ""}
-              onBlur={(e) => blurHandler(e)}
-              name="surname"
-              type="text"
-              placeholder="Enter your surname...."
-            />
-            {surnameDirty && surnameError && (
-              <div className="error" style={{ color: 'red' }}>
-                {surnameError}
-              </div>
-            )}
-          </div>
-
+          
           <div className="wrapperBirthday">
             <p>
               Birthday <span>*</span>
@@ -323,6 +327,7 @@ const RegistrationPage = () => {
               onBlur={(e) => blurHandler(e)}
               name="birthday"
               type="date"
+              max="1940-12-31"
               placeholder="dd-mm-yyyy"
             />
             {birthdayDirty && birthdayError && (
@@ -332,89 +337,105 @@ const RegistrationPage = () => {
             )}
           </div>
 
-          <h1>Address</h1>
+          <h2>Address</h2>
           
-          <div className="wrapperCountry">
-            <p>
-              Country <span>*</span>
-            </p>
-            <select
-              onChange={(e) => countryHandler(e)}
-              value={country || ""}
-              onBlur={(e) => blurSelectHandler(e)}
-              name="country"
-              placeholder="Select the country...">
-                <option value="United States">United States</option>
-                <option value="Germany">Germany</option>
-                <option value="Spain">Spain</option>
-              </select>
-            {countryDirty && countryError && (
-              <div className="error" style={{ color: 'red' }}>
-                {countryError}
-              </div>
-            )}
+          <div className="addressContainer">
+            <div className="wrapperCountry">
+              <p className="shortName">
+                Country <span>*</span>
+              </p>
+              <select
+                className="shortSelect"
+                onChange={(e) => countryHandler(e)}
+                value={country || ""}
+                onBlur={(e) => blurSelectHandler(e)}
+                name="country"
+                placeholder="Select the country..">
+                  <option value="United States">United States</option>
+                  <option value="Germany">Germany</option>
+                  <option value="Spain">Spain</option>
+                </select>
+              {countryDirty && countryError && (
+                <div className="error shortError" style={{ color: 'red' }}>
+                  {countryError}
+                </div>
+              )}
+            </div>
+
+            <div className="wrapperCity">
+              <p className="shortName">
+                City <span>*</span>
+              </p>
+
+              <input
+                className="shortInput"
+                onChange={(e) => cityHandler(e)}
+                value={city || ""}
+                onBlur={(e) => blurHandler(e)}
+                name="city"
+                type="string"
+                placeholder="Enter the city.."
+              />
+              {cityDirty && cityError && (
+                <div className="error shortError" style={{ color: 'red' }}>
+                  {cityError}
+                </div>
+              )}
+            </div>
+
+            <div className="wrapperStreet">
+              <p className="shortName">
+                Street <span>*</span>
+              </p>
+
+              <input
+                className="shortInput"
+                onChange={(e) => streetHandler(e)}
+                value={street || ""}
+                onBlur={(e) => blurHandler(e)}
+                name="street"
+                type="string"
+                placeholder="Enter the street name.."
+              />
+              {streetDirty && streetError && (
+                <div className="error shortError" style={{ color: 'red' }}>
+                  {streetError}
+                </div>
+              )}
+            </div>
+
+            <div className="wrapperPostcode">
+              <p className="shortName">
+                Postal code <span>*</span>
+              </p>
+
+              <input
+                className="shortInput"
+                onChange={(e) => postcodeHandler(e)}
+                value={postcode || ""}
+                onBlur={(e) => blurHandler(e)}
+                name="postcode"
+                type="string"
+                placeholder="Enter the postal code.."
+              />
+              {postcodeDirty && postcodeError && (
+                <div className="error shortError" style={{ color: 'red' }}>
+                  {postcodeError}
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="wrapperCity">
-            <p>
-              City <span>*</span>
-            </p>
-
-            <input
-              onChange={(e) => cityHandler(e)}
-              value={city || ""}
-              onBlur={(e) => blurHandler(e)}
-              name="city"
-              type="string"
-              placeholder="Enter the city..."
-            />
-            {cityDirty && cityError && (
-              <div className="error" style={{ color: 'red' }}>
-                {cityError}
-              </div>
-            )}
+          <div className="wrapperCheckbox">
+            <label>
+              <input
+               className="checkbox"
+               name="checkbox"
+               type="checkbox"/>
+            Use the default address for shipping and billing
+            </label>
           </div>
-
-          <div className="wrapperStreet">
-            <p>
-              Street <span>*</span>
-            </p>
-
-            <input
-              onChange={(e) => streetHandler(e)}
-              value={street || ""}
-              onBlur={(e) => blurHandler(e)}
-              name="street"
-              type="string"
-              placeholder="Enter the street name..."
-            />
-            {streetDirty && streetError && (
-              <div className="error" style={{ color: 'red' }}>
-                {streetError}
-              </div>
-            )}
-          </div>
-
-          <div className="wrapperPostcode">
-            <p>
-              Postal code <span>*</span>
-            </p>
-
-            <input
-              onChange={(e) => postcodeHandler(e)}
-              value={postcode || ""}
-              onBlur={(e) => blurHandler(e)}
-              name="postcode"
-              type="string"
-              placeholder="Enter the postal code..."
-            />
-            {postcodeDirty && postcodeError && (
-              <div className="error" style={{ color: 'red' }}>
-                {postcodeError}
-              </div>
-            )}
-          </div>
-
+         
           <button disabled={!formValid} type="submit">
             Register
           </button>

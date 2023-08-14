@@ -1,5 +1,10 @@
 .registrationPage {
-  color: brown;
+  color: var(--color-black);
+}
+
+form {
+  width: 490px;
+  margin: 0 auto;
 }
 
 .wrapperEmail,
@@ -7,6 +12,22 @@
   margin: 25px auto;
   display: flex;
   flex-direction: column;
+}
+
+.wrapperName,
+.wrapperSurname,
+.wrapperCountry,
+.wrapperBirthday,
+.wrapperCity,
+.wrapperStreet,
+.wrapperPostcode {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shortName {
+  width: 235px;
 }
 
 p {
@@ -18,15 +39,21 @@ p {
   text-align: left;
 }
 
-h1 {
+h2 {
   margin: 0 auto;
+  color: var(--color-black);
+  margin-bottom: 25px;
+}
+
+.shortSelect {
+  padding: 10px 20px;
 }
 
 input,
 select {
   display: block;
   margin: 5px auto;
-  padding: 12px 28px;
+  padding: 12px 20px;
   font-size: 16px;
   letter-spacing: 1px;
   background: #f5f5f5;
@@ -70,4 +97,38 @@ span {
   margin: 0 auto;
   font-size: 12px;
   font-weight: 500;
+}
+
+.shortInput,
+.shortError,
+.shortSelect {
+  width: 235px;
+}
+
+.addressContainer,
+.nameContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  margin: 0;
+}
+
+button,
+.checkbox {
+  margin-bottom: 25px;
+}
+
+.checkbox {
+  margin: 0 20px 0 0 ;
+  width: 20px;
+  padding: 0;
+}
+
+.wrapperCheckbox {
+  color: var(--color-black);
+  margin-bottom: 20px;
+}
+
+label {
+  display: flex;
 }
