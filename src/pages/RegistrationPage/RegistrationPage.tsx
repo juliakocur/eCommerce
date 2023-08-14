@@ -22,15 +22,15 @@ const RegistrationPage = () => {
     const [cityDirty, setCityDirty] = useState<boolean>(false);
     const [streetDirty, setStreetDirty] = useState<boolean>(false);
     const [postcodeDirty, setPostcodeDirty] = useState<boolean>(false);
-    const [emailError, setEmailError] = useState<string>('Все плохо');
-    const [passwordError, setPasswordError] = useState<string>('Все плохо');
-    const [nameError, setNameError] = useState<string>('Все плохо');
-    const [surnameError, setSurnameError] = useState<string>('Все плохо');
-    const [birthdayError, setBirthdayError] = useState<string>('Все плохо');
-    const [countryError, setCountryError] = useState<string>('Все плохо');
-    const [cityError, setCityError] = useState<string>('Все плохо');
-    const [streetError, setStreetError] = useState<string>('Все плохо');
-    const [postcodeError, setPostcodeError] = useState<string>('Все плохо');
+    const [emailError, setEmailError] = useState<string>('Field must not be empty');
+    const [passwordError, setPasswordError] = useState<string>('Field must not be empty');
+    const [nameError, setNameError] = useState<string>('Field must not be empty');
+    const [surnameError, setSurnameError] = useState<string>('Field must not be empty');
+    const [birthdayError, setBirthdayError] = useState<string>('Field must not be empty');
+    const [countryError, setCountryError] = useState<string>('Field must not be empty');
+    const [cityError, setCityError] = useState<string>('Field must not be empty');
+    const [streetError, setStreetError] = useState<string>('Field must not be empty');
+    const [postcodeError, setPostcodeError] = useState<string>('Field must not be empty');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [formValid, setFormValid] = useState(false);
   
@@ -48,7 +48,7 @@ const RegistrationPage = () => {
         /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
   
       if (!re.test(String(e.target.value).toLowerCase())) {
-        setEmailError('Все плохо');
+        setEmailError('Enter an existing email(e.g., example@mail.com)');
       } else {
         setEmailError('');
       }
@@ -62,9 +62,9 @@ const RegistrationPage = () => {
         /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])\S{8,}$/;
   
       if (!newPassword) {
-        setPasswordError('Пароль не должен быть пустым');
+        setPasswordError('Field must not be empty');
       } else if (!passwordRegex.test(newPassword)) {
-        setPasswordError('Пароль не соответствует требованиям');
+        setPasswordError('Password must contain minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, and 1 number');
       } else {
         setPasswordError('');
       }
@@ -77,9 +77,9 @@ const RegistrationPage = () => {
       const nameRegex = /^[a-zA-Z ]+$/;
       
       if (!newName) {
-        setNameError('Имя не должно быть пустое');
+        setNameError('Field must not be empty');
       } else if (!nameRegex.test(newName)) {
-        setNameError('Имя не соответствует требованиям');
+        setNameError('Name must contain at least one character and no special characters or numbers');
       } else {
         setNameError('');
       }
@@ -91,9 +91,9 @@ const RegistrationPage = () => {
 
       const surnameRegex = /^[a-zA-Z ]+$/;
       if (!newSurname) {
-        setSurnameError('Имя не должно быть пустое');
+        setSurnameError('Field must not be empty');
       } else if (!surnameRegex.test(newSurname)) {
-        setSurnameError('Имя не соответствует требованиям');
+        setSurnameError('Last name must contain at least one character and no special characters or numbers');
       } else {
         setSurnameError('');
       }
@@ -156,9 +156,9 @@ const RegistrationPage = () => {
     setBirthday(newBirthday);
     const age = getAge(newBirthday);
     if (!newBirthday) {
-      setBirthdayError('Дата не должна быть пустой');
+      setBirthdayError('Field must not be empty');
     } else if (age < 18) {
-      setBirthdayError('Дата не соответствует требованиям');
+      setBirthdayError('Age must be over 18 years old');
     } else {
       setBirthdayError('');
     }
@@ -169,7 +169,7 @@ const RegistrationPage = () => {
     setCountry(newCountry);
 
     if (!newCountry) {
-      setCountryError('Выберите страну из предложенного списка');
+      setCountryError('Select the country from the list');
     } else {
       setCountryError('');
     }
@@ -181,9 +181,9 @@ const RegistrationPage = () => {
 
     const surnameRegex = /^[a-zA-Z ]+$/;
     if (!newCity) {
-      setCityError('Город не должен быть пустым');
+      setCityError('Field must not be empty');
     } else if (!surnameRegex.test(newCity)) {
-      setCityError('Назв. города не соответствует требованиям');
+      setCityError('City must contain at least one character and no special characters or numbers');
     } else {
       setCityError('');
     }
@@ -194,7 +194,7 @@ const RegistrationPage = () => {
     setStreet(newStreet);
 
     if (!newStreet) {
-      setStreetError('Улица не должна быть пустой');
+      setStreetError('Field must not be empty');
     } else {
       setStreetError('');
     }
@@ -210,13 +210,13 @@ const RegistrationPage = () => {
     const germanRegex = /^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/;
 
     if (!newPostcode) {
-      setPostcodeError('Postal code не должeн быть пустой');
+      setPostcodeError('Field must not be empty');
     } else if (cntr==='United States' && !usRegex.test(newPostcode)) {
-      setPostcodeError('Код не соответствует требованиям');
+      setPostcodeError("The postal code doesn't match the selected country");
     } else if (cntr==='Germany' && !germanRegex.test(newPostcode)) {
-      setPostcodeError('Код не соответствует требованиям');
+      setPostcodeError("The postal code doesn't match the selected country");
     }  else if (cntr==='Spain' && !spanishRegex.test(newPostcode)) {
-      setPostcodeError('Код не соответствует требованиям');
+      setPostcodeError("The postal code doesn't match the selected country");
     } else {
       setPostcodeError('');
     }
@@ -227,7 +227,7 @@ const RegistrationPage = () => {
         <form>
           <div className="wrapperEmail">
             <p>
-              Почта <span>*</span>
+              Email <span>*</span>
             </p>
   
             <input
