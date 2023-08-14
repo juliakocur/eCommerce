@@ -15,7 +15,7 @@ const HeaderNav = () => {
   return (
     <div className="headerNav">
       <div
-        className={`dropdown `}
+        className={`dropdown`}
         onClick={() => {
           setOpen(!open);
         }}
