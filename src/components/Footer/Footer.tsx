@@ -10,7 +10,7 @@ const Footer = () => {
         <img src={logo} alt="" />
       </Link>
       <div className="wrapperAddress">
-        <p>
+        <p className="adressText">
           1612 Tod Lakes Suite 781 New Heidiport, <div>NE 24589</div>
         </p>
       </div>
