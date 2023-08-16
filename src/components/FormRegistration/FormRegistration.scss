@@ -1,4 +1,4 @@
-form {
+.formRegistr {
   width: 490px;
   margin-top: 30px;
   display: flex;
@@ -6,45 +6,28 @@ form {
   gap: 30px;
 }
 
-.wrapperEmail,
-.wrapperPassword,
-.wrapperName,
-.wrapperSurname,
-.wrapperCountry,
-.wrapperBirthday,
-.wrapperCity,
-.wrapperStreet,
-.wrapperPostcode {
+.wrapperField {
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.shortName {
-  width: 235px;
-}
-
-p {
-  color: #000;
+.subTitleRegistr {
+  color: var(--color-black);
   font-weight: 600;
   font-size: 13px;
   margin-bottom: 3px;
 }
 
-h2 {
+.titleRegistr {
   color: var(--color-black);
 }
 
-.shortSelect {
-  padding: 10px 20px;
-}
-
-input,
-select {
+.inputRegistr {
   display: block;
   padding: 10px 20px;
   font-size: 16px;
-  background: #f5f5f5;
+  background: var(--color-grey);
   color: #b9b9b9;
   outline: none;
   border: none;
@@ -52,27 +35,22 @@ select {
   width: 100%;
 }
 
+input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  color: transparent;
+  opacity: 1;
+  background: url('../../shared/assets/icons/calendar.png') no-repeat center;
+  background-size: contain;
+}
+
 .inputPasswordWrapper {
   display: flex;
-  background: #f5f5f5;
+  background: var(--color-grey);
   color: #b9b9b9;
   border-radius: 5px;
 }
 
-button {
-  display: block;
-  width: 490px;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  background: linear-gradient(
-    90deg,
-    var(--color-start-gradient) 0%,
-    var(--color-end-gradient) 100%
-  );
-}
-
-span {
+.requiredRegistr {
   color: #f00;
 }
 
@@ -83,8 +61,7 @@ span {
 }
 
 .shortInput,
-.shortError,
-.shortSelect {
+.shortError {
   width: 235px;
 }
 
@@ -96,9 +73,26 @@ span {
   margin: 0;
 }
 
-button,
-.checkbox {
+.btnRegistr {
+  display: block;
+  width: 490px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
   margin-bottom: 25px;
+  background: linear-gradient(
+    90deg,
+    var(--color-start-gradient) 0%,
+    var(--color-end-gradient) 100%
+  );
+}
+
+.btnRegistr:disabled {
+  color: var(--color-black);
+}
+
+.btnRegistr:disabled:hover {
+  cursor: no-drop;
 }
 
 .checkbox {
@@ -112,6 +106,6 @@ button,
   margin-bottom: 20px;
 }
 
-label {
+.labelCheckbox {
   display: flex;
 }

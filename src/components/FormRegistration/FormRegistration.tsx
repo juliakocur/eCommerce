@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 import eyeoff from '../../shared/assets/icons/eye-off.svg';
 import eye from '../../shared/assets/icons/eye.svg';
+import {
+  usRegex,
+  spanishRegex,
+  germanRegex,
+  re,
+  passwordRegex,
+  nameRegex,
+  surnameRegex,
+} from '../../shared/constants/Constants';
 import './FormRegistration.scss';
 
 const FormRegistration = () => {
@@ -78,8 +87,6 @@ const FormRegistration = () => {
 
   const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    const re =
-      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
     if (!re.test(String(e.target.value).toLowerCase())) {
       setEmailError('Enter an existing email(e.g., example@mail.com)');
@@ -91,9 +98,6 @@ const FormRegistration = () => {
   const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
-
-    const passwordRegex =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])\S{8,}$/;
 
     if (!newPassword) {
       setPasswordError('Field must not be empty');
@@ -110,8 +114,6 @@ const FormRegistration = () => {
     const newName = e.target.value;
     setName(newName);
 
-    const nameRegex = /^[a-zA-Z ]+$/;
-
     if (!newName) {
       setNameError('Field must not be empty');
     } else if (!nameRegex.test(newName)) {
@@ -127,7 +129,6 @@ const FormRegistration = () => {
     const newSurname = e.target.value;
     setSurname(newSurname);
 
-    const surnameRegex = /^[a-zA-Z ]+$/;
     if (!newSurname) {
       setSurnameError('Field must not be empty');
     } else if (!surnameRegex.test(newSurname)) {
@@ -219,7 +220,6 @@ const FormRegistration = () => {
     const newCity = e.target.value;
     setCity(newCity);
 
-    const surnameRegex = /^[a-zA-Z ]+$/;
     if (!newCity) {
       setCityError('Field must not be empty');
     } else if (!surnameRegex.test(newCity)) {
@@ -247,10 +247,6 @@ const FormRegistration = () => {
     setPostcode(newPostcode);
     const cntr = country;
 
-    const usRegex = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
-    const spanishRegex = /^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$/;
-    const germanRegex = /^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/;
-
     if (!newPostcode) {
       setPostcodeError('Field must not be empty');
     } else if (cntr === 'United States' && !usRegex.test(newPostcode)) {
@@ -265,13 +261,14 @@ const FormRegistration = () => {
   };
 
   return (
-    <form>
-      <div className="wrapperEmail">
-        <p>
-          Email <span>*</span>
+    <form className="formRegistr">
+      <div className="wrapperField">
+        <p className="subTitleRegistr">
+          Email <span className="requiredRegistr">*</span>
         </p>
 
         <input
+          className="inputRegistr"
           onChange={(e) => emailHandler(e)}
           value={email || ''}
           onBlur={(e) => blurHandler(e)}
@@ -285,12 +282,13 @@ const FormRegistration = () => {
           </div>
         )}
       </div>
-      <div className="wrapperPassword">
-        <p>
-          Пароль <span>*</span>
+      <div className="wrapperField">
+        <p className="subTitleRegistr">
+          Пароль <span className="requiredRegistr">*</span>
         </p>
         <div className="inputPasswordWrapper">
           <input
+            className="inputRegistr"
             onChange={(e) => passwordHandler(e)}
             value={password || ''}
             onBlur={(e) => blurHandler(e)}
@@ -314,13 +312,13 @@ const FormRegistration = () => {
       </div>
 
       <div className="nameContainer">
-        <div className="wrapperName">
-          <p className="shortName">
-            Name <span>*</span>
+        <div className="wrapperField">
+          <p className="subTitleRegistr">
+            Name <span className="requiredRegistr">*</span>
           </p>
 
           <input
-            className="shortInput"
+            className="shortInput inputRegistr"
             onChange={(e) => nameHandler(e)}
             value={name || ''}
             onBlur={(e) => blurHandler(e)}
@@ -335,13 +333,13 @@ const FormRegistration = () => {
           )}
         </div>
 
-        <div className="wrapperSurname">
-          <p className="shortName">
-            Surname <span>*</span>
+        <div className="wrapperField">
+          <p className="subTitleRegistr">
+            Surname <span className="requiredRegistr">*</span>
           </p>
 
           <input
-            className="shortInput"
+            className="shortInput inputRegistr"
             onChange={(e) => surnameHandler(e)}
             value={surname || ''}
             onBlur={(e) => blurHandler(e)}
@@ -357,12 +355,13 @@ const FormRegistration = () => {
         </div>
       </div>
 
-      <div className="wrapperBirthday">
-        <p>
-          Birthday <span>*</span>
+      <div className="wrapperField">
+        <p className="subTitleRegistr">
+          Birthday <span className="requiredRegistr">*</span>
         </p>
 
         <input
+          className="inputRegistr"
           onChange={(e) => birthdayHandler(e)}
           value={birthday || ''}
           onBlur={(e) => blurHandler(e)}
@@ -378,15 +377,15 @@ const FormRegistration = () => {
         )}
       </div>
 
-      <h2>Address</h2>
+      <h2 className="titleRegistr">Address</h2>
 
       <div className="addressContainer">
-        <div className="wrapperCountry">
-          <p className="shortName">
-            Country <span>*</span>
+        <div className="wrapperField">
+          <p className="subTitleRegistr">
+            Country <span className="requiredRegistr">*</span>
           </p>
           <select
-            className="shortSelect"
+            className="shortInput inputRegistr"
             onChange={(e) => countryHandler(e)}
             value={country || ''}
             onBlur={(e) => blurSelectHandler(e)}
@@ -404,13 +403,13 @@ const FormRegistration = () => {
           )}
         </div>
 
-        <div className="wrapperCity">
-          <p className="shortName">
-            City <span>*</span>
+        <div className="wrapperField">
+          <p className="subTitleRegistr">
+            City <span className="requiredRegistr">*</span>
           </p>
 
           <input
-            className="shortInput"
+            className="shortInput inputRegistr"
             onChange={(e) => cityHandler(e)}
             value={city || ''}
             onBlur={(e) => blurHandler(e)}
@@ -425,13 +424,13 @@ const FormRegistration = () => {
           )}
         </div>
 
-        <div className="wrapperStreet">
-          <p className="shortName">
-            Street <span>*</span>
+        <div className="wrapperField">
+          <p className="subTitleRegistr">
+            Street <span className="requiredRegistr">*</span>
           </p>
 
           <input
-            className="shortInput"
+            className="shortInput inputRegistr"
             onChange={(e) => streetHandler(e)}
             value={street || ''}
             onBlur={(e) => blurHandler(e)}
@@ -446,13 +445,13 @@ const FormRegistration = () => {
           )}
         </div>
 
-        <div className="wrapperPostcode">
-          <p className="shortName">
-            Postal code <span>*</span>
+        <div className="wrapperField">
+          <p className="subTitleRegistr">
+            Postal code <span className="requiredRegistr">*</span>
           </p>
 
           <input
-            className="shortInput"
+            className="shortInput inputRegistr"
             onChange={(e) => postcodeHandler(e)}
             value={postcode || ''}
             onBlur={(e) => blurHandler(e)}
@@ -469,13 +468,17 @@ const FormRegistration = () => {
       </div>
 
       <div className="wrapperCheckbox">
-        <label>
-          <input className="checkbox" name="checkbox" type="checkbox" />
+        <label className="labelCheckbox">
+          <input
+            className="checkbox inputRegistr"
+            name="checkbox"
+            type="checkbox"
+          />
           Use the default address for shipping and billing
         </label>
       </div>
 
-      <button disabled={!formValid} type="submit">
+      <button className="btnRegistr" disabled={!formValid} type="submit">
         Register
       </button>
     </form>
