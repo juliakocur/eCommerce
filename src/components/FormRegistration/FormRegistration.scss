@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  color: var(--color-black);
 }
 
 .wrapperField {
@@ -19,43 +20,52 @@
   margin-bottom: 3px;
 }
 
-.titleRegistr {
-  color: var(--color-black);
-}
-
 .inputRegistr {
   display: block;
   padding: 10px 20px;
   font-size: 16px;
   background: var(--color-grey);
-  color: #b9b9b9;
   outline: none;
   border: none;
   border-radius: 5px;
   width: 100%;
+
+  &::placeholder {
+    color: var(--color-grey-light);
+  }
 }
 
 input[type='date']::-webkit-calendar-picker-indicator {
   cursor: pointer;
   color: transparent;
   opacity: 1;
-  background: url('../../shared/assets/icons/calendar.png') no-repeat center;
+  background: url('../../shared/assets/icons/calendar.svg') no-repeat center;
   background-size: contain;
 }
 
 .inputPasswordWrapper {
   display: flex;
+  gap: 5px;
   background: var(--color-grey);
-  color: #b9b9b9;
   border-radius: 5px;
+  padding: 0 20px;
+
+  .inputRegistr {
+    padding: 10px 0;
+  }
+
+  .icon {
+    width: 22px;
+    cursor: pointer;
+  }
 }
 
 .requiredRegistr {
-  color: #f00;
+  color: var(--color-red);
 }
 
 .error {
-  font-size: 12px;
+  font-size: 10px;
   position: absolute;
   top: 60px;
 }
@@ -74,12 +84,15 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .btnRegistr {
+  cursor: pointer;
   display: block;
-  width: 490px;
+  width: 100%;
   padding: 12px 20px;
+  margin-top: 20px;
   border: none;
   border-radius: 5px;
   margin-bottom: 25px;
+  color: var(--color-white);
   background: linear-gradient(
     90deg,
     var(--color-start-gradient) 0%,
@@ -87,25 +100,45 @@ input[type='date']::-webkit-calendar-picker-indicator {
   );
 }
 
-.btnRegistr:disabled {
-  color: var(--color-black);
-}
-
 .btnRegistr:disabled:hover {
   cursor: no-drop;
 }
 
 .checkbox {
-  margin: 0 20px 0 0;
   width: 20px;
   padding: 0;
 }
 
 .wrapperCheckbox {
   color: var(--color-black);
-  margin-bottom: 20px;
 }
 
 .labelCheckbox {
-  display: flex;
+  display: inline-flex;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 20px;
+}
+
+@media (max-width: 640px) {
+  .formRegistr {
+    width: 100%;
+  }
+
+  .wrapperField {
+    width: 100%;
+  }
+
+  .shortInput,
+  .shortError,
+  .select {
+    width: 100%;
+  }
 }

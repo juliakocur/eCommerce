@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import eyeoff from '../../shared/assets/icons/eye-off.svg';
+import eyeOff from '../../shared/assets/icons/eye-off.svg';
 import eye from '../../shared/assets/icons/eye.svg';
 import {
   usRegex,
@@ -8,7 +8,6 @@ import {
   re,
   passwordRegex,
   nameRegex,
-  surnameRegex,
 } from '../../shared/constants/Constants';
 import './FormRegistration.scss';
 
@@ -18,7 +17,7 @@ const FormRegistration = () => {
   const [name, setName] = useState<string>();
   const [surname, setSurname] = useState<string>();
   const [birthday, setBirthday] = useState<string>();
-  const [country, setCountry] = useState<string>();
+  const [country, setCountry] = useState<string>('United States');
   const [city, setCity] = useState<string>();
   const [street, setStreet] = useState<string>();
   const [postcode, setPostcode] = useState<string>();
@@ -27,7 +26,6 @@ const FormRegistration = () => {
   const [nameDirty, setNameDirty] = useState<boolean>(false);
   const [surnameDirty, setSurnameDirty] = useState<boolean>(false);
   const [birthdayDirty, setBirthdayDirty] = useState<boolean>(false);
-  const [countryDirty, setCountryDirty] = useState<boolean>(false);
   const [cityDirty, setCityDirty] = useState<boolean>(false);
   const [streetDirty, setStreetDirty] = useState<boolean>(false);
   const [postcodeDirty, setPostcodeDirty] = useState<boolean>(false);
@@ -42,9 +40,6 @@ const FormRegistration = () => {
     'Field must not be empty'
   );
   const [birthdayError, setBirthdayError] = useState<string>(
-    'Field must not be empty'
-  );
-  const [countryError, setCountryError] = useState<string>(
     'Field must not be empty'
   );
   const [cityError, setCityError] = useState<string>('Field must not be empty');
@@ -64,7 +59,6 @@ const FormRegistration = () => {
       nameError ||
       surnameError ||
       birthdayError ||
-      countryError ||
       cityError ||
       streetError ||
       postcodeError
@@ -79,7 +73,6 @@ const FormRegistration = () => {
     nameError,
     surnameError,
     birthdayError,
-    countryError,
     cityError,
     streetError,
     postcodeError,
@@ -131,7 +124,7 @@ const FormRegistration = () => {
 
     if (!newSurname) {
       setSurnameError('Field must not be empty');
-    } else if (!surnameRegex.test(newSurname)) {
+    } else if (!nameRegex.test(newSurname)) {
       setSurnameError(
         'Last name must contain at least one character and no special characters or numbers'
       );
@@ -169,14 +162,6 @@ const FormRegistration = () => {
     }
   };
 
-  const blurSelectHandler = (e: React.FocusEvent<HTMLSelectElement>) => {
-    switch (e.target.name) {
-      case 'country':
-        setCountryDirty(true);
-        break;
-    }
-  };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -208,12 +193,6 @@ const FormRegistration = () => {
   const countryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newCountry = e.target.value;
     setCountry(newCountry);
-
-    if (!newCountry) {
-      setCountryError('Select the country from the list');
-    } else {
-      setCountryError('');
-    }
   };
 
   const cityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,7 +201,7 @@ const FormRegistration = () => {
 
     if (!newCity) {
       setCityError('Field must not be empty');
-    } else if (!surnameRegex.test(newCity)) {
+    } else if (!nameRegex.test(newCity)) {
       setCityError(
         'City must contain at least one character and no special characters or numbers'
       );
@@ -245,15 +224,16 @@ const FormRegistration = () => {
   const postcodeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPostcode = e.target.value;
     setPostcode(newPostcode);
-    const cntr = country;
+
+    console.log(newPostcode, country);
 
     if (!newPostcode) {
       setPostcodeError('Field must not be empty');
-    } else if (cntr === 'United States' && !usRegex.test(newPostcode)) {
+    } else if (country === 'United States' && !usRegex.test(newPostcode)) {
       setPostcodeError("The postal code doesn't match the selected country");
-    } else if (cntr === 'Germany' && !germanRegex.test(newPostcode)) {
+    } else if (country === 'Germany' && !germanRegex.test(newPostcode)) {
       setPostcodeError("The postal code doesn't match the selected country");
-    } else if (cntr === 'Spain' && !spanishRegex.test(newPostcode)) {
+    } else if (country === 'Spain' && !spanishRegex.test(newPostcode)) {
       setPostcodeError("The postal code doesn't match the selected country");
     } else {
       setPostcodeError('');
@@ -263,9 +243,9 @@ const FormRegistration = () => {
   return (
     <form className="formRegistr">
       <div className="wrapperField">
-        <p className="subTitleRegistr">
+        <div className="subTitleRegistr">
           Email <span className="requiredRegistr">*</span>
-        </p>
+        </div>
 
         <input
           className="inputRegistr"
@@ -283,9 +263,9 @@ const FormRegistration = () => {
         )}
       </div>
       <div className="wrapperField">
-        <p className="subTitleRegistr">
+        <div className="subTitleRegistr">
           Пароль <span className="requiredRegistr">*</span>
-        </p>
+        </div>
         <div className="inputPasswordWrapper">
           <input
             className="inputRegistr"
@@ -298,10 +278,10 @@ const FormRegistration = () => {
           />
 
           <img
-            src={showPassword ? eye : eyeoff}
+            src={showPassword ? eye : eyeOff}
             alt=""
-            style={{ paddingRight: '20px' }}
             onClick={togglePasswordVisibility}
+            className="icon"
           />
         </div>
         {passwordDirty && passwordError && (
@@ -313,9 +293,9 @@ const FormRegistration = () => {
 
       <div className="nameContainer">
         <div className="wrapperField">
-          <p className="subTitleRegistr">
+          <div className="subTitleRegistr">
             Name <span className="requiredRegistr">*</span>
-          </p>
+          </div>
 
           <input
             className="shortInput inputRegistr"
@@ -334,9 +314,9 @@ const FormRegistration = () => {
         </div>
 
         <div className="wrapperField">
-          <p className="subTitleRegistr">
+          <div className="subTitleRegistr">
             Surname <span className="requiredRegistr">*</span>
-          </p>
+          </div>
 
           <input
             className="shortInput inputRegistr"
@@ -356,9 +336,9 @@ const FormRegistration = () => {
       </div>
 
       <div className="wrapperField">
-        <p className="subTitleRegistr">
+        <div className="subTitleRegistr">
           Birthday <span className="requiredRegistr">*</span>
-        </p>
+        </div>
 
         <input
           className="inputRegistr"
@@ -367,8 +347,6 @@ const FormRegistration = () => {
           onBlur={(e) => blurHandler(e)}
           name="birthday"
           type="date"
-          max="1940-12-31"
-          placeholder="dd-mm-yyyy"
         />
         {birthdayDirty && birthdayError && (
           <div className="error" style={{ color: 'red' }}>
@@ -381,32 +359,25 @@ const FormRegistration = () => {
 
       <div className="addressContainer">
         <div className="wrapperField">
-          <p className="subTitleRegistr">
+          <div className="subTitleRegistr">
             Country <span className="requiredRegistr">*</span>
-          </p>
+          </div>
           <select
-            className="shortInput inputRegistr"
+            className="shortInput select inputRegistr"
             onChange={(e) => countryHandler(e)}
             value={country || ''}
-            onBlur={(e) => blurSelectHandler(e)}
             name="country"
-            placeholder="Select the country.."
           >
             <option value="United States">United States</option>
             <option value="Germany">Germany</option>
             <option value="Spain">Spain</option>
           </select>
-          {countryDirty && countryError && (
-            <div className="error shortError" style={{ color: 'red' }}>
-              {countryError}
-            </div>
-          )}
         </div>
 
         <div className="wrapperField">
-          <p className="subTitleRegistr">
+          <div className="subTitleRegistr">
             City <span className="requiredRegistr">*</span>
-          </p>
+          </div>
 
           <input
             className="shortInput inputRegistr"
@@ -425,9 +396,9 @@ const FormRegistration = () => {
         </div>
 
         <div className="wrapperField">
-          <p className="subTitleRegistr">
+          <div className="subTitleRegistr">
             Street <span className="requiredRegistr">*</span>
-          </p>
+          </div>
 
           <input
             className="shortInput inputRegistr"
@@ -446,9 +417,9 @@ const FormRegistration = () => {
         </div>
 
         <div className="wrapperField">
-          <p className="subTitleRegistr">
+          <div className="subTitleRegistr">
             Postal code <span className="requiredRegistr">*</span>
-          </p>
+          </div>
 
           <input
             className="shortInput inputRegistr"
