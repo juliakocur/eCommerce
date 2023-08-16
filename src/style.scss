@@ -9,6 +9,9 @@
   --color-white: #fff;
   --color-black: #323232;
   --color-grey: #f5f5f5;
+  --color-red: red;
+  --color-input-text: #b9b9b9;
+  --color-deep-black: black;
   --color-start-gradient: #eb3349;
   --color-end-gradient: #f45c43;
 }
@@ -23,7 +26,8 @@ body {
 
 input {
   background-color: var(--color-grey);
-  outline: unset;
+  outline: none;
+  border: none;
 }
 
 li {
