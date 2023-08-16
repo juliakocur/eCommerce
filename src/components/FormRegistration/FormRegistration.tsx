@@ -192,6 +192,10 @@ const FormRegistration = () => {
 
   const countryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newCountry = e.target.value;
+    if (postcode) {
+      setPostcode('');
+      setPostcodeError('Field must not be empty');
+    }
     setCountry(newCountry);
   };
 
@@ -224,8 +228,6 @@ const FormRegistration = () => {
   const postcodeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPostcode = e.target.value;
     setPostcode(newPostcode);
-
-    console.log(newPostcode, country);
 
     if (!newPostcode) {
       setPostcodeError('Field must not be empty');
