@@ -9,18 +9,23 @@
 }
 
 .headerLogo {
-  line-height: 1;
+  display: inline-block;
+  line-height: 0;
+}
+
+@media (max-width: 1420px) {
+  .wrapperHeader {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .headerNav {
+    order: 4;
+  }
 }
 
 @media (max-width: 1310px) {
   .wrapperHeader {
     padding: 30px;
-  }
-}
-
-@media (max-width: 1240px) {
-  .wrapperHeader {
-    flex-wrap: wrap;
-    justify-content: space-around;
   }
 }
