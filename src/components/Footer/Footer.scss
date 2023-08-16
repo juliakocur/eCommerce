@@ -1,0 +1,49 @@
+.wrapperFooter {
+  background-color: var(--color-black);
+  padding: 80px 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.wrapperAddress {
+  color: var(--color-white);
+}
+
+.footerContacts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tel {
+  display: flex;
+  gap: 20px;
+}
+
+.mail {
+  display: flex;
+  gap: 30px;
+}
+
+.tel span,
+.mail span {
+  color: var(--color-grey-dark);
+  display: inline-block;
+}
+
+.linkStyle {
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@media (max-width: 1310px) {
+  .wrapperFooter {
+    padding: 30px;
+  }
+}

@@ -1,0 +1,26 @@
+.wrapperHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 30px 110px;
+  border-bottom: 1px solid var(--color-black);
+}
+
+.headerLogo {
+  line-height: 1;
+}
+
+@media (max-width: 1310px) {
+  .wrapperHeader {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 1240px) {
+  .wrapperHeader {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}

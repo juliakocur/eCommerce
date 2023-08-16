@@ -5,7 +5,7 @@
 1. Task: [task name to specify link](https://github.com/)
 2. Screenshot:
 3. Deploy: [link](https://github.com/)
-4. Done 08.08.2023 / deadline 08.08.2023
+4. Done  хх.xx.2023/ deadline хх.xx.2023
 5. Task description: Create a pull request template with a clear structure for describing proposed changes and the rationale behind them.
 - [x] New feature
 - [ ] Bug fix
