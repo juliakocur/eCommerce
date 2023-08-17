@@ -1,6 +1,6 @@
 import './LoginPage.scss';
 import loginImg from '../../shared/assets/icons/login.png';
-import FormLogin from '../../components/App/FormLogin/FormLogin';
+import FormLogin from '../../components/FormLogin/FormLogin';
 
 const LoginPage = () => {
   return (
