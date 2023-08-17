@@ -38,6 +38,7 @@ module.exports = {
       },
     ],
     'annotation-no-unknown': true,
+    'property-no-vendor-prefix': null,
     'block-no-empty': true,
     'custom-property-no-missing-var-function': true,
     'declaration-block-no-duplicate-custom-properties': true,

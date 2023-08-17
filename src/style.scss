@@ -9,6 +9,8 @@
   --color-white: #fff;
   --color-black: #323232;
   --color-grey: #f5f5f5;
+  --color-input-text: #b9b9b9;
+  --color-deep-black: black;
   --color-start-gradient: #eb3349;
   --color-end-gradient: #f45c43;
   --color-grey-dark: #787878;
@@ -26,7 +28,8 @@ body {
 
 input {
   background-color: var(--color-grey);
-  outline: 0;
+  outline: none;
+  border: none;
 }
 
 li {
