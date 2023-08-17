@@ -1,0 +1,144 @@
+.formRegistr {
+  width: 490px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: var(--color-black);
+}
+
+.wrapperField {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.subTitleRegistr {
+  color: var(--color-black);
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.inputRegistr {
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: var(--color-grey);
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+
+  &::placeholder {
+    color: var(--color-grey-light);
+  }
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  color: transparent;
+  opacity: 1;
+  background: url('../../shared/assets/icons/calendar.svg') no-repeat center;
+  background-size: contain;
+}
+
+.inputPasswordWrapper {
+  display: flex;
+  gap: 5px;
+  background: var(--color-grey);
+  border-radius: 5px;
+  padding: 0 20px;
+
+  .inputRegistr {
+    padding: 10px 0;
+  }
+
+  .icon {
+    width: 22px;
+    cursor: pointer;
+  }
+}
+
+.requiredRegistr {
+  color: var(--color-red);
+}
+
+.error {
+  font-size: 10px;
+  position: absolute;
+  top: 60px;
+}
+
+.shortInput,
+.shortError {
+  width: 235px;
+}
+
+.addressContainer,
+.nameContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px 20px;
+  margin: 0;
+}
+
+.btnRegistr {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  color: var(--color-white);
+  background: linear-gradient(
+    90deg,
+    var(--color-start-gradient) 0%,
+    var(--color-end-gradient) 100%
+  );
+}
+
+.btnRegistr:disabled:hover {
+  cursor: no-drop;
+}
+
+.checkbox {
+  width: 20px;
+  padding: 0;
+}
+
+.wrapperCheckbox {
+  color: var(--color-black);
+}
+
+.labelCheckbox {
+  display: inline-flex;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 20px;
+}
+
+@media (max-width: 640px) {
+  .formRegistr {
+    width: 100%;
+  }
+
+  .wrapperField {
+    width: 100%;
+  }
+
+  .shortInput,
+  .shortError,
+  .select {
+    width: 100%;
+  }
+}
