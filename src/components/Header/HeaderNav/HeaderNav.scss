@@ -55,3 +55,39 @@
 .link:hover {
   color: var(--color-red);
 }
+
+.burgerBtn {
+  display: none;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: none;
+  align-items: center;
+  background-color: var(--color-white);
+  cursor: pointer;
+  order: 5;
+}
+
+@media (max-width: 670px) {
+  .headerNav {
+    display: none;
+    flex-direction: column;
+    order: 4;
+  }
+
+  .burgerBtn {
+    display: block;
+    background-image: url('../../../shared/assets/icons/burger-open.svg');
+    transition: all 0.3s;
+    order: 3;
+  }
+
+  .upBurger {
+    background-image: url('../../../shared/assets/icons/burger-close.svg');
+  }
+
+  .menuOpen {
+    display: flex;
+    width: 100%;
+  }
+}
