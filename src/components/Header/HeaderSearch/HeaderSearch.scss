@@ -21,3 +21,9 @@
   background-color: var(--color-grey);
   cursor: pointer;
 }
+
+@media (max-width: 670px) {
+  .searchForm {
+    display: none;
+  }
+}
