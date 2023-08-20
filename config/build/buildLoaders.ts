@@ -20,7 +20,7 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     },
   };
 
-  const cssLoader = {
+  const scssLoader = {
     test: /\.s[ac]ss$/i,
     use: [
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -39,10 +39,15 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     ],
   };
 
+  const cssLoader = {
+    test: /\.css$/i,
+    use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
+  };
+
   const fileLoader = {
     test: /\.(png|jpe?g|gif|svg|woff2|woff)$/i,
     type: 'asset/resource',
   };
 
-  return [babelLoader, tsLoader, cssLoader, fileLoader];
+  return [babelLoader, tsLoader, scssLoader, cssLoader, fileLoader];
 }

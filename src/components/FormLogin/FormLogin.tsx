@@ -4,8 +4,20 @@ import eyeOff from '../../shared/assets/icons/eye-off.svg';
 import eye from '../../shared/assets/icons/eye.svg';
 
 import { re, passwordRegex } from '../../shared/constants/Constants';
+import { useAppDispatch } from '../../store';
+import { buildClientWithPasswordFlow } from '../../api/BuildClient';
+import { loginCustomer } from '../../api/methods';
+import { changeCustomerState, changeUserId } from '../../store/rootReducer';
+import {
+  AppNotification,
+  NotificationType,
+} from '../Notification/Notification';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '../../routes/AppRouter';
 
 const FormRegistration = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [emailDirty, setEmailDirty] = useState<boolean>(false);
@@ -67,6 +79,28 @@ const FormRegistration = () => {
     setShowPassword(!showPassword);
   };
 
+  const onClickHandler = async () => {
+    if (formValid) {
+      buildClientWithPasswordFlow(email, password);
+
+      await loginCustomer(email, password)
+        .then(({ body }) => {
+          dispatch(changeUserId(body.customer.id));
+          dispatch(changeCustomerState(true));
+          AppNotification({
+            msg: 'Authorization completed successfully!',
+            type: NotificationType.success,
+          });
+          navigate(`../../${routes.main.path}`);
+        })
+        .catch((e) => {
+          AppNotification({
+            msg: e?.message,
+          });
+        });
+    }
+  };
+
   return (
     <form className="formRegistr">
       <div className="wrapperField">
@@ -117,7 +151,12 @@ const FormRegistration = () => {
           </div>
         )}
       </div>
-      <button className="btnRegistr" disabled={!formValid} type="submit">
+      <button
+        className="btnRegistr"
+        disabled={!formValid}
+        type="button"
+        onClick={onClickHandler}
+      >
         Register
       </button>
     </form>

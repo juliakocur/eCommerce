@@ -9,6 +9,7 @@ import UserPage from '../pages/UserPage/UserPage';
 import ProductDetailPage from '../pages/ProductDetailPage/ProductDetailPage';
 import RegistrationPage from '../pages/RegistrationPage/RegistrationPage';
 import BasePage from '../pages/BasePage/BasePage';
+import { useAppSelector } from '../store';
 
 export const routes = {
   root: {
@@ -53,12 +54,35 @@ export const routes = {
   },
 };
 
+interface IPropsProtectedRoute {
+  children: JSX.Element;
+}
+
+const ProtectedUserRoute = ({ children }: IPropsProtectedRoute) => {
+  const { userId } = useAppSelector((state) => state.auth);
+
+  return userId ? children : <MainPage />;
+};
+
+const ProtectedAuthRoute = ({ children }: IPropsProtectedRoute) => {
+  const { userId } = useAppSelector((state) => state.auth);
+
+  return !userId ? children : <MainPage />;
+};
+
 const allRoutes: RouteObject = {
   path: routes.root.path,
   element: <BasePage />,
   children: [
     { index: true, element: <Navigate to={routes.main.path} replace /> },
-    { path: routes.login.path, element: <LoginPage /> },
+    {
+      path: routes.login.path,
+      element: (
+        <ProtectedAuthRoute>
+          <LoginPage />
+        </ProtectedAuthRoute>
+      ),
+    },
     { path: routes.main.path, element: <MainPage /> },
     { path: routes.cart.path, element: <CartPage /> },
     {
@@ -67,8 +91,22 @@ const allRoutes: RouteObject = {
     },
     { path: routes.about.path, element: <AboutUsPage /> },
     { path: routes.notFound.path, element: <NotFoundPage /> },
-    { path: routes.user.path, element: <UserPage /> },
-    { path: routes.registration.path, element: <RegistrationPage /> },
+    {
+      path: routes.user.path,
+      element: (
+        <ProtectedUserRoute>
+          <UserPage />
+        </ProtectedUserRoute>
+      ),
+    },
+    {
+      path: routes.registration.path,
+      element: (
+        <ProtectedAuthRoute>
+          <RegistrationPage />
+        </ProtectedAuthRoute>
+      ),
+    },
     { path: `*`, element: <NotFoundPage /> },
   ],
 };
