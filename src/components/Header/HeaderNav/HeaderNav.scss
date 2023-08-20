@@ -45,6 +45,11 @@
 
 .link {
   color: var(--color-black);
+  cursor: pointer;
+
+  &.active {
+    border-bottom: 1px solid var(--color-black);
+  }
 }
 
 .upArrow {

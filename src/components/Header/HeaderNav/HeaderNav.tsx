@@ -1,5 +1,5 @@
 import './HeaderNav.scss';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import arrow from '../../../shared/assets/icons/arrow.svg';
 
@@ -47,15 +47,15 @@ const HeaderNav = () => {
             </div>
           )}
         </div>
-        <Link to="/about-us" className="link">
+        <NavLink to="/about-us" className="link">
           About us
-        </Link>
-        <Link to="/login" className="link">
+        </NavLink>
+        <NavLink to="/login" className="link">
           Login
-        </Link>
-        <Link to="/registration" className="link">
+        </NavLink>
+        <NavLink to="/registration" className="link">
           Registration
-        </Link>
+        </NavLink>
       </div>
       <button
         className={`burgerBtn ${openMenu ? 'upBurger' : ''}`}
