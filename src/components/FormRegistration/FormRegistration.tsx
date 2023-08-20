@@ -10,17 +10,29 @@ import {
   nameRegex,
 } from '../../shared/constants/Constants';
 import './FormRegistration.scss';
+import { useAppDispatch } from '../../store';
+import { useNavigate } from 'react-router-dom';
+import { createUser } from '../../api/methods';
+import { changeCustomerState, changeUserId } from '../../store/rootReducer';
+import { routes } from '../../routes/AppRouter';
+import {
+  AppNotification,
+  NotificationType,
+} from '../Notification/Notification';
 
 const FormRegistration = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [name, setName] = useState<string>();
   const [surname, setSurname] = useState<string>();
   const [birthday, setBirthday] = useState<string>();
-  const [country, setCountry] = useState<string>('United States');
+  const [country, setCountry] = useState<string>('US');
   const [city, setCity] = useState<string>();
   const [street, setStreet] = useState<string>();
   const [postcode, setPostcode] = useState<string>();
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const [emailDirty, setEmailDirty] = useState<boolean>(false);
   const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
   const [nameDirty, setNameDirty] = useState<boolean>(false);
@@ -242,6 +254,43 @@ const FormRegistration = () => {
     }
   };
 
+  const onClickHandler = async () => {
+    if (formValid) {
+      const address = isChecked
+        ? {
+            defaultShippingAddress: 0,
+            defaultBillingAddress: 0,
+          }
+        : {};
+
+      await createUser({
+        email,
+        password,
+        firstName: name,
+        lastName: surname,
+        dateOfBirth: birthday,
+        addresses: [
+          { streetName: street, postalCode: postcode, city, country },
+        ],
+        ...address,
+      })
+        .then(({ body }) => {
+          dispatch(changeUserId(body.customer.id));
+          dispatch(changeCustomerState(true));
+          AppNotification({
+            msg: 'User successfully registered!',
+            type: NotificationType.success,
+          });
+          navigate(`../../${routes.main.path}`);
+        })
+        .catch((e) => {
+          AppNotification({
+            msg: e?.message,
+          });
+        });
+    }
+  };
+
   return (
     <form className="formRegistr">
       <div className="wrapperField">
@@ -370,9 +419,9 @@ const FormRegistration = () => {
             value={country || ''}
             name="country"
           >
-            <option value="United States">United States</option>
-            <option value="Germany">Germany</option>
-            <option value="Spain">Spain</option>
+            <option value="US">United States</option>
+            <option value="DE">Germany</option>
+            <option value="ES">Spain</option>
           </select>
         </div>
 
@@ -446,12 +495,19 @@ const FormRegistration = () => {
             className="checkbox inputRegistr"
             name="checkbox"
             type="checkbox"
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
           />
           Use the default address for shipping and billing
         </label>
       </div>
 
-      <button className="btnRegistr" disabled={!formValid} type="submit">
+      <button
+        className="btnRegistr"
+        disabled={!formValid}
+        type="button"
+        onClick={onClickHandler}
+      >
         Register
       </button>
     </form>

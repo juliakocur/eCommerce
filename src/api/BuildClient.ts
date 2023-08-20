@@ -99,7 +99,7 @@ export const buildClientWithTokenFlow = () => {
     force: true,
   };
   const client = new ClientBuilder()
-    .withExistingTokenFlow(`Bearer ${tokenCache.refreshToken}`, options)
+    .withExistingTokenFlow(`Bearer ${tokenCache.token}`, options)
     .withHttpMiddleware(httpMiddlewareOptions)
     .withLoggerMiddleware()
     .build();

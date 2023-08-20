@@ -24,6 +24,7 @@ const { reducer: customerReducer } = customerSlice;
 
 interface IUserAuth {
   tokenCache: TokenStore;
+  userId: string;
 }
 
 const UserInitState: IUserAuth = {
@@ -32,12 +33,16 @@ const UserInitState: IUserAuth = {
     expirationTime: 0,
     refreshToken: '',
   },
+  userId: '',
 };
 
 export const userAuthSlice = createSlice({
   name: 'auth',
   initialState: UserInitState,
   reducers: {
+    changeUserId: (state, { payload }: PayloadAction<string>) => {
+      state.userId = payload;
+    },
     changeTokenCache: (state, { payload }: PayloadAction<TokenStore>) => {
       state.tokenCache = payload;
     },
@@ -51,7 +56,8 @@ export const userAuthSlice = createSlice({
   },
 });
 
-export const { changeTokenCache, resetTokenCache } = userAuthSlice.actions;
+export const { changeTokenCache, resetTokenCache, changeUserId } =
+  userAuthSlice.actions;
 const { reducer: userAuthReducer } = userAuthSlice;
 
 export const rootReducer = combineReducers({
