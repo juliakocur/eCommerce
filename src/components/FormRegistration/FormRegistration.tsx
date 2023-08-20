@@ -243,11 +243,11 @@ const FormRegistration = () => {
 
     if (!newPostcode) {
       setPostcodeError('Field must not be empty');
-    } else if (country === 'United States' && !usRegex.test(newPostcode)) {
+    } else if (country === 'US' && !usRegex.test(newPostcode)) {
       setPostcodeError("The postal code doesn't match the selected country");
-    } else if (country === 'Germany' && !germanRegex.test(newPostcode)) {
+    } else if (country === 'DE' && !germanRegex.test(newPostcode)) {
       setPostcodeError("The postal code doesn't match the selected country");
-    } else if (country === 'Spain' && !spanishRegex.test(newPostcode)) {
+    } else if (country === 'ES' && !spanishRegex.test(newPostcode)) {
       setPostcodeError("The postal code doesn't match the selected country");
     } else {
       setPostcodeError('');
