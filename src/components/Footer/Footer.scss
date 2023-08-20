@@ -1,6 +1,12 @@
-.wrapperFooter {
+.wrapperBg {
   background-color: var(--color-black);
-  padding: 80px 110px;
+}
+
+.wrapperFooter {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 35px 110px;
   display: flex;
   justify-content: space-between;
   align-items: start;
@@ -10,7 +16,7 @@
   font-weight: 400;
 }
 
-.adressText {
+.addressText {
   color: var(--color-white);
 }
 
