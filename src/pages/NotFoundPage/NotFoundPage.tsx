@@ -7,14 +7,14 @@ const NotFoundPage = () => {
       <div className="bcgNotFound">
         <div className="textNotFound">
           <div className="gradientText gradientColor">
-            <p>Ой, ошибка</p>
+            <p>Oops, error</p>
             <h1 className="errorNumb">404</h1>
           </div>
-          <p>Мы не смогли найти эту страницу.</p>
+          <p>We couldn't find this page.</p>
           <p>
-            Перейдите на
+            Go to the
             <Link to="/main" className="linkNotFound gradientColor">
-              <span> главную страницу</span>
+              <span> main page</span>
             </Link>
           </p>
         </div>

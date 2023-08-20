@@ -60,3 +60,9 @@
 .linkNotFound:hover {
   text-shadow: 1px 1px 15px var(--color-grey-dark);
 }
+
+@media (max-width: 460px) {
+  .textNotFound {
+    font-size: 14px;
+  }
+}
