@@ -142,3 +142,9 @@ input[type='date']::-webkit-calendar-picker-indicator {
     width: 100%;
   }
 }
+
+@media (max-width: 460px) {
+  .formRegistr {
+    gap: 35px;
+  }
+}
