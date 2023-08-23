@@ -55,11 +55,8 @@ const MainPage = () => {
               <div className={`dropLink`} onClick={() => clickHandler('Women')}>
                 Women
               </div>
-              <div
-                className={`dropLink`}
-                onClick={() => clickHandler('Categories')}
-              >
-                Categories
+              <div className={`dropLink`} onClick={() => clickHandler('ALL')}>
+                ALL
               </div>
             </div>
           )}
