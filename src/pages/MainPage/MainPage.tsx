@@ -1,25 +1,41 @@
 import './MainPage.scss';
 import ProductCard from '../../components/ProductCard/ProductCard';
+import { useState } from 'react';
+import { productList } from '../../shared/mock';
+
+interface IFilter {
+  name: string;
+  id: number;
+}
+
+const filters: IFilter[] = [
+  { name: 'filter 1', id: 1 },
+  { name: 'filter 2', id: 2 },
+  { name: 'filter 3', id: 3 },
+  { name: 'filter 4', id: 4 },
+];
 
 const MainPage = () => {
-  console.log(process.env.REACT_APP_PROJECT_KEY);
+  const [filter, setFilter] = useState<number | null>(null);
+  console.log(filter);
+
   return (
     <div className="mainPage">
       <div className="wrapperFilter">
-        <div className="innerFilter active">filter 1</div>
-        <div className="innerFilter">filter 2</div>
-        <div className="innerFilter">filter 3</div>
-        <div className="innerFilter">filter 4</div>
+        {filters.map((el) => (
+          <div
+            className={`innerFilter ${el.id === filter ? 'active' : ''}`}
+            key={`filter-${el.id}`}
+            onClick={() => setFilter(el.id)}
+          >
+            {el.name}
+          </div>
+        ))}
       </div>
       <div className="wrapperCardsProducts">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {productList.map((el) => (
+          <ProductCard info={el} key={el.name} />
+        ))}
       </div>
     </div>
   );
