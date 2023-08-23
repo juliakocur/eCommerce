@@ -2,6 +2,8 @@ import './MainPage.scss';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import { useState } from 'react';
 import { productList } from '../../shared/mock';
+import search from '../../shared/assets/icons/search.svg';
+import arrow from '../../shared/assets/icons/arrow.svg';
 
 interface IFilter {
   name: string;
@@ -17,10 +19,52 @@ const filters: IFilter[] = [
 
 const MainPage = () => {
   const [filter, setFilter] = useState<number | null>(null);
-  console.log(filter);
+  const [open, setOpen] = useState(false);
+  const [category, setCategory] = useState('Categories');
+  const clickHandler = (cat: string) => {
+    setCategory(cat);
+    setOpen(false);
+  };
 
   return (
     <div className="mainPage">
+      <div className="header">
+        <div className="searchForm">
+          <input type="text" placeholder="Search..." className="searchInput" />
+          <img src={search} alt="search" className="searchImg" />
+        </div>
+        <div
+          className={`dropdown`}
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          <div className="dropBtn">
+            {category}
+            <img
+              src={arrow}
+              alt=""
+              className={`arrow ${open ? 'upArrow' : ''}`}
+            />
+          </div>
+          {!!open && (
+            <div className="dropdownContent">
+              <div className={`dropLink`} onClick={() => clickHandler('Men')}>
+                Men
+              </div>
+              <div className={`dropLink`} onClick={() => clickHandler('Women')}>
+                Women
+              </div>
+              <div
+                className={`dropLink`}
+                onClick={() => clickHandler('Categories')}
+              >
+                Categories
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
       <div className="wrapperFilter">
         {filters.map((el) => (
           <div
@@ -40,5 +84,4 @@ const MainPage = () => {
     </div>
   );
 };
-
 export default MainPage;
