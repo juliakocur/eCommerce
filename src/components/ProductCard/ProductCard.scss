@@ -1,0 +1,70 @@
+.wrapperCard {
+  width: 282px;
+}
+
+.wrapperImg {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  height: 282px;
+  background-color: var(--color-gray);
+  cursor: pointer;
+}
+
+.imgSneakers {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+}
+
+.wrapperImg:hover {
+  .imgSneakers {
+    transform: scale(1.05);
+  }
+}
+
+.nameModel {
+  color: var(--color-black);
+  font-weight: 500;
+  padding-top: 10px;
+}
+
+.wrapperPrice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 15px;
+}
+
+.price {
+  color: var(--color-black);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.oldPrice {
+  font-size: 14px;
+  color: var(--color-grey-light);
+  text-decoration: line-through;
+  text-decoration-color: red;
+  font-weight: 600;
+}
+
+.nameModel:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.basket {
+  text-align: center;
+  color: var(--color-white);
+  font-weight: 600;
+  background: linear-gradient(
+    var(--color-start-gradient),
+    var(--color-end-gradient)
+  );
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+}

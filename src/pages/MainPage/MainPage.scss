@@ -1,3 +1,42 @@
 .mainPage {
-  color: brown;
+  padding: 80px 0;
+}
+
+.wrapperFilter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--color-grey-light);
+  font-weight: 600;
+  flex: auto;
+}
+
+.innerFilter {
+  background-color: var(--color-grey);
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.innerFilter:hover,
+.innerFilter.active {
+  padding: 11px 19px;
+  border: 1px solid var(--color-black);
+  color: var(--color-black);
+}
+
+.wrapperCardsProducts {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 30px;
+}
+
+@media (max-width: 1445px) {
+  .wrapperCardsProducts {
+    justify-content: center;
+  }
 }
