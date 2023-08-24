@@ -4,7 +4,6 @@ import { routes } from '../../routes/AppRouter';
 import './Header.scss';
 import HeaderIcons from './HeaderIcons/HeaderIcons';
 import HeaderNav from './HeaderNav/HeaderNav';
-import HeaderSearch from './HeaderSearch/HeaderSearch';
 
 const Header = () => {
   return (
@@ -14,7 +13,6 @@ const Header = () => {
           <img src={logoHeader} alt="" />
         </Link>
         <HeaderNav />
-        <HeaderSearch />
         <HeaderIcons />
       </div>
     </div>
