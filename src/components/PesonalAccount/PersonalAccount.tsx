@@ -3,9 +3,9 @@ import './PersonalAccount.scss';
 import plus from '../../shared/assets/icons/plus.svg';
 const PersonalAccount = () => {
   return (
-    <div>
+    <div className="wrapperFormAcc">
       <div className="titlePersonalAccount">Personal account</div>
-      <div className="aboutAccount">About user</div>
+      <h2 className="aboutAccount">About user</h2>
       <form className="formRegistr">
         <div className="nameContainer">
           <div className="wrapperField">
@@ -18,6 +18,8 @@ const PersonalAccount = () => {
               className="shortInput inputRegistr"
               name="name"
               type="text"
+              disabled
+              value={'Simon'}
             />
           </div>
 
@@ -31,6 +33,8 @@ const PersonalAccount = () => {
               className="shortInput inputRegistr"
               name="surname"
               type="text"
+              value={'Pit'}
+              disabled
             />
           </div>
         </div>
@@ -40,7 +44,13 @@ const PersonalAccount = () => {
             <div>change</div>
           </div>
 
-          <input className="inputRegistr" name="birthday" type="date" />
+          <input
+            className="inputRegistr"
+            name="birthday"
+            type="date"
+            value={'2013-10-22'}
+            disabled
+          />
         </div>
         <div className="wrapperField">
           <div className="descriptionUser">
@@ -48,7 +58,13 @@ const PersonalAccount = () => {
             <div>change</div>
           </div>
 
-          <input className="inputRegistr" name="email" type="text" />
+          <input
+            className="inputRegistr"
+            name="email"
+            type="text"
+            disabled
+            value={'6227968@gmail.com'}
+          />
         </div>
 
         <h2 className="titleAddress">
@@ -58,7 +74,11 @@ const PersonalAccount = () => {
         <div className="addressContainer">
           <div className="wrapperField">
             <div className="descriptionUser">Country</div>
-            <input className=" countryField shortInput select inputRegistr"></input>
+            <input
+              className=" countryField shortInput select inputRegistr"
+              disabled
+              value={'USA'}
+            ></input>
           </div>
 
           <div className="wrapperField">
@@ -68,6 +88,8 @@ const PersonalAccount = () => {
               className="shortInput inputRegistr"
               name="city"
               type="string"
+              disabled
+              value={'NY'}
             />
           </div>
 
@@ -78,6 +100,8 @@ const PersonalAccount = () => {
               className="shortInput inputRegistr"
               name="street"
               type="string"
+              value={'Avenue 12'}
+              disabled
             />
           </div>
 
@@ -88,11 +112,12 @@ const PersonalAccount = () => {
               className="shortInput inputRegistr"
               name="postcode"
               type="string"
+              value={'12563'}
+              disabled
             />
           </div>
         </div>
         <button className="btnAddressAdd">
-          {' '}
           <img src={plus} alt="Add" /> Add address
         </button>
       </form>
