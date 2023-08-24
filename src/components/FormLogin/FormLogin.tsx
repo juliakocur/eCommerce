@@ -157,7 +157,7 @@ const FormRegistration = () => {
         type="button"
         onClick={onClickHandler}
       >
-        Register
+        Login
       </button>
     </form>
   );
