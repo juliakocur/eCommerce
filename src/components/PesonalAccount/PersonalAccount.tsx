@@ -3,7 +3,7 @@ import './PersonalAccount.scss';
 import plus from '../../shared/assets/icons/plus.svg';
 const PersonalAccount = () => {
   return (
-    <div className="wrapperFormAcc">
+    <div className="wrapperForm">
       <div className="titlePersonalAccount">Personal account</div>
       <h2 className="aboutAccount">About user</h2>
       <form className="formRegistr">
