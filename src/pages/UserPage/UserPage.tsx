@@ -1,12 +1,13 @@
-import './UserPage.scss';
 import PersonalAccount from '../../components/PesonalAccount/PersonalAccount';
 import imgAccountPage from '../../shared/assets/images/imgAccountPage.png';
 
 const UserPage = () => {
   return (
-    <div className="innerPageAccount">
+    <div className="wrapperRegistration">
       <PersonalAccount />
-      <img src={imgAccountPage} alt="" />
+      <div className="sneakerContainer">
+        <img className="sneakerImg" src={imgAccountPage} alt="" />
+      </div>
     </div>
   );
 };
