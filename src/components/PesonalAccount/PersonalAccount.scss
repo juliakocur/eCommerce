@@ -50,3 +50,42 @@
 .aboutAccount {
   margin-top: 30px;
 }
+
+.popupAddress {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.8s ease 0s;
+  background: rgb(233 139 139 / 60%);
+}
+
+.popupOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popupBody {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formPopup {
+  max-width: 654px;
+  max-height: 430px;
+  background: var(--color-white);
+  border-radius: 5px;
+  padding: 30px;
+}
+
+.popupClose {
+  width: 52px;
+  height: 52px;
+}
