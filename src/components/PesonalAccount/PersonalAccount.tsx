@@ -1,14 +1,32 @@
 import '../FormRegistration/FormRegistration.scss';
 import './PersonalAccount.scss';
 import plus from '../../shared/assets/icons/plus.svg';
+import save from '../../shared/assets/icons/save.svg';
 import close from '../../shared/assets/icons/burger-close.svg';
 import { useState } from 'react';
 
 const PersonalAccount = () => {
   const [open, setOpen] = useState(false);
+  const [openName, setOpenName] = useState(false);
+  const [openSurname, setOpenSurname] = useState(false);
+  const [openBirthday, setOpenBirthday] = useState(false);
+  const [openEmail, setOpenEmail] = useState(false);
   const clickHandler = () => {
     setOpen(false);
   };
+  const clickHandlerName = () => {
+    setOpenName(false);
+  };
+  const clickHandlerSurname = () => {
+    setOpenSurname(false);
+  };
+  const clickHandlerBirthday = () => {
+    setOpenBirthday(false);
+  };
+  const clickHandlerEmail = () => {
+    setOpenEmail(false);
+  };
+
   return (
     <div className="wrapperFormPopup">
       <div className="wrapperForm">
@@ -19,7 +37,13 @@ const PersonalAccount = () => {
             <div className="wrapperField">
               <div className="descriptionUser">
                 <div>Name</div>
-                <div>change</div>
+                <div
+                  onClick={() => {
+                    setOpenName(!openName);
+                  }}
+                >
+                  change
+                </div>
               </div>
 
               <input
@@ -34,7 +58,13 @@ const PersonalAccount = () => {
             <div className="wrapperField">
               <div className="descriptionUser">
                 <div>Surname</div>
-                <div>change</div>
+                <div
+                  onClick={() => {
+                    setOpenSurname(!openSurname);
+                  }}
+                >
+                  change
+                </div>
               </div>
 
               <input
@@ -49,7 +79,13 @@ const PersonalAccount = () => {
           <div className="wrapperField">
             <div className="descriptionUser">
               <div>Birthday</div>
-              <div>change</div>
+              <div
+                onClick={() => {
+                  setOpenBirthday(!openBirthday);
+                }}
+              >
+                change
+              </div>
             </div>
 
             <input
@@ -63,7 +99,13 @@ const PersonalAccount = () => {
           <div className="wrapperField">
             <div className="descriptionUser">
               <div>Email</div>
-              <div>change</div>
+              <div
+                onClick={() => {
+                  setOpenEmail(!openEmail);
+                }}
+              >
+                change
+              </div>
             </div>
 
             <input
@@ -138,21 +180,24 @@ const PersonalAccount = () => {
         </form>
       </div>
 
-      <div className={`popupAddress ${open ? 'popupOpen' : ''}`}>
+      <div className={`popupContainer ${open ? 'popupOpen' : ''}`}>
         <div className="popupBody">
           <div className="formPopup">
-            <div className="popupClose" onClick={() => clickHandler()}>
-              <img src={close} alt="Close" />
-            </div>
             <div className="popupCard">
-              <h2 className="titleAddress">Change address</h2>
-
+              <div className="popupHeader">
+                <h2 className="titleAddress">Change the address</h2>
+                <div className="popupClose" onClick={() => clickHandler()}>
+                  <img src={close} alt="Close" />
+                </div>
+              </div>
+              <p className="popupText">
+                Change the data and confirm by pressing the "Save" button
+              </p>
               <div className="addressContainer">
                 <div className="wrapperField">
                   <div className="descriptionUser">Country</div>
                   <input
                     className=" countryField shortInput select inputRegistr"
-                    disabled
                     value={'USA'}
                   ></input>
                 </div>
@@ -164,7 +209,6 @@ const PersonalAccount = () => {
                     className="shortInput inputRegistr"
                     name="city"
                     type="string"
-                    disabled
                     value={'NY'}
                   />
                 </div>
@@ -177,7 +221,6 @@ const PersonalAccount = () => {
                     name="street"
                     type="string"
                     value={'Avenue 12'}
-                    disabled
                   />
                 </div>
 
@@ -189,12 +232,137 @@ const PersonalAccount = () => {
                     name="postcode"
                     type="string"
                     value={'12563'}
-                    disabled
                   />
                 </div>
               </div>
-              <button className="btnAddressAdd">
-                <img src={plus} alt="Save" /> Save
+              <button className="btnSave">
+                <img src={save} alt="Save" /> Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={`popupContainer ${openName ? 'popupOpen' : ''}`}>
+        <div className="popupBody">
+          <div className="formPopup">
+            <div className="popupCard">
+              <div className="popupHeader">
+                <h2 className="titleAddress">Change the name</h2>
+                <div className="popupClose" onClick={() => clickHandlerName()}>
+                  <img src={close} alt="Close" />
+                </div>
+              </div>
+              <p className="popupText">
+                Change the data and confirm by pressing the "Save" button
+              </p>
+              <div className="addressContainer">
+                <div className="wrapperFieldData">
+                  <div className="descriptionUser">Name</div>
+                  <input className="inputRegistr" value={'Simon'}></input>
+                </div>
+              </div>
+              <button className="btnSave">
+                <img src={save} alt="Save" /> Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={`popupContainer ${openSurname ? 'popupOpen' : ''}`}>
+        <div className="popupBody">
+          <div className="formPopup">
+            <div className="popupCard">
+              <div className="popupHeader">
+                <h2 className="titleAddress">Change the surname</h2>
+                <div
+                  className="popupClose"
+                  onClick={() => clickHandlerSurname()}
+                >
+                  <img src={close} alt="Close" />
+                </div>
+              </div>
+              <p className="popupText">
+                Change the data and confirm by pressing the "Save" button
+              </p>
+              <div className="addressContainer">
+                <div className="wrapperFieldData">
+                  <div className="descriptionUser">Surname</div>
+                  <input
+                    className="inputRegistr"
+                    type="text"
+                    value={'Pit'}
+                  ></input>
+                </div>
+              </div>
+              <button className="btnSave">
+                <img src={save} alt="Save" /> Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={`popupContainer ${openBirthday ? 'popupOpen' : ''}`}>
+        <div className="popupBody">
+          <div className="formPopup">
+            <div className="popupCard">
+              <div className="popupHeader">
+                <h2 className="titleAddress">Change the date of birth</h2>
+                <div
+                  className="popupClose"
+                  onClick={() => clickHandlerBirthday()}
+                >
+                  <img src={close} alt="Close" />
+                </div>
+              </div>
+              <p className="popupText">
+                Change the data and confirm by pressing the "Save" button
+              </p>
+              <div className="addressContainer">
+                <div className="wrapperFieldData">
+                  <div className="descriptionUser">Birthday</div>
+                  <input
+                    className="inputRegistr"
+                    type="date"
+                    value={'2013-10-22'}
+                  ></input>
+                </div>
+              </div>
+              <button className="btnSave">
+                <img src={save} alt="Save" /> Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={`popupContainer ${openEmail ? 'popupOpen' : ''}`}>
+        <div className="popupBody">
+          <div className="formPopup">
+            <div className="popupCard">
+              <div className="popupHeader">
+                <h2 className="titleAddress">Change the email</h2>
+                <div className="popupClose" onClick={() => clickHandlerEmail()}>
+                  <img src={close} alt="Close" />
+                </div>
+              </div>
+              <p className="popupText">
+                Change the data and confirm by pressing the "Save" button
+              </p>
+              <div className="addressContainer">
+                <div className="wrapperFieldData">
+                  <div className="descriptionUser">Email</div>
+                  <input
+                    className="inputRegistr"
+                    type="text"
+                    value={'6227968@gmail.com'}
+                  ></input>
+                </div>
+              </div>
+              <button className="btnSave">
+                <img src={save} alt="Save" /> Save
               </button>
             </div>
           </div>
