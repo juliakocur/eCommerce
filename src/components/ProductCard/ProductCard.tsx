@@ -1,22 +1,44 @@
-import { Link } from 'react-router-dom';
-import { IProductItem } from '../../shared/mock';
+import { Link, useNavigate } from 'react-router-dom';
 import './ProductCard.scss';
 import { routes } from '../../routes/AppRouter';
+import { Product } from '@commercetools/platform-sdk';
+
 interface IProps {
-  info: IProductItem;
+  info: Product;
 }
-const ProductCard = ({ info }: IProps) => {
+const ProductCard = ({
+  info: {
+    masterData: { current },
+    id,
+  },
+}: IProps) => {
+  const navigate = useNavigate();
+  const currentDataPrice = current.variants[0].prices[0].value.centAmount / 100;
+  const isHasDiscount = !!current.variants[0].prices[0].discounted.discount;
+
   return (
     <div className="wrapperCard">
-      <div className="wrapperImg">
-        <img className="imgSneakers" src={info.photo} alt="" />
+      <div
+        className="wrapperImg"
+        onClick={() => navigate(`../${routes.product.path}/${id}`)}
+      >
+        <img
+          className="imgSneakers"
+          src={current.variants[0].images[0].url}
+          alt=""
+        />
       </div>
-      <Link className="nameModel" to={`../${routes.product.path}/${info.name}`}>
-        {info.name}
+      <Link className="nameModel" to={`../${routes.product.path}/${id}`}>
+        {current.name.en}
       </Link>
       <div className="wrapperPrice">
-        <div className="price">{info.price}</div>
-        <div className="oldPrice">{info.oldPrice}</div>
+        <div className="price">
+          {isHasDiscount
+            ? current.variants[0].prices[0].discounted.value.centAmount / 100
+            : currentDataPrice}{' '}
+          €
+        </div>
+        {isHasDiscount && <div className="oldPrice">{currentDataPrice} €</div>}
       </div>
       <div className="basket">Add basket</div>
     </div>
