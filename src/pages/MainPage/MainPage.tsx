@@ -1,9 +1,10 @@
 import './MainPage.scss';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { useState } from 'react';
-import { productList } from '../../shared/mock';
+import { useEffect, useState } from 'react';
 import search from '../../shared/assets/icons/search.svg';
 import arrow from '../../shared/assets/icons/arrow.svg';
+import { getCategories, getProductList } from '../../api/methods';
+import { Product, Category } from '@commercetools/platform-sdk';
 
 interface IFilter {
   name: string;
@@ -18,48 +19,69 @@ const filters: IFilter[] = [
 ];
 
 const MainPage = () => {
+  const [listProduct, setListProduct] = useState<[] | Product[]>([]);
   const [filter, setFilter] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
-  const [category, setCategory] = useState('Categories');
-  const clickHandler = (cat: string) => {
+  const [category, setCategory] = useState<Category | null>(null);
+  const [allCategories, setAllCategories] = useState<Category[] | []>([]);
+  const clickHandler = (cat: Category) => {
     setCategory(cat);
     setOpen(false);
   };
 
+  const getListProductItems = async () => {
+    await getProductList()
+      .then(({ body }) => setListProduct(body.results))
+      .catch(() => setListProduct([]));
+  };
+
+  const getListCategoriesItems = async () => {
+    await getCategories()
+      .then(({ body }) => setAllCategories(body.results))
+      .catch(() => setAllCategories([]));
+  };
+
+  useEffect(() => {
+    getListCategoriesItems();
+    getListProductItems();
+  }, []);
+
   return (
     <div className="mainPage">
       <div className="header">
+        {!!allCategories.length && (
+          <div
+            className={`dropdown`}
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            <div className="dropBtn">
+              {category ? category?.name.en : 'Categories'}
+              <img
+                src={arrow}
+                alt=""
+                className={`arrow ${open ? 'upArrow' : ''}`}
+              />
+            </div>
+            {!!open && (
+              <div className="dropdownContent">
+                {allCategories.map((el) => (
+                  <div
+                    className={`dropLink`}
+                    onClick={() => clickHandler(el)}
+                    key={el.slug.en}
+                  >
+                    {el.name.en}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         <div className="searchForm">
           <input type="text" placeholder="Search..." className="searchInput" />
           <img src={search} alt="search" className="searchImg" />
-        </div>
-        <div
-          className={`dropdown`}
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
-          <div className="dropBtn">
-            {category}
-            <img
-              src={arrow}
-              alt=""
-              className={`arrow ${open ? 'upArrow' : ''}`}
-            />
-          </div>
-          {!!open && (
-            <div className="dropdownContent">
-              <div className={`dropLink`} onClick={() => clickHandler('Men')}>
-                Men
-              </div>
-              <div className={`dropLink`} onClick={() => clickHandler('Women')}>
-                Women
-              </div>
-              <div className={`dropLink`} onClick={() => clickHandler('ALL')}>
-                ALL
-              </div>
-            </div>
-          )}
         </div>
       </div>
       <div className="wrapperFilter">
@@ -74,9 +96,8 @@ const MainPage = () => {
         ))}
       </div>
       <div className="wrapperCardsProducts">
-        {productList.map((el) => (
-          <ProductCard info={el} key={el.name} />
-        ))}
+        {!!listProduct.length &&
+          listProduct.map((el) => <ProductCard info={el} key={el.id} />)}
       </div>
     </div>
   );
