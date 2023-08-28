@@ -3,14 +3,14 @@ import './PersonalAccount.scss';
 import plus from '../../shared/assets/icons/plus.svg';
 import save from '../../shared/assets/icons/save.svg';
 import close from '../../shared/assets/icons/burger-close.svg';
-// import eyeOff from '../../shared/assets/icons/eye-off.svg';
-// import eye from '../../shared/assets/icons/eye.svg';
+import eyeOff from '../../shared/assets/icons/eye-off.svg';
+import eye from '../../shared/assets/icons/eye.svg';
 import {
   usRegex,
   spanishRegex,
   germanRegex,
   re,
-  // passwordRegex,
+  passwordRegex,
   nameRegex,
 } from '../../shared/constants/Constants';
 import { useEffect, useState } from 'react';
@@ -21,9 +21,11 @@ const PersonalAccount = () => {
   const [openSurname, setOpenSurname] = useState(false);
   const [openBirthday, setOpenBirthday] = useState(false);
   const [openEmail, setOpenEmail] = useState(false);
+  const [openPassword, setOpenPassword] = useState(false);
   const [email, setEmail] = useState<string>();
   const [newEmail, setNewEmail] = useState<string>('6227968@gmail.com');
-  // const [password, setPassword] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [newPassword, setNewPassword] = useState<string>('Q!w2e3r4r');
   const [name, setName] = useState<string>();
   const [newName, setNewName] = useState<string>('Simon');
   const [surname, setSurname] = useState<string>();
@@ -39,7 +41,7 @@ const PersonalAccount = () => {
   const [postcode, setPostcode] = useState<string>();
   const [newPostcode, setNewPostcode] = useState<string>('12563');
   const [emailDirty, setEmailDirty] = useState<boolean>(false);
-  // const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
+  const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
   const [nameDirty, setNameDirty] = useState<boolean>(false);
   const [surnameDirty, setSurnameDirty] = useState<boolean>(false);
   const [birthdayDirty, setBirthdayDirty] = useState<boolean>(false);
@@ -49,9 +51,9 @@ const PersonalAccount = () => {
   const [emailError, setEmailError] = useState<string>(
     'Field must not be empty'
   );
-  // const [passwordError, setPasswordError] = useState<string>(
-  //   'Field must not be empty'
-  // );
+  const [passwordError, setPasswordError] = useState<string>(
+    'Field must not be empty'
+  );
   const [nameError, setNameError] = useState<string>('Field must not be empty');
   const [surnameError, setSurnameError] = useState<string>(
     'Field must not be empty'
@@ -66,35 +68,9 @@ const PersonalAccount = () => {
   const [postcodeError, setPostcodeError] = useState<string>(
     'Field must not be empty'
   );
-  //  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPasswordNew, setShowPasswordNew] = useState<boolean>(false);
   const [formValid, setFormValid] = useState(false);
-  /*
-  useEffect(() => {
-    if (
-      emailError &&
-      // passwordError ||
-      nameError &&
-      surnameError &&
-      birthdayError &&
-      cityError &&
-      streetError &&
-      postcodeError
-    ) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
-    }
-  }, [
-    emailError,
-    // passwordError,
-    nameError,
-    surnameError,
-    birthdayError,
-    cityError,
-    streetError,
-    postcodeError,
-  ]);
-*/
 
   useEffect(() => {
     if (emailError) {
@@ -152,6 +128,14 @@ const PersonalAccount = () => {
     }
   }, [postcodeError]);
 
+  useEffect(() => {
+    if (passwordError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [passwordError]);
+
   const clickHandler = () => {
     setOpen(false);
   };
@@ -166,6 +150,9 @@ const PersonalAccount = () => {
   };
   const clickHandlerEmail = () => {
     setOpenEmail(false);
+  };
+  const clickHandlerPassword = () => {
+    setOpenPassword(false);
   };
 
   const setAddress = () => {
@@ -201,6 +188,10 @@ const PersonalAccount = () => {
     setNewBirthday(birthday);
     setOpenBirthday(!openBirthday);
   };
+  const savePassword = () => {
+    setNewPassword(password);
+    setOpenPassword(!openPassword);
+  };
   const saveAddress = () => {
     setNewCountry(country);
     setNewCity(city);
@@ -208,7 +199,7 @@ const PersonalAccount = () => {
     setNewPostcode(postcode);
     setOpen(!open);
   };
-  /*
+
   const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
     setPassword(newPassword);
@@ -223,7 +214,7 @@ const PersonalAccount = () => {
       setPasswordError('');
     }
   };
-*/
+
   const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newName = e.target.value;
     setName(newName);
@@ -259,10 +250,9 @@ const PersonalAccount = () => {
       case 'email':
         setEmailDirty(true);
         break;
-      /*
       case 'password':
         setPasswordDirty(true);
-        break; */
+        break;
       case 'name':
         setNameDirty(true);
         break;
@@ -283,11 +273,15 @@ const PersonalAccount = () => {
         break;
     }
   };
-  /*
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-*/
+
+  const togglePasswordVisibilityNew = () => {
+    setShowPasswordNew(!showPasswordNew);
+  };
+
   const getAge = (dateString: string) => {
     const today = new Date();
     const birthDate = new Date(dateString);
@@ -460,6 +454,36 @@ const PersonalAccount = () => {
               disabled
               value={newEmail}
             />
+          </div>
+
+          <div className="wrapperField">
+            <div className="descriptionUser">
+              <div>Password</div>
+              <div
+                onClick={() => {
+                  setOpenPassword(!openPassword);
+                  setPassword(newPassword);
+                  setFormValid(true);
+                }}
+              >
+                change
+              </div>
+            </div>
+            <div className="inputPasswordWrapper">
+              <input
+                className="inputRegistr"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                disabled
+                value={newPassword}
+              />
+              <img
+                src={showPassword ? eye : eyeOff}
+                alt=""
+                onClick={togglePasswordVisibility}
+                className="icon"
+              />
+            </div>
           </div>
 
           <h2 className="titleAddress">
@@ -802,6 +826,62 @@ const PersonalAccount = () => {
                 disabled={!formValid}
                 type="submit"
                 onClick={() => saveEmail()}
+              >
+                <img src={save} alt="Save" /> Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={`popupContainer ${openPassword ? 'popupOpen' : ''}`}>
+        <div className="popupBody">
+          <div className="formPopup">
+            <div className="popupCard">
+              <div className="popupHeader">
+                <h2 className="titleAddress">Change the password</h2>
+                <div
+                  className="popupClose"
+                  onClick={() => clickHandlerPassword()}
+                >
+                  <img src={close} alt="Close" />
+                </div>
+              </div>
+              <p className="popupText">
+                Change the data and confirm by pressing the "Save" button
+              </p>
+              <div className="addressContainer">
+                <div className="wrapperFieldData">
+                  <div className="descriptionUser">Password</div>
+                  <div className="inputPasswordWrapper">
+                    <input
+                      onChange={(e) => passwordHandler(e)}
+                      value={password || ''}
+                      onBlur={(e) => blurHandler(e)}
+                      name="password"
+                      type={showPasswordNew ? 'text' : 'password'}
+                      placeholder="Enter your password.."
+                      className="inputRegistr"
+                    ></input>
+                    <img
+                      src={showPasswordNew ? eye : eyeOff}
+                      alt=""
+                      onClick={togglePasswordVisibilityNew}
+                      className="icon"
+                    />
+                  </div>
+                  {passwordDirty && passwordError && (
+                    <div className="error" style={{ color: 'red' }}>
+                      {passwordError}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <button
+                className="btnSave"
+                disabled={!formValid}
+                type="submit"
+                onClick={() => savePassword()}
               >
                 <img src={save} alt="Save" /> Save
               </button>
