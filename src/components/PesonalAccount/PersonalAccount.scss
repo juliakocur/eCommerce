@@ -17,6 +17,10 @@
   );
 }
 
+.btnSave:disabled:hover {
+  cursor: no-drop;
+}
+
 .btnAddressAdd {
   display: flex;
   align-items: center;

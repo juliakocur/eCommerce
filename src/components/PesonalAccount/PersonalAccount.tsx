@@ -25,12 +25,19 @@ const PersonalAccount = () => {
   const [newEmail, setNewEmail] = useState<string>('6227968@gmail.com');
   // const [password, setPassword] = useState<string>();
   const [name, setName] = useState<string>();
+  const [newName, setNewName] = useState<string>('Simon');
   const [surname, setSurname] = useState<string>();
+  const [newSurname, setNewSurname] = useState<string>('Pit');
   const [birthday, setBirthday] = useState<string>();
+  const [newBirthday, setNewBirthday] = useState<string>('2003-10-22');
   const [country, setCountry] = useState<string>('US');
+  const [newCountry, setNewCountry] = useState<string>('US');
   const [city, setCity] = useState<string>();
+  const [newCity, setNewCity] = useState<string>('NY');
   const [street, setStreet] = useState<string>();
+  const [newStreet, setNewStreet] = useState<string>('Avenue 12');
   const [postcode, setPostcode] = useState<string>();
+  const [newPostcode, setNewPostcode] = useState<string>('12563');
   const [emailDirty, setEmailDirty] = useState<boolean>(false);
   // const [passwordDirty, setPasswordDirty] = useState<boolean>(false);
   const [nameDirty, setNameDirty] = useState<boolean>(false);
@@ -61,7 +68,7 @@ const PersonalAccount = () => {
   );
   //  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [formValid, setFormValid] = useState(false);
-
+  /*
   useEffect(() => {
     if (
       emailError &&
@@ -87,6 +94,63 @@ const PersonalAccount = () => {
     streetError,
     postcodeError,
   ]);
+*/
+
+  useEffect(() => {
+    if (emailError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [emailError]);
+
+  useEffect(() => {
+    if (nameError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [nameError]);
+
+  useEffect(() => {
+    if (surnameError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [surnameError]);
+
+  useEffect(() => {
+    if (birthdayError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [birthdayError]);
+
+  useEffect(() => {
+    if (cityError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [cityError]);
+
+  useEffect(() => {
+    if (streetError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [streetError]);
+
+  useEffect(() => {
+    if (postcodeError) {
+      setFormValid(false);
+    } else {
+      setFormValid(true);
+    }
+  }, [postcodeError]);
 
   const clickHandler = () => {
     setOpen(false);
@@ -104,6 +168,13 @@ const PersonalAccount = () => {
     setOpenEmail(false);
   };
 
+  const setAddress = () => {
+    setCountry(newCountry);
+    setCity(newCity);
+    setStreet(newStreet);
+    setPostcode(newPostcode);
+  };
+
   const emailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
 
@@ -117,8 +188,25 @@ const PersonalAccount = () => {
   const saveEmail = () => {
     setNewEmail(email);
     setOpenEmail(!openEmail);
-    console.log(email);
-    console.log('ok');
+  };
+  const saveName = () => {
+    setNewName(name);
+    setOpenName(!openName);
+  };
+  const saveSurname = () => {
+    setNewSurname(surname);
+    setOpenSurname(!openSurname);
+  };
+  const saveBirthday = () => {
+    setNewBirthday(birthday);
+    setOpenBirthday(!openBirthday);
+  };
+  const saveAddress = () => {
+    setNewCountry(country);
+    setNewCity(city);
+    setNewStreet(street);
+    setNewPostcode(postcode);
+    setOpen(!open);
   };
   /*
   const passwordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -289,6 +377,8 @@ const PersonalAccount = () => {
                 <div
                   onClick={() => {
                     setOpenName(!openName);
+                    setName(newName);
+                    setFormValid(true);
                   }}
                 >
                   change
@@ -300,7 +390,7 @@ const PersonalAccount = () => {
                 name="name"
                 type="text"
                 disabled
-                value={'Simon'}
+                value={newName}
               />
             </div>
 
@@ -310,6 +400,8 @@ const PersonalAccount = () => {
                 <div
                   onClick={() => {
                     setOpenSurname(!openSurname);
+                    setSurname(newSurname);
+                    setFormValid(true);
                   }}
                 >
                   change
@@ -320,7 +412,7 @@ const PersonalAccount = () => {
                 className="shortInput inputRegistr"
                 name="surname"
                 type="text"
-                value={'Pit'}
+                value={newSurname}
                 disabled
               />
             </div>
@@ -331,6 +423,8 @@ const PersonalAccount = () => {
               <div
                 onClick={() => {
                   setOpenBirthday(!openBirthday);
+                  setBirthday(newBirthday);
+                  setFormValid(true);
                 }}
               >
                 change
@@ -341,7 +435,7 @@ const PersonalAccount = () => {
               className="inputRegistr"
               name="birthday"
               type="date"
-              value={'2013-10-22'}
+              value={newBirthday}
               disabled
             />
           </div>
@@ -351,6 +445,8 @@ const PersonalAccount = () => {
               <div
                 onClick={() => {
                   setOpenEmail(!openEmail);
+                  setEmail(newEmail);
+                  setFormValid(true);
                 }}
               >
                 change
@@ -371,6 +467,8 @@ const PersonalAccount = () => {
             <span
               onClick={() => {
                 setOpen(!open);
+                setAddress();
+                setFormValid(true);
               }}
             >
               change
@@ -383,7 +481,7 @@ const PersonalAccount = () => {
               <input
                 className=" countryField shortInput select inputRegistr"
                 disabled
-                value={'USA'}
+                value={newCountry}
               ></input>
             </div>
 
@@ -395,7 +493,7 @@ const PersonalAccount = () => {
                 name="city"
                 type="string"
                 disabled
-                value={'NY'}
+                value={newCity}
               />
             </div>
 
@@ -406,7 +504,7 @@ const PersonalAccount = () => {
                 className="shortInput inputRegistr"
                 name="street"
                 type="string"
-                value={'Avenue 12'}
+                value={newStreet}
                 disabled
               />
             </div>
@@ -418,7 +516,7 @@ const PersonalAccount = () => {
                 className="shortInput inputRegistr"
                 name="postcode"
                 type="string"
-                value={'12563'}
+                value={newPostcode}
                 disabled
               />
             </div>
@@ -514,7 +612,12 @@ const PersonalAccount = () => {
                   )}
                 </div>
               </div>
-              <button className="btnSave" disabled={!formValid} type="submit">
+              <button
+                className="btnSave"
+                disabled={!formValid}
+                type="submit"
+                onClick={() => saveAddress()}
+              >
                 <img src={save} alt="Save" /> Save
               </button>
             </div>
@@ -554,7 +657,12 @@ const PersonalAccount = () => {
                   )}
                 </div>
               </div>
-              <button className="btnSave" disabled={!formValid} type="submit">
+              <button
+                className="btnSave"
+                disabled={!formValid}
+                type="submit"
+                onClick={() => saveName()}
+              >
                 <img src={save} alt="Save" /> Save
               </button>
             </div>
@@ -597,7 +705,12 @@ const PersonalAccount = () => {
                   )}
                 </div>
               </div>
-              <button className="btnSave" disabled={!formValid} type="submit">
+              <button
+                className="btnSave"
+                disabled={!formValid}
+                type="submit"
+                onClick={() => saveSurname()}
+              >
                 <img src={save} alt="Save" /> Save
               </button>
             </div>
@@ -639,7 +752,12 @@ const PersonalAccount = () => {
                   )}
                 </div>
               </div>
-              <button className="btnSave" disabled={!formValid} type="submit">
+              <button
+                className="btnSave"
+                disabled={!formValid}
+                type="submit"
+                onClick={() => saveBirthday()}
+              >
                 <img src={save} alt="Save" /> Save
               </button>
             </div>
