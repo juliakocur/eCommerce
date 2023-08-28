@@ -26,6 +26,8 @@ const PersonalAccount = () => {
   const [newEmail, setNewEmail] = useState<string>('6227968@gmail.com');
   const [password, setPassword] = useState<string>();
   const [newPassword, setNewPassword] = useState<string>('Q!w2e3r4r');
+  const [currentPassword, setCurrentPassword] = useState<string>();
+  const [repeatPassword, setRepeatPassword] = useState<string>();
   const [name, setName] = useState<string>();
   const [newName, setNewName] = useState<string>('Simon');
   const [surname, setSurname] = useState<string>();
@@ -70,6 +72,9 @@ const PersonalAccount = () => {
   );
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPasswordNew, setShowPasswordNew] = useState<boolean>(false);
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState<boolean>(false);
+  const [showCurrentPassword, setShowCurrentPassword] =
+    useState<boolean>(false);
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
@@ -215,6 +220,16 @@ const PersonalAccount = () => {
     }
   };
 
+  const passwordCurrentHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currentPassword = e.target.value;
+    setCurrentPassword(currentPassword);
+  };
+
+  const passwordRepeatHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const repeatPassword = e.target.value;
+    setRepeatPassword(repeatPassword);
+  };
+
   const nameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newName = e.target.value;
     setName(newName);
@@ -280,6 +295,14 @@ const PersonalAccount = () => {
 
   const togglePasswordVisibilityNew = () => {
     setShowPasswordNew(!showPasswordNew);
+  };
+
+  const toggleCurrentPasswordVisibility = () => {
+    setShowCurrentPassword(!showCurrentPassword);
+  };
+
+  const togglePasswordVisibilityRepeat = () => {
+    setShowPasswordRepeat(!showPasswordRepeat);
   };
 
   const getAge = (dateString: string) => {
@@ -462,7 +485,6 @@ const PersonalAccount = () => {
               <div
                 onClick={() => {
                   setOpenPassword(!openPassword);
-                  setPassword(newPassword);
                   setFormValid(true);
                 }}
               >
@@ -852,7 +874,25 @@ const PersonalAccount = () => {
               </p>
               <div className="addressContainer">
                 <div className="wrapperFieldData">
-                  <div className="descriptionUser">Password</div>
+                  <div className="descriptionUser">Current password</div>
+
+                  <div className="inputPasswordWrapper">
+                    <input
+                      onChange={(e) => passwordCurrentHandler(e)}
+                      value={currentPassword || ''}
+                      type={showCurrentPassword ? 'text' : 'password'}
+                      placeholder="Enter your current password.."
+                      className="inputRegistr"
+                    ></input>
+                    <img
+                      src={showCurrentPassword ? eye : eyeOff}
+                      alt=""
+                      onClick={toggleCurrentPasswordVisibility}
+                      className="icon"
+                    />
+                  </div>
+
+                  <div className="descriptionUser">New password</div>
                   <div className="inputPasswordWrapper">
                     <input
                       onChange={(e) => passwordHandler(e)}
@@ -860,7 +900,7 @@ const PersonalAccount = () => {
                       onBlur={(e) => blurHandler(e)}
                       name="password"
                       type={showPasswordNew ? 'text' : 'password'}
-                      placeholder="Enter your password.."
+                      placeholder="Enter your new password.."
                       className="inputRegistr"
                     ></input>
                     <img
@@ -875,6 +915,24 @@ const PersonalAccount = () => {
                       {passwordError}
                     </div>
                   )}
+
+                  <div className="descriptionUser">Repeat new password</div>
+                  <div className="inputPasswordWrapper">
+                    <input
+                      onChange={(e) => passwordRepeatHandler(e)}
+                      value={repeatPassword || ''}
+                      onBlur={(e) => blurHandler(e)}
+                      type={showPasswordRepeat ? 'text' : 'password'}
+                      placeholder="Repeat your new password.."
+                      className="inputRegistr"
+                    ></input>
+                    <img
+                      src={showPasswordRepeat ? eye : eyeOff}
+                      alt=""
+                      onClick={togglePasswordVisibilityRepeat}
+                      className="icon"
+                    />
+                  </div>
                 </div>
               </div>
               <button
