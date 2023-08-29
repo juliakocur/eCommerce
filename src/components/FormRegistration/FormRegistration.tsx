@@ -315,7 +315,7 @@ const FormRegistration = () => {
       </div>
       <div className="wrapperField">
         <div className="subTitleRegistr">
-          Пароль <span className="requiredRegistr">*</span>
+          Password <span className="requiredRegistr">*</span>
         </div>
         <div className="inputPasswordWrapper">
           <input
