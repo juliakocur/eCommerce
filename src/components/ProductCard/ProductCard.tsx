@@ -31,6 +31,7 @@ const ProductCard = ({
       <Link className="nameModel" to={`../${routes.product.path}/${id}`}>
         {current.name.en}
       </Link>
+      <div className="descriptionSneakers">{current.description.en}</div>
       <div className="wrapperPrice">
         <div className="price">
           {isHasDiscount
