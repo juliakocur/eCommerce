@@ -19,6 +19,7 @@ import {
   AppNotification,
   NotificationType,
 } from '../Notification/Notification';
+import { getAge } from '../../utils';
 
 const FormRegistration = () => {
   const dispatch = useAppDispatch();
@@ -178,17 +179,6 @@ const FormRegistration = () => {
     setShowPassword(!showPassword);
   };
 
-  const getAge = (dateString: string) => {
-    const today = new Date();
-    const birthDate = new Date(dateString);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  };
-
   const birthdayHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newBirthday = e.target.value;
     setBirthday(newBirthday);
@@ -315,7 +305,7 @@ const FormRegistration = () => {
       </div>
       <div className="wrapperField">
         <div className="subTitleRegistr">
-          Пароль <span className="requiredRegistr">*</span>
+          Password <span className="requiredRegistr">*</span>
         </div>
         <div className="inputPasswordWrapper">
           <input
