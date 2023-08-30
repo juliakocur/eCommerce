@@ -19,6 +19,7 @@ import {
   AppNotification,
   NotificationType,
 } from '../Notification/Notification';
+import { getAge } from '../../utils';
 
 const FormRegistration = () => {
   const dispatch = useAppDispatch();
@@ -176,17 +177,6 @@ const FormRegistration = () => {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
-  };
-
-  const getAge = (dateString: string) => {
-    const today = new Date();
-    const birthDate = new Date(dateString);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
   };
 
   const birthdayHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -398,6 +388,7 @@ const FormRegistration = () => {
           onBlur={(e) => blurHandler(e)}
           name="birthday"
           type="date"
+          max="1940-01-01"
         />
         {birthdayDirty && birthdayError && (
           <div className="error" style={{ color: 'red' }}>
