@@ -70,6 +70,7 @@ const ChangeBirthday = ({
               onBlur={() => setBirthdayDirty(true)}
               name="birthday"
               type="date"
+              max="1940-01-01"
             ></input>
             {birthdayDirty && birthdayError && (
               <div className="error" style={{ color: 'red' }}>

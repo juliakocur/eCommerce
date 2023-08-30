@@ -388,6 +388,7 @@ const FormRegistration = () => {
           onBlur={(e) => blurHandler(e)}
           name="birthday"
           type="date"
+          max="1940-01-01"
         />
         {birthdayDirty && birthdayError && (
           <div className="error" style={{ color: 'red' }}>
