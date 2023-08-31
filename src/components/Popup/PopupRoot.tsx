@@ -23,6 +23,7 @@ export const getRootPopup = () => {
 const Popup = ({ children, closePopup }: IPopupProps) => {
   useEffect(() => {
     const scrollTop = window.scrollY;
+    console.log(scrollTop);
     const bodyNode = document.querySelector('body');
     if (bodyNode) {
       bodyNode.style.position = 'fixed';

@@ -16,7 +16,7 @@
 }
 
 .sidebarProduct {
-  color: black;
+  color: var(--color-deep-black);
   width: 6%;
   height: 100%;
   display: flex;
@@ -28,9 +28,13 @@
 
 .cardSidebarProduct {
   width: 100%;
+  height: 70px;
   background-color: var(--color-grey);
   border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cardSidebarProduct.active {
@@ -38,12 +42,16 @@
   background-color: var(--color-white);
 }
 
-.cardSidebarProduct img {
+.imgSidebar {
+  padding: 3px;
   width: 100%;
+  height: inherit;
+  border-radius: 5px;
 }
 
 .imgProduct {
   width: 40%;
+  max-height: 460px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,14 +61,16 @@
   cursor: pointer;
 }
 
-.imgProduct img {
+.imageProduct {
   width: 100%;
+  max-height: 460px;
+  border-radius: 5px;
 }
 
 .imgProduct:hover::after {
   content: '';
   position: absolute;
-  background-color: rgba(170 170 170 / 70%);
+  background-color: var(--color-grey-transparent);
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -94,35 +104,13 @@
   gap: 30px;
 }
 
-.partText {
-  font-size: 0.94em;
-  margin: 30px 0 5px;
-}
-
-.partText.open {
-  display: flex;
-}
-
-.downText {
-  width: 16px;
-  height: 16px;
-  background: url('../../shared/assets/icons/chevron-down.svg');
-}
-
-.upText {
-  transform: rotate(180deg);
-}
-
-.textInfoProduct h3 {
+.subTitleText {
   font-size: 1.25em;
 }
 
-.textInfoProduct p {
+.partText {
   font-size: 0.94em;
-}
-
-.textInfoProduct h4 {
-  font-size: 1em;
+  margin: 30px 0 5px;
 }
 
 .typeProduct,
@@ -169,6 +157,25 @@
 
 .priceProduct {
   font-size: 2.25em;
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.currentPrice {
+  font-size: 1em;
+  color: var(--color-black);
+  font-weight: 600;
+}
+
+.discountPrice {
+  font-size: 0.625em;
+  color: var(--color-grey-light);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-red);
+  font-weight: 600;
 }
 
 .countProduct {
@@ -197,7 +204,7 @@
   justify-content: center;
   background-color: var(--color-white);
   border-radius: 3px;
-  border: 1px solid #a0a0a0;
+  border: 1px solid var(--color-grey-dark);
   cursor: pointer;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -246,20 +253,28 @@
 }
 
 .popup.active {
-  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100%;
+  justify-content: center;
+}
+
+.popupBgColor {
+  background-color: var(--color-blue-transparent);
+  position: absolute;
   width: 100%;
-  background-color: rgba(255 0 0 / 30%);
-  z-index: 10;
+  height: 100%;
 }
 
 .popupCard {
   width: 80%;
   height: 80%;
-  border: 1px solid black;
+  border: 1px solid var(--color-black);
   position: relative;
   display: flex;
   align-items: center;
@@ -270,7 +285,7 @@
   border-radius: 15px;
 }
 
-.popupCard img {
+.imgPopupCard {
   width: 10%;
   cursor: pointer;
 }
@@ -292,7 +307,7 @@
 }
 
 .cardPopupProduct {
-  color: red;
+  color: var(--color-red);
 }
 
 .windowPopUp {
@@ -300,7 +315,8 @@
   width: 100%;
   overflow: hidden;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .allPagesContainer {
@@ -312,12 +328,14 @@
   overflow: hidden;
 }
 
-.allPagesContainer img {
+.imgAllPagesContainer {
+  width: 10%;
+  cursor: pointer;
   height: 100%;
   flex: 1 1 auto;
 }
 
-.popupCard > img:hover {
+.imgPopupCard:hover {
   filter: drop-shadow(0 0 10px var(--color-grey-dark));
 }
 
@@ -358,6 +376,10 @@
   .infoProduct {
     order: 3;
     width: 100%;
+  }
+
+  .popupBgColor {
+    display: none;
   }
 
   .popup {
