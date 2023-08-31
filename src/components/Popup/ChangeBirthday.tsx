@@ -53,41 +53,39 @@ const ChangeBirthday = ({
 
   return (
     <div className="formPopup">
-      <div className="popupCard">
-        <div className="popupHeader">
-          <h2 className="titleAddress">Change the date of birth</h2>
-        </div>
-        <p className="popupText">
-          Change the data and confirm by pressing the "Save" button
-        </p>
-        <div className="addressContainer">
-          <div className="wrapperFieldData">
-            <div className="descriptionUser">Birthday</div>
-            <input
-              className="inputRegistr"
-              onChange={(e) => birthdayHandler(e)}
-              value={birthday || ''}
-              onBlur={() => setBirthdayDirty(true)}
-              name="birthday"
-              type="date"
-              max="1940-01-01"
-            ></input>
-            {birthdayDirty && birthdayError && (
-              <div className="error" style={{ color: 'red' }}>
-                {birthdayError}
-              </div>
-            )}
-          </div>
-        </div>
-        <button
-          className="btnSave"
-          disabled={!!(birthdayError || !birthday)}
-          type="submit"
-          onClick={() => saveBirthday()}
-        >
-          <img src={save} alt="Save" /> Save
-        </button>
+      <div className="popupHeader">
+        <h2 className="titleAddress">Change the date of birth</h2>
       </div>
+      <p className="popupText">
+        Change the data and confirm by pressing the "Save" button
+      </p>
+      <div className="addressContainer">
+        <div className="wrapperFieldData">
+          <div className="descriptionUser">Birthday</div>
+          <input
+            className="inputRegistr"
+            onChange={(e) => birthdayHandler(e)}
+            value={birthday || ''}
+            onBlur={() => setBirthdayDirty(true)}
+            name="birthday"
+            type="date"
+            max="1940-01-01"
+          ></input>
+          {birthdayDirty && birthdayError && (
+            <div className="error" style={{ color: 'red' }}>
+              {birthdayError}
+            </div>
+          )}
+        </div>
+      </div>
+      <button
+        className="btnSave"
+        disabled={!!(birthdayError || !birthday)}
+        type="submit"
+        onClick={() => saveBirthday()}
+      >
+        <img src={save} alt="Save" /> Save
+      </button>
     </div>
   );
 };

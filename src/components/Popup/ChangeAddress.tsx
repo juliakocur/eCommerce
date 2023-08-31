@@ -82,97 +82,95 @@ const ChangeAddress = ({ closePopup }: IPopupProps) => {
 
   return (
     <div className="formPopup">
-      <div className="popupCard">
-        <div className="popupHeader">
-          <h2 className="titleAddress">Change the address</h2>
-        </div>
-        <p className="popupText">
-          Change the data and confirm by pressing the "Save" button
-        </p>
-        <div className="addressContainer">
-          <div className="wrapperField">
-            <div className="descriptionUser">Country</div>
-            <select
-              className="countryField  select inputRegistr"
-              onChange={(e) => countryHandler(e)}
-              value={country || ''}
-              name="country"
-            >
-              <option value="US">United States</option>
-              <option value="DE">Germany</option>
-              <option value="ES">Spain</option>
-            </select>
-          </div>
-          <div className="wrapperField">
-            <div className="descriptionUser">City</div>
-            <input
-              className="inputRegistr"
-              onChange={(e) => cityHandler(e)}
-              value={city || ''}
-              onBlur={() => setCityDirty(true)}
-              name="city"
-              type="string"
-              placeholder="Enter the city.."
-            />
-            {cityDirty && cityError && (
-              <div className="error shortError" style={{ color: 'red' }}>
-                {cityError}
-              </div>
-            )}
-          </div>
-          <div className="wrapperField">
-            <div className="descriptionUser">Street</div>
-            <input
-              className="inputRegistr"
-              onChange={(e) => streetHandler(e)}
-              value={street || ''}
-              onBlur={() => setStreetDirty(true)}
-              name="street"
-              type="string"
-              placeholder="Enter the street name.."
-            />
-            {streetDirty && streetError && (
-              <div className="error shortError" style={{ color: 'red' }}>
-                {streetError}
-              </div>
-            )}
-          </div>
-          <div className="wrapperField">
-            <div className="subTitleRegistr">Postal code</div>
-            <input
-              className="inputRegistr"
-              onChange={(e) => postcodeHandler(e)}
-              value={postcode || ''}
-              onBlur={() => setPostcodeDirty(true)}
-              name="postcode"
-              type="string"
-              placeholder="Enter the postal code.."
-            />
-            {postcodeDirty && postcodeError && (
-              <div className="error shortError" style={{ color: 'red' }}>
-                {postcodeError}
-              </div>
-            )}
-          </div>
-        </div>
-        <button
-          className="btnSave"
-          disabled={
-            !!(
-              !city ||
-              !postcode ||
-              !street ||
-              cityError ||
-              postcodeError ||
-              streetError
-            )
-          }
-          type="submit"
-          onClick={() => saveAddress()}
-        >
-          <img src={save} alt="Save" /> Save
-        </button>
+      <div className="popupHeader">
+        <h2 className="titleAddress">Change the address</h2>
       </div>
+      <p className="popupText">
+        Change the data and confirm by pressing the "Save" button
+      </p>
+      <div className="addressContainer">
+        <div className="wrapperField">
+          <div className="descriptionUser">Country</div>
+          <select
+            className="countryField  select inputRegistr"
+            onChange={(e) => countryHandler(e)}
+            value={country || ''}
+            name="country"
+          >
+            <option value="US">United States</option>
+            <option value="DE">Germany</option>
+            <option value="ES">Spain</option>
+          </select>
+        </div>
+        <div className="wrapperField">
+          <div className="descriptionUser">City</div>
+          <input
+            className="inputRegistr"
+            onChange={(e) => cityHandler(e)}
+            value={city || ''}
+            onBlur={() => setCityDirty(true)}
+            name="city"
+            type="string"
+            placeholder="Enter the city.."
+          />
+          {cityDirty && cityError && (
+            <div className="error shortError" style={{ color: 'red' }}>
+              {cityError}
+            </div>
+          )}
+        </div>
+        <div className="wrapperField">
+          <div className="descriptionUser">Street</div>
+          <input
+            className="inputRegistr"
+            onChange={(e) => streetHandler(e)}
+            value={street || ''}
+            onBlur={() => setStreetDirty(true)}
+            name="street"
+            type="string"
+            placeholder="Enter the street name.."
+          />
+          {streetDirty && streetError && (
+            <div className="error shortError" style={{ color: 'red' }}>
+              {streetError}
+            </div>
+          )}
+        </div>
+        <div className="wrapperField">
+          <div className="subTitleRegistr">Postal code</div>
+          <input
+            className="inputRegistr"
+            onChange={(e) => postcodeHandler(e)}
+            value={postcode || ''}
+            onBlur={() => setPostcodeDirty(true)}
+            name="postcode"
+            type="string"
+            placeholder="Enter the postal code.."
+          />
+          {postcodeDirty && postcodeError && (
+            <div className="error shortError" style={{ color: 'red' }}>
+              {postcodeError}
+            </div>
+          )}
+        </div>
+      </div>
+      <button
+        className="btnSave"
+        disabled={
+          !!(
+            !city ||
+            !postcode ||
+            !street ||
+            cityError ||
+            postcodeError ||
+            streetError
+          )
+        }
+        type="submit"
+        onClick={() => saveAddress()}
+      >
+        <img src={save} alt="Save" /> Save
+      </button>
     </div>
   );
 };

@@ -49,41 +49,39 @@ const ChangeEmail = ({
   };
   return (
     <div className="formPopup">
-      <div className="popupCard">
-        <div className="popupHeader">
-          <h2 className="titleAddress">Change the email</h2>
-        </div>
-        <p className="popupText">
-          Change the data and confirm by pressing the "Save" button
-        </p>
-        <div className="addressContainer">
-          <div className="wrapperFieldData">
-            <div className="descriptionUser">Email</div>
-            <input
-              onChange={(e) => emailHandler(e)}
-              value={email || ''}
-              onBlur={() => setEmailDirty(true)}
-              name="email"
-              type="text"
-              placeholder="Enter your email.."
-              className="inputRegistr"
-            ></input>
-            {emailDirty && emailError && (
-              <div className="error" style={{ color: 'red' }}>
-                {emailError}
-              </div>
-            )}
-          </div>
-        </div>
-        <button
-          className="btnSave"
-          disabled={!!(!email || emailError)}
-          type="submit"
-          onClick={() => saveEmail()}
-        >
-          <img src={save} alt="Save" /> Save
-        </button>
+      <div className="popupHeader">
+        <h2 className="titleAddress">Change the email</h2>
       </div>
+      <p className="popupText">
+        Change the data and confirm by pressing the "Save" button
+      </p>
+      <div className="addressContainer">
+        <div className="wrapperFieldData">
+          <div className="descriptionUser">Email</div>
+          <input
+            onChange={(e) => emailHandler(e)}
+            value={email || ''}
+            onBlur={() => setEmailDirty(true)}
+            name="email"
+            type="text"
+            placeholder="Enter your email.."
+            className="inputRegistr"
+          ></input>
+          {emailDirty && emailError && (
+            <div className="error" style={{ color: 'red' }}>
+              {emailError}
+            </div>
+          )}
+        </div>
+      </div>
+      <button
+        className="btnSave"
+        disabled={!!(!email || emailError)}
+        type="submit"
+        onClick={() => saveEmail()}
+      >
+        <img src={save} alt="Save" /> Save
+      </button>
     </div>
   );
 };
