@@ -55,41 +55,39 @@ const ChangeSurname = ({
 
   return (
     <div className="formPopup">
-      <div className="popupCard">
-        <div className="popupHeader">
-          <h2 className="titleAddress">Change the surname</h2>
-        </div>
-        <p className="popupText">
-          Change the data and confirm by pressing the "Save" button
-        </p>
-        <div className="addressContainer">
-          <div className="wrapperFieldData">
-            <div className="descriptionUser">Surname</div>
-            <input
-              className="inputRegistr"
-              onChange={(e) => surnameHandler(e)}
-              value={surname || ''}
-              onBlur={() => setSurnameDirty(true)}
-              name="surname"
-              type="text"
-              placeholder="Enter your surname.."
-            ></input>
-            {surnameDirty && surnameError && (
-              <div className="error shortError" style={{ color: 'red' }}>
-                {surnameError}
-              </div>
-            )}
-          </div>
-        </div>
-        <button
-          className="btnSave"
-          disabled={!!(!surname || surnameError)}
-          type="submit"
-          onClick={() => saveSurname()}
-        >
-          <img src={save} alt="Save" /> Save
-        </button>
+      <div className="popupHeader">
+        <h2 className="titleAddress">Change the surname</h2>
       </div>
+      <p className="popupText">
+        Change the data and confirm by pressing the "Save" button
+      </p>
+      <div className="addressContainer">
+        <div className="wrapperFieldData">
+          <div className="descriptionUser">Surname</div>
+          <input
+            className="inputRegistr"
+            onChange={(e) => surnameHandler(e)}
+            value={surname || ''}
+            onBlur={() => setSurnameDirty(true)}
+            name="surname"
+            type="text"
+            placeholder="Enter your surname.."
+          ></input>
+          {surnameDirty && surnameError && (
+            <div className="error shortError" style={{ color: 'red' }}>
+              {surnameError}
+            </div>
+          )}
+        </div>
+      </div>
+      <button
+        className="btnSave"
+        disabled={!!(!surname || surnameError)}
+        type="submit"
+        onClick={() => saveSurname()}
+      >
+        <img src={save} alt="Save" /> Save
+      </button>
     </div>
   );
 };

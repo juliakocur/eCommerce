@@ -58,41 +58,39 @@ const ChangeName = ({
 
   return (
     <div className="formPopup">
-      <div className="popupCard">
-        <div className="popupHeader">
-          <h2 className="titleAddress">Change the name</h2>
-        </div>
-        <p className="popupText">
-          Change the data and confirm by pressing the "Save" button
-        </p>
-        <div className="addressContainer">
-          <div className="wrapperFieldData">
-            <div className="descriptionUser">Name</div>
-            <input
-              className="inputRegistr"
-              onChange={(e) => nameHandler(e)}
-              value={name || ''}
-              onBlur={() => setNameDirty(true)}
-              name="name"
-              type="text"
-              placeholder="Enter your name.."
-            ></input>
-            {nameDirty && nameError && (
-              <div className="error shortError" style={{ color: 'red' }}>
-                {nameError}
-              </div>
-            )}
-          </div>
-        </div>
-        <button
-          className="btnSave"
-          disabled={!!(nameError || !name)}
-          type="button"
-          onClick={() => saveName()}
-        >
-          <img src={save} alt="Save" /> Save
-        </button>
+      <div className="popupHeader">
+        <h2 className="titleAddress">Change the name</h2>
       </div>
+      <p className="popupText">
+        Change the data and confirm by pressing the "Save" button
+      </p>
+      <div className="addressContainer">
+        <div className="wrapperFieldData">
+          <div className="descriptionUser">Name</div>
+          <input
+            className="inputRegistr"
+            onChange={(e) => nameHandler(e)}
+            value={name || ''}
+            onBlur={() => setNameDirty(true)}
+            name="name"
+            type="text"
+            placeholder="Enter your name.."
+          ></input>
+          {nameDirty && nameError && (
+            <div className="error shortError" style={{ color: 'red' }}>
+              {nameError}
+            </div>
+          )}
+        </div>
+      </div>
+      <button
+        className="btnSave"
+        disabled={!!(nameError || !name)}
+        type="button"
+        onClick={() => saveName()}
+      >
+        <img src={save} alt="Save" /> Save
+      </button>{' '}
     </div>
   );
 };

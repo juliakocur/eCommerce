@@ -120,120 +120,118 @@ const ChangePassword = ({
 
   return (
     <div className="formPopup">
-      <div className="popupCard">
-        <div className="popupHeader">
-          <h2 className="titleAddress">Change the password</h2>
-        </div>
-        <p className="popupText">
-          Change the data and confirm by pressing the "Save" button
-        </p>
-        <div className="addressContainer">
-          <div className="wrapperFieldData">
-            <div className="wrapperField">
-              <div className="subTitleRegistr">
-                Current password <span className="requiredRegistr">*</span>
-              </div>
-              <div className="inputPasswordWrapper">
-                <input
-                  className="inputRegistr"
-                  onChange={(e) => currentPasswordHandler(e)}
-                  value={currentPassword || ''}
-                  onBlur={() => setCurrentPasswordDirty(true)}
-                  name="current-password"
-                  type={showCurrentPassword ? 'text' : 'password'}
-                  placeholder="Enter your current password.."
-                />
-
-                <img
-                  src={showCurrentPassword ? eye : eyeOff}
-                  alt=""
-                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                  className="icon"
-                />
-              </div>
-              {currentPasswordDirty && currentPasswordError && (
-                <div className="error" style={{ color: 'red' }}>
-                  {currentPasswordError}
-                </div>
-              )}
+      <div className="popupHeader">
+        <h2 className="titleAddress">Change the password</h2>
+      </div>
+      <p className="popupText">
+        Change the data and confirm by pressing the "Save" button
+      </p>
+      <div className="addressContainer">
+        <div className="wrapperFieldData">
+          <div className="wrapperField">
+            <div className="subTitleRegistr">
+              Current password <span className="requiredRegistr">*</span>
             </div>
-            <div className="wrapperField" style={{ marginTop: '40px' }}>
-              <div className="subTitleRegistr">
-                New password <span className="requiredRegistr">*</span>
-              </div>
-              <div className="inputPasswordWrapper">
-                <input
-                  className="inputRegistr"
-                  onChange={(e) => passwordHandler(e)}
-                  value={password || ''}
-                  onBlur={() => setPasswordDirty(true)}
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter your new password.."
-                />
+            <div className="inputPasswordWrapper">
+              <input
+                className="inputRegistr"
+                onChange={(e) => currentPasswordHandler(e)}
+                value={currentPassword || ''}
+                onBlur={() => setCurrentPasswordDirty(true)}
+                name="current-password"
+                type={showCurrentPassword ? 'text' : 'password'}
+                placeholder="Enter your current password.."
+              />
 
-                <img
-                  src={showPassword ? eye : eyeOff}
-                  alt=""
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="icon"
-                />
-              </div>
-              {passwordDirty && passwordError && (
-                <div className="error" style={{ color: 'red' }}>
-                  {passwordError}
-                </div>
-              )}
+              <img
+                src={showCurrentPassword ? eye : eyeOff}
+                alt=""
+                onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                className="icon"
+              />
             </div>
-
-            <div className="wrapperField" style={{ marginTop: '40px' }}>
-              <div className="subTitleRegistr">
-                Repeat new password <span className="requiredRegistr">*</span>
+            {currentPasswordDirty && currentPasswordError && (
+              <div className="error" style={{ color: 'red' }}>
+                {currentPasswordError}
               </div>
-              <div className="inputPasswordWrapper">
-                <input
-                  className="inputRegistr"
-                  onChange={(e) => passwordRepeatHandler(e)}
-                  value={repeatPassword || ''}
-                  onBlur={() => setRepeatPasswordDirty(true)}
-                  name="repeat-password"
-                  type={showPasswordRepeat ? 'text' : 'password'}
-                  placeholder="Repeat your password.."
-                />
-
-                <img
-                  src={showPasswordRepeat ? eye : eyeOff}
-                  alt=""
-                  onClick={() => setShowPasswordRepeat(!showPasswordRepeat)}
-                  className="icon"
-                />
-              </div>
-              {repeatPasswordDirty && repeatPasswordError && (
-                <div className="error" style={{ color: 'red' }}>
-                  {repeatPasswordError}
-                </div>
-              )}
+            )}
+          </div>
+          <div className="wrapperField" style={{ marginTop: '40px' }}>
+            <div className="subTitleRegistr">
+              New password <span className="requiredRegistr">*</span>
             </div>
+            <div className="inputPasswordWrapper">
+              <input
+                className="inputRegistr"
+                onChange={(e) => passwordHandler(e)}
+                value={password || ''}
+                onBlur={() => setPasswordDirty(true)}
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Enter your new password.."
+              />
+
+              <img
+                src={showPassword ? eye : eyeOff}
+                alt=""
+                onClick={() => setShowPassword(!showPassword)}
+                className="icon"
+              />
+            </div>
+            {passwordDirty && passwordError && (
+              <div className="error" style={{ color: 'red' }}>
+                {passwordError}
+              </div>
+            )}
+          </div>
+
+          <div className="wrapperField" style={{ marginTop: '40px' }}>
+            <div className="subTitleRegistr">
+              Repeat new password <span className="requiredRegistr">*</span>
+            </div>
+            <div className="inputPasswordWrapper">
+              <input
+                className="inputRegistr"
+                onChange={(e) => passwordRepeatHandler(e)}
+                value={repeatPassword || ''}
+                onBlur={() => setRepeatPasswordDirty(true)}
+                name="repeat-password"
+                type={showPasswordRepeat ? 'text' : 'password'}
+                placeholder="Repeat your password.."
+              />
+
+              <img
+                src={showPasswordRepeat ? eye : eyeOff}
+                alt=""
+                onClick={() => setShowPasswordRepeat(!showPasswordRepeat)}
+                className="icon"
+              />
+            </div>
+            {repeatPasswordDirty && repeatPasswordError && (
+              <div className="error" style={{ color: 'red' }}>
+                {repeatPasswordError}
+              </div>
+            )}
           </div>
         </div>
-        <button
-          className="btnSave"
-          disabled={
-            !!(
-              !password ||
-              !repeatPassword ||
-              passwordError ||
-              repeatPasswordError ||
-              !currentPassword ||
-              currentPasswordError
-            )
-          }
-          type="submit"
-          onClick={() => savePassword()}
-        >
-          <img src={save} alt="Save" /> Save
-        </button>
       </div>
+      <button
+        className="btnSave"
+        disabled={
+          !!(
+            !password ||
+            !repeatPassword ||
+            passwordError ||
+            repeatPasswordError ||
+            !currentPassword ||
+            currentPasswordError
+          )
+        }
+        type="submit"
+        onClick={() => savePassword()}
+      >
+        <img src={save} alt="Save" /> Save
+      </button>
     </div>
   );
 };

@@ -23,7 +23,6 @@ export const getRootPopup = () => {
 const Popup = ({ children, closePopup }: IPopupProps) => {
   useEffect(() => {
     const scrollTop = window.scrollY;
-    console.log(scrollTop);
     const bodyNode = document.querySelector('body');
     if (bodyNode) {
       bodyNode.style.position = 'fixed';
@@ -44,7 +43,7 @@ const Popup = ({ children, closePopup }: IPopupProps) => {
 
   return createPortal(
     <div className="popupContainer">
-      <div className="popup-bg" onClick={closePopup}></div>
+      <div className="popupBg" onClick={closePopup}></div>
       <div className="popupBody">
         <img src={close} alt="" onClick={closePopup} className="popupClose" />
         <div className="popup-content">{children}</div>
