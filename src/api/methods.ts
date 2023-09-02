@@ -4,6 +4,7 @@ import {
   buildClientWithPasswordFlow,
   customerApiRoot,
 } from './BuildClient';
+import { BaseAddress } from '@commercetools/platform-sdk';
 
 export const loginCustomer = (email: string, password: string) => {
   return customerApiRoot.login().post({ body: { email, password } }).execute();
@@ -140,3 +141,71 @@ export const getCategories = () => apiRoot.categories().get().execute();
 
 export const getProductById = (id: string) =>
   apiRoot.products().withId({ ID: id }).get().execute();
+
+export const updateAddress = (
+  customerID: string,
+  version: number,
+  value: BaseAddress,
+  addressId: string
+) => {
+  return customerApiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version: version,
+        actions: [
+          {
+            action: 'changeAddress',
+            addressId: addressId,
+            address: value,
+          },
+        ],
+      },
+    })
+    .execute();
+};
+
+export const addAddress = (
+  customerID: string,
+  version: number,
+  value: BaseAddress
+) => {
+  return customerApiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version: version,
+        actions: [
+          {
+            action: 'addAddress',
+            address: value,
+          },
+        ],
+      },
+    })
+    .execute();
+};
+
+export const deleteAddress = (
+  customerID: string,
+  version: number,
+  addressId: string
+) => {
+  return customerApiRoot
+    .customers()
+    .withId({ ID: customerID })
+    .post({
+      body: {
+        version: version,
+        actions: [
+          {
+            action: 'removeAddress',
+            addressId: addressId,
+          },
+        ],
+      },
+    })
+    .execute();
+};

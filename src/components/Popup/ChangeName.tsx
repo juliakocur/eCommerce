@@ -90,7 +90,7 @@ const ChangeName = ({
         onClick={() => saveName()}
       >
         <img src={save} alt="Save" /> Save
-      </button>{' '}
+      </button>
     </div>
   );
 };

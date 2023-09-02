@@ -1,5 +1,5 @@
 import './LoginPage.scss';
-import loginImg from '../../shared/assets/icons/login.png';
+import loginImg from '../../shared/assets/images/login.png';
 import FormLogin from '../../components/FormLogin/FormLogin';
 
 const LoginPage = () => {
