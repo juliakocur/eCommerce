@@ -127,6 +127,17 @@ input[type='date']::-webkit-calendar-picker-indicator {
   padding-right: 20px;
 }
 
+.checkBoxes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .labelCheckbox {
+    gap: 10px;
+  }
+}
+
 @media (max-width: 640px) {
   .formRegistr {
     width: 100%;

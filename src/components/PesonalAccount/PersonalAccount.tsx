@@ -11,13 +11,14 @@ import { getDataUser } from '../../api/methods';
 import { Customer } from '@commercetools/platform-sdk';
 import ChangeEmail from '../Popup/ChangeEmail';
 import ChangePassword from '../Popup/ChangePassword';
-import ChangeAddress from '../Popup/ChangeAddress';
+import Address from './Address';
+import AddAddress from '../Popup/AddAddress';
 
 const PersonalAccount = () => {
   const [userData, setUserData] = useState<Customer | null>(null);
   const { isCustomer } = useAppSelector((state) => state.customer);
   const [isUpdateData, setIsUpdateData] = useState(true);
-  const [open, setOpen] = useState(false);
+  const [openAddress, setOpenAddress] = useState(false);
   const [openName, setOpenName] = useState(false);
   const [openSurname, setOpenSurname] = useState(false);
   const [openBirthday, setOpenBirthday] = useState(false);
@@ -140,68 +141,45 @@ const PersonalAccount = () => {
               />
             </div>
           </div>
-          <h2 className="titleAddress">
-            Address{' '}
-            <span
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              change
-            </span>
-          </h2>
-          <div className="addressContainer">
-            <div className="wrapperField">
-              <div className="descriptionUser">Country</div>
-              <input
-                className=" countryField shortInput select inputRegistr"
-                disabled
-                value={'US'}
-              ></input>
-            </div>
-            <div className="wrapperField">
-              <div className="descriptionUser">City</div>
-              <input
-                className="shortInput inputRegistr"
-                name="city"
-                type="string"
-                disabled
-                value={'NY'}
-              />
-            </div>
-            <div className="wrapperField">
-              <div className="descriptionUser">Street</div>
-              <input
-                className="shortInput inputRegistr"
-                name="street"
-                type="string"
-                value={'Avenue 12'}
-                disabled
-              />
-            </div>
-            <div className="wrapperField">
-              <div className="subTitleRegistr">Postal code</div>
-              <input
-                className="shortInput inputRegistr"
-                name="postcode"
-                type="string"
-                value={'12345'}
-                disabled
-              />
-            </div>
-          </div>
-          <button className="btnAddressAdd" onClick={() => setOpen(!open)}>
+          <>
+            {!!userData?.addresses.length &&
+              userData.addresses.map((el) => (
+                <Address
+                  info={el}
+                  key={el.id}
+                  version={userData.version}
+                  setIsUpdate={setIsUpdateData}
+                />
+              ))}
+          </>
+          <button
+            className="btnAddressAdd"
+            onClick={() => setOpenAddress(!openAddress)}
+            type="button"
+          >
             <img src={plus} alt="Add" /> Add address
           </button>
         </form>
       </div>
+      {openAddress && (
+        <PopupRoot
+          closePopup={() => setOpenAddress(!openAddress)}
+          children={
+            <AddAddress
+              closePopup={() => setOpenAddress(!openAddress)}
+              setIsUpdate={setIsUpdateData}
+              version={userData?.version}
+            />
+          }
+        />
+      )}
       {openName && (
         <PopupRoot
           closePopup={() => setOpenName(!openName)}
           children={
             <ChangeName
               closePopup={() => setOpenName(!openName)}
-              version={userData.version}
+              version={userData?.version}
               setIsUpdate={setIsUpdateData}
             />
           }
@@ -213,7 +191,7 @@ const PersonalAccount = () => {
           children={
             <ChangeSurname
               closePopup={() => setOpenSurname(!openSurname)}
-              version={userData.version}
+              version={userData?.version}
               setIsUpdate={setIsUpdateData}
             />
           }
@@ -225,7 +203,7 @@ const PersonalAccount = () => {
           children={
             <ChangeBirthday
               closePopup={() => setOpenBirthday(!openBirthday)}
-              version={userData.version}
+              version={userData?.version}
               setIsUpdate={setIsUpdateData}
             />
           }
@@ -237,7 +215,7 @@ const PersonalAccount = () => {
           children={
             <ChangeEmail
               closePopup={() => setOpenEmail(!openEmail)}
-              version={userData.version}
+              version={userData?.version}
               setIsUpdate={setIsUpdateData}
             />
           }
@@ -249,16 +227,10 @@ const PersonalAccount = () => {
           children={
             <ChangePassword
               closePopup={() => setOpenPassword(!openPassword)}
-              version={userData.version}
+              version={userData?.version}
               setIsUpdate={setIsUpdateData}
             />
           }
-        />
-      )}
-      {open && (
-        <PopupRoot
-          closePopup={() => setOpen(!open)}
-          children={<ChangeAddress closePopup={() => setOpen(!open)} />}
         />
       )}
     </div>

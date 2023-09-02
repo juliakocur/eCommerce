@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import save from '../../shared/assets/icons/save.svg';
-import { getAge } from '../../utils/index';
+import { getAge } from '../../utils';
 import { IPropsChangeUserData } from './ChangeName';
 import { changeBirthday } from '../../api/methods';
 import { useAppSelector } from '../../store';
@@ -69,7 +69,6 @@ const ChangeBirthday = ({
             onBlur={() => setBirthdayDirty(true)}
             name="birthday"
             type="date"
-            max="1940-01-01"
           ></input>
           {birthdayDirty && birthdayError && (
             <div className="error" style={{ color: 'red' }}>

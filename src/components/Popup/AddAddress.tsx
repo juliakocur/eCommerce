@@ -1,40 +1,29 @@
 import { useState } from 'react';
+import save from '../../shared/assets/icons/save.svg';
 import {
   germanRegex,
   nameRegex,
   spanishRegex,
   usRegex,
 } from '../../shared/constants/Constants';
-import save from '../../shared/assets/icons/save.svg';
-import { IPropsChangeUserData } from './ChangeName';
-import { Address } from '@commercetools/platform-sdk';
-import { updateAddress } from '../../api/methods';
 import { useAppSelector } from '../../store';
+import { IPropsChangeUserData } from './ChangeName';
+import { addAddress } from '../../api/methods';
 import {
   AppNotification,
   NotificationType,
 } from '../Notification/Notification';
 
-interface IPropsChangeAddress extends IPropsChangeUserData {
-  info: Address;
-}
-const ChangeAddress = ({
+const AddAddress = ({
   closePopup,
-  info,
   setIsUpdate,
   version,
-}: IPropsChangeAddress) => {
+}: IPropsChangeUserData) => {
   const { userId } = useAppSelector((state) => state.auth);
-  const [country, setCountry] = useState<string>(
-    info?.country ? info.country : 'US'
-  );
-  const [city, setCity] = useState<string>(info?.city ? info.city : '');
-  const [street, setStreet] = useState<string>(
-    info?.streetName ? info.streetName : ''
-  );
-  const [postcode, setPostcode] = useState<string>(
-    info?.postalCode ? info.postalCode : ''
-  );
+  const [country, setCountry] = useState<string>('US');
+  const [city, setCity] = useState<string>('');
+  const [street, setStreet] = useState<string>('');
+  const [postcode, setPostcode] = useState<string>('');
   const [cityDirty, setCityDirty] = useState<boolean>(false);
   const [streetDirty, setStreetDirty] = useState<boolean>(false);
   const [postcodeDirty, setPostcodeDirty] = useState<boolean>(false);
@@ -95,23 +84,23 @@ const ChangeAddress = ({
   };
 
   const saveAddress = () => {
-    updateAddress(
-      userId,
-      version,
-      {
-        country,
-        city,
-        streetName: street,
-        postalCode: postcode,
-      },
-      info.id
-    )
+    addAddress(userId, version, {
+      country,
+      city,
+      streetName: street,
+      postalCode: postcode,
+    })
       .then(() => {
         setIsUpdate(true);
         closePopup();
         AppNotification({
-          msg: 'Address changed!',
+          msg: 'Address added!',
           type: NotificationType.success,
+        });
+      })
+      .catch((e) => {
+        AppNotification({
+          msg: e?.message,
         });
       })
       .catch((e) => {
@@ -216,4 +205,4 @@ const ChangeAddress = ({
   );
 };
 
-export default ChangeAddress;
+export default AddAddress;
