@@ -123,17 +123,21 @@ const ProductDetailPage = () => {
                 <div className="typeProduct">
                   <h4>Size:</h4>
                   <div className="blockTypeProduct">
-                    {data.variants.map((el) => (
-                      <div
-                        className={`btnTypeProduct ${
-                          param === el.id ? 'active' : ''
-                        }`}
-                        key={`param-${el.id}`}
-                        onClick={() => setParam(el.id)}
-                      >
-                        {el.key}
-                      </div>
-                    ))}
+                    {data.variants
+                      .sort(
+                        (a, b) => a.attributes[0].value - b.attributes[0].value
+                      )
+                      .map((el) => (
+                        <div
+                          className={`btnTypeProduct ${
+                            param === el.id ? 'active' : ''
+                          }`}
+                          key={`param-${el.id}`}
+                          onClick={() => setParam(el.id)}
+                        >
+                          {el.attributes[0].value}
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>

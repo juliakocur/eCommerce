@@ -1,37 +1,35 @@
 import './MainPage.scss';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import search from '../../shared/assets/icons/search.svg';
 import arrow from '../../shared/assets/icons/arrow.svg';
 import { getCategories, getProductList } from '../../api/methods';
 import { Product, Category } from '@commercetools/platform-sdk';
 
-interface IFilter {
-  name: string;
-  id: number;
-}
-
-const filters: IFilter[] = [
-  { name: 'filter 1', id: 1 },
-  { name: 'filter 2', id: 2 },
-  { name: 'filter 3', id: 3 },
-  { name: 'filter 4', id: 4 },
-];
+const allSize = [38, 39, 40, 41, 42, 43];
 
 const MainPage = () => {
   const [listProduct, setListProduct] = useState<[] | Product[]>([]);
-  const [filter, setFilter] = useState<number | null>(null);
-  const [open, setOpen] = useState(false);
+  const [openCategories, setOpenCategories] = useState(false);
+  const [openSizes, setOpenSizes] = useState(false);
   const [category, setCategory] = useState<Category | null>(null);
+  const [size, setSize] = useState<number | null>(null);
   const [allCategories, setAllCategories] = useState<Category[] | []>([]);
+  const [suggestions, setSuggestions] = useState<[] | Product[]>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
   const clickHandler = (cat: Category) => {
     setCategory(cat);
-    setOpen(false);
+    setOpenCategories(false);
   };
 
   const getListProductItems = async () => {
-    await getProductList()
-      .then(({ body }) => setListProduct(body.results))
+    await getProductList(
+      category ? category.id : undefined,
+      size ? size : undefined
+    )
+      .then(({ body }) => {
+        setListProduct(body.results);
+      })
       .catch(() => setListProduct([]));
   };
 
@@ -46,58 +44,112 @@ const MainPage = () => {
     getListProductItems();
   }, []);
 
+  useEffect(() => {
+    if (category || size) {
+      getListProductItems();
+    }
+  }, [category, size]);
+
+  const searchHandler = useCallback(() => {
+    if (searchValue && listProduct.length) {
+      setSuggestions(
+        listProduct.filter(
+          (el: Product) =>
+            el.masterData.current.name.en
+              .toLowerCase()
+              .indexOf(searchValue.toLowerCase()) !== -1
+        )
+      );
+    } else if (listProduct.length) {
+      setSuggestions(listProduct);
+    } else {
+      setSuggestions([]);
+    }
+  }, [searchValue, listProduct]);
+
+  useEffect(() => {
+    searchHandler();
+  }, [searchValue, searchHandler]);
+
   return (
     <div className="mainPage">
       <div className="header">
-        {!!allCategories.length && (
-          <div
-            className={`dropdown`}
-            onClick={() => {
-              setOpen(!open);
-            }}
-          >
-            <div className="dropBtn">
-              {category ? category?.name.en : 'Categories'}
-              <img
-                src={arrow}
-                alt=""
-                className={`arrow ${open ? 'upArrow' : ''}`}
-              />
-            </div>
-            {!!open && (
-              <div className="dropdownContent">
-                {allCategories.map((el) => (
-                  <div
-                    className={`dropLink`}
-                    onClick={() => clickHandler(el)}
-                    key={el.slug.en}
-                  >
-                    {el.name.en}
-                  </div>
-                ))}
+        <div className="listFilters">
+          {!!allCategories.length && (
+            <div
+              className={`dropdown`}
+              onClick={() => {
+                setOpenCategories(!openCategories);
+              }}
+            >
+              <div className="dropBtn">
+                {category ? category?.name.en : 'Categories'}
+                <img
+                  src={arrow}
+                  alt=""
+                  className={`arrow ${openCategories ? 'upArrow' : ''}`}
+                />
               </div>
-            )}
-          </div>
-        )}
+              {!!openCategories && (
+                <div className="dropdownContent">
+                  {allCategories.map((el) => (
+                    <div
+                      className={`dropLink`}
+                      onClick={() => clickHandler(el)}
+                      key={el.slug.en}
+                    >
+                      {el.name.en}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          {!!allCategories.length && (
+            <div
+              className={`dropdown`}
+              onClick={() => {
+                setOpenSizes(!openSizes);
+              }}
+            >
+              <div className="dropBtn">
+                {size ? size : 'Size'}
+                <img
+                  src={arrow}
+                  alt=""
+                  className={`arrow ${openSizes ? 'upArrow' : ''}`}
+                />
+              </div>
+              {!!openSizes && (
+                <div className="dropdownContent">
+                  {allSize.map((el) => (
+                    <div
+                      className={`dropLink`}
+                      onClick={() => setSize(el)}
+                      key={el}
+                    >
+                      {el}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
         <div className="searchForm">
-          <input type="text" placeholder="Search..." className="searchInput" />
+          <input
+            type="text"
+            placeholder="Search..."
+            className="searchInput"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
           <img src={search} alt="search" className="searchImg" />
         </div>
       </div>
-      <div className="wrapperFilter">
-        {filters.map((el) => (
-          <div
-            className={`innerFilter ${el.id === filter ? 'active' : ''}`}
-            key={`filter-${el.id}`}
-            onClick={() => setFilter(el.id)}
-          >
-            {el.name}
-          </div>
-        ))}
-      </div>
       <div className="wrapperCardsProducts">
-        {!!listProduct.length &&
-          listProduct.map((el) => <ProductCard info={el} key={el.id} />)}
+        {!!suggestions.length &&
+          suggestions.map((el) => <ProductCard info={el} key={el.id} />)}
       </div>
     </div>
   );

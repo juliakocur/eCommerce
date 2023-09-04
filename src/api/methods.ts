@@ -122,7 +122,33 @@ export const getDataUser = () => {
   return customerApiRoot.me().get().execute();
 };
 
-export const getProductList = () => apiRoot.products().get().execute();
+export const getProductList = (
+  category: string = '',
+  size: number | null = null
+) => {
+  let params = ``;
+  if (category && size) {
+    params = `masterData(current(categories(id="${category}") and variants(attributes(value = ${size}))))`;
+  } else if (category) {
+    params = `masterData(current(categories(id="${category}")))`;
+  } else if (size) {
+    params = `masterData(current(variants(attributes(value=${size}))))`;
+  }
+
+  return apiRoot
+    .products()
+    .get(
+      params
+        ? {
+            queryArgs: {
+              where: params,
+              limit: 30,
+            },
+          }
+        : { queryArgs: { limit: 30 } }
+    )
+    .execute();
+};
 
 export const createUser = async (user: IUserData) => {
   await apiRoot

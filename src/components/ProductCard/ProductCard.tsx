@@ -13,8 +13,9 @@ const ProductCard = ({
   },
 }: IProps) => {
   const navigate = useNavigate();
-  const currentDataPrice = current.variants[0].prices[0].value.centAmount / 100;
-  const isHasDiscount = !!current.variants[0].prices[0].discounted.discount;
+  const currentDataPrice =
+    current.masterVariant.prices[0].value.centAmount / 100;
+  const isHasDiscount = !!current.masterVariant.prices[0].discounted.discount;
 
   return (
     <div className="wrapperCard">
@@ -24,7 +25,7 @@ const ProductCard = ({
       >
         <img
           className="imgSneakers"
-          src={current.variants[0].images[0].url}
+          src={current.masterVariant.images[0].url}
           alt=""
         />
       </div>
@@ -35,7 +36,7 @@ const ProductCard = ({
       <div className="wrapperPrice">
         <div className="price">
           {isHasDiscount
-            ? current.variants[0].prices[0].discounted.value.centAmount / 100
+            ? current.masterVariant.prices[0].discounted.value.centAmount / 100
             : currentDataPrice}{' '}
           €
         </div>
