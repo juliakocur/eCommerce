@@ -42,7 +42,7 @@ const ProductCard = ({
         </div>
         {isHasDiscount && <div className="oldPrice">{currentDataPrice} €</div>}
       </div>
-      <div className="basket">Add basket</div>
+      <div className="basket">Add to cart</div>
     </div>
   );
 };

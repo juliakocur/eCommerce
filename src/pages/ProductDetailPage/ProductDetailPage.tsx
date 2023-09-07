@@ -177,7 +177,7 @@ const ProductDetailPage = () => {
                     +
                   </div>
                 </div>
-                <div className="addCartProduct">Add basket</div>
+                <div className="addCartProduct">Add to cart</div>
               </div>
             </div>
           </div>
