@@ -25,7 +25,7 @@ const developers: IDeveloper[] = [
   },
   {
     name: 'Ilya Dovgulucky',
-    text: 'Works as a c# back-end developer. Now expanding the knowledge of frontend development, since think to create high performance web applications is worth to know how both parties work. Did a great job with the product page, implemented a slider for product images received from the commercetools API and also provided the page with an adaptive, which allowed on desktop screens to zoom in on the image of the selected product. Also implemented a user-friendly 404 (Not Found) page for invalid route requests.',
+    text: 'Quite recently came to conquer the IT world. Starting from training at stage #0, went through an interesting journey with the RSSchool, learning a lot of new things. Did a great job with the product page, implemented a slider for product images received from the commercetools API and also provided the page with an adaptive, which allowed on desktop screens to zoom in on the image of the selected product. Also implemented a user-friendly 404 (Not Found) page for invalid route requests.',
     image: il,
     git: 'https://github.com/DovguLucky',
   },
