@@ -1,3 +1,31 @@
 .aboutUsPage {
-  color: orange;
+  margin: 80px 0;
+}
+
+.rslogo {
+  max-width: 110px;
+}
+
+.titleLogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.projectDescription {
+  color: var(--color-grey-light);
+  margin-bottom: 20px;
+}
+
+.developers {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1077px) {
+  .developers {
+    justify-content: space-around;
+  }
 }

@@ -15,3 +15,14 @@ export interface IUserData {
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
 }
+
+export interface IDeveloper {
+  name: string;
+  text: string;
+  image: string;
+  git: string;
+}
+
+export interface IDeveloperProps {
+  developer: IDeveloper;
+}
