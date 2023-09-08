@@ -1,3 +1,351 @@
 .cartPage {
-  color: blue;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.cartWrapper {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.cartBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 3%;
+  width: 100%;
+}
+
+.cartProducts {
+  width: 66%;
+}
+
+.cartTitle {
+  font-size: 2.5em;
+}
+
+.cartProductsBox {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.removeAllCart {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 100%;
+  font-size: 0.875em;
+  line-height: 16px;
+  border-bottom: 2px solid var(--color-grey);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.textRemoveAllCart:hover {
+  color: var(--color-red);
+  cursor: pointer;
+}
+
+.cartProductsItem {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--color-grey);
+  padding: 20px 0;
+  margin-bottom: 20px;
+  gap: 4%;
+}
+
+.propertyItemCart {
+  display: flex;
+  justify-content: space-between;
+  gap: 4%;
+  width: 80%;
+}
+
+.aboutItemCart {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  gap: 20px;
+}
+
+.imgItemCart {
+  display: flex;
+  flex: 0 1 auto;
+}
+
+.imageItemCart {
+  width: 100px;
+  height: 100px;
+}
+
+.textItemCart {
+  width: 100%;
+  max-width: 214px;
+}
+
+.titleItemCart {
+  font-size: 0.94em;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: 0.15px;
+}
+
+.subtitleItemCart {
+  font-size: 0.875em;
+  color: var(--color-grey-dark);
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.21px;
+}
+
+.countProductCart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  background-color: var(--color-grey);
+  padding: 4px;
+  flex: 0 1 274px;
+}
+
+.numbCountProductCart {
+  font-size: 1em;
+  font-weight: 600;
+  cursor: default;
+}
+
+.prevCountProductCart,
+.nextCountProductCart {
+  height: 83%;
+  width: 28%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  border-radius: 3px;
+  border: 1px solid var(--color-grey-dark);
+  cursor: pointer;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.prevCountProductCart:hover,
+.nextCountProductCart:hover {
+  border: 1px solid var(--color-red);
+  color: var(--color-red);
+}
+
+.priceItemCart {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 5px;
+}
+
+.currentPriceItemCart {
+  font-size: 1.5em;
+  text-align: right;
+}
+
+.discountPriceItemCart {
+  color: var(--color-grey-dark);
+  text-align: right;
+  font-size: 0.875em;
+  text-decoration-line: line-through;
+}
+
+.removeItemCart {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-grey);
+  background: url('../../shared/assets/icons/trash.svg') center no-repeat;
+  margin-top: 5px;
+  transition: all 0.5s ease-in-out;
+}
+
+.removeItemCart:hover {
+  box-shadow: 0 0 5px 5px var(--color-grey);
+  cursor: pointer;
+}
+
+.cartInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 33%;
+  border: 1px solid var(--color-red);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.titleCartInfo {
+  font-size: 1.25em;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 10px 0;
+}
+
+.discountPriceAllCart,
+.currentPriceAllCart {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px dotted var(--color-grey);
+  padding: 10px;
+  font-size: 0.875em;
+}
+
+.discountPriceAllCart {
+  color: var(--color-red);
+}
+
+.yourPricesCart {
+  font-weight: bold;
+}
+
+.promoCodeCart {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+
+.inputPromoCodeCart {
+  margin-left: 10px;
+  padding: 12px 20px;
+  width: 90%;
+}
+
+.btnCartInfo {
+  width: 100%;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    var(--color-start-gradient),
+    var(--color-end-gradient)
+  );
+  color: var(--color-white);
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.btnCartInfo:hover {
+  box-shadow: 0 0 15px 3px var(--color-grey-dark);
+}
+
+.totalCartInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.5em;
+  margin-top: 30px;
+}
+
+.emptyCartBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 10px 0;
+  flex: 1 0 auto;
+}
+
+.bcgEmptyCart {
+  display: flex;
+  background: url('../../shared/assets/images/womenWithCart.png') no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  min-width: 100%;
+  flex: 0 1 500px;
+}
+
+.btnEmptyCart {
+  cursor: pointer;
+}
+
+.btnEmptyCart:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+  .propertyItemCart {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+  }
+
+  .countProductCart {
+    flex: 0 auto;
+    max-width: 274px;
+    width: 100%;
+    margin: 15px 10px 0;
+  }
+
+  .cartProducts {
+    width: 56%;
+  }
+
+  .cartInfo {
+    width: 41%;
+  }
+}
+
+@media (max-width: 800px) {
+  .cartPage {
+    font-size: 14px;
+  }
+
+  .cartBox {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cartProducts {
+    width: 100%;
+  }
+
+  .cartInfo {
+    width: 70%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .cartPage {
+    font-size: 12px;
+  }
 }

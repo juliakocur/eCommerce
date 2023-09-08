@@ -17,7 +17,7 @@ const HeaderIcons = () => {
       )}
       <Link to="/cart" className="userBasket">
         <img src={basket} alt="search" className="basketImg" />
-        Basket
+        Cart
       </Link>
     </div>
   );
