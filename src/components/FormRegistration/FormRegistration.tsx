@@ -10,7 +10,7 @@ import {
   nameRegex,
 } from '../../shared/constants/Constants';
 import './FormRegistration.scss';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../api/methods';
 import { changeCustomerState, changeUserId } from '../../store/rootReducer';
@@ -22,6 +22,7 @@ import {
 import { getAge } from '../../utils';
 
 const FormRegistration = () => {
+  const { cartId } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>();
@@ -254,6 +255,7 @@ const FormRegistration = () => {
         : {};
 
       await createUser({
+        anonymousCartId: cartId,
         email,
         password,
         firstName: name,

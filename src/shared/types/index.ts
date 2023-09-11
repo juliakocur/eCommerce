@@ -14,6 +14,7 @@ export interface IUserData {
   addresses?: IAddress[];
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
+  anonymousCartId: string;
 }
 
 export interface IDeveloper {

@@ -11,7 +11,11 @@ import {
 } from '@commercetools/sdk-client-v2';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import { store } from '../store';
-import { changeCustomerState, changeTokenCache } from '../store/rootReducer';
+import {
+  changeCustomerState,
+  changeTokenCache,
+  resetTokenCache,
+} from '../store/rootReducer';
 
 class Cache implements TokenCache {
   get(): TokenStore {
@@ -25,7 +29,7 @@ class Cache implements TokenCache {
 
 const tokenCache = new Cache();
 
-const projectKey = process.env.REACT_APP_PROJECT_KEY;
+// const projectKey = process.env.REACT_APP_PROJECT_KEY;
 const scopes = [process.env.REACT_APP_SCOPES];
 
 const authMiddlewareOptions: AuthMiddlewareOptions = {
@@ -37,6 +41,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   },
   scopes,
   fetch,
+  tokenCache,
 };
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
@@ -45,8 +50,7 @@ const httpMiddlewareOptions: HttpMiddlewareOptions = {
 };
 
 export const ctpClient = new ClientBuilder()
-  .withProjectKey(projectKey)
-  .withClientCredentialsFlow(authMiddlewareOptions)
+  .withAnonymousSessionFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware()
   .build();
@@ -79,6 +83,7 @@ export const buildClientWithPasswordFlow = (
   username: string,
   password: string
 ) => {
+  store.dispatch(resetTokenCache());
   const client = new ClientBuilder()
     .withPasswordFlow({
       ...options,
