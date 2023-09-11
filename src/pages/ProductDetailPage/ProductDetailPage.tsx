@@ -1,22 +1,82 @@
 import { useParams } from 'react-router-dom';
 import './ProductDetailPage.scss';
-import { getProductById } from '../../api/methods';
-import { useEffect, useState } from 'react';
+import {
+  addItemInCart,
+  createCart,
+  getCartById,
+  getProductById,
+} from '../../api/methods';
+import { useEffect, useMemo, useState } from 'react';
 import { ProductData } from '@commercetools/platform-sdk';
 import nextImg from '../../shared/assets/icons/right.svg';
 import prevImg from '../../shared/assets/icons/left.svg';
+import { IDataCart } from '../MainPage/MainPage';
+import { useAppDispatch, useAppSelector } from '../../store';
+import {
+  AppNotification,
+  NotificationType,
+} from '../../components/Notification/Notification';
+import { changeCartId } from '../../store/rootReducer';
 
 const ProductDetailPage = () => {
+  const dispatch = useAppDispatch();
+  const { cartId } = useAppSelector((state) => state.auth);
+  const [refresh, setRefresh] = useState(false);
+  const [dataCart, setDataCart] = useState<null | IDataCart>(null);
   const { id } = useParams();
   const [data, setData] = useState<null | ProductData>(null);
   const [param, setParam] = useState<number | null>(null);
-  const [countProduct, setCountProduct] = useState(1);
   const [popUp, setPopUp] = useState(false);
   const [currentInd, setCurrentInd] = useState<number>(0);
 
+  useEffect(() => {
+    if (cartId || refresh) {
+      getCartById(cartId).then((res) => {
+        if (res.body.lineItems?.length) {
+          setDataCart({
+            version: res.body.version,
+            items: res.body.lineItems,
+          });
+        }
+      });
+      setRefresh(false);
+    }
+  }, [cartId, refresh]);
+
+  const addProductInCart = (cart: string, v: number) => {
+    addItemInCart(cart, v, id, param)
+      .execute()
+      .then(() => {
+        setRefresh(true);
+        AppNotification({
+          msg: `${data?.name.en} add to cart!`,
+          type: NotificationType.success,
+        });
+      })
+      .catch((e) => {
+        AppNotification({
+          msg: e?.message,
+        });
+      });
+  };
+
+  const onClickBtnHandler = () => {
+    if (!cartId) {
+      createCart().then((res) => {
+        dispatch(changeCartId(res.body.id));
+        addProductInCart(res.body.id, res.body.version);
+      });
+    } else {
+      addProductInCart(cartId, dataCart.version);
+    }
+  };
+
   const getAllInfoProduct = async () => {
     await getProductById(id)
-      .then(({ body }) => setData(body.masterData.current))
+      .then(({ body }) => {
+        setData(body.masterData.current);
+        setParam(body.masterData.current.variants[0].id);
+      })
       .catch(() => setData(null));
   };
 
@@ -49,6 +109,16 @@ const ProductDetailPage = () => {
 
     return 'nextSlide';
   };
+
+  const inCart = useMemo(
+    () =>
+      dataCart
+        ? !!dataCart.items.find(
+            (el) => el.productId === id && el.variant.id === param
+          )
+        : false,
+    [dataCart, param]
+  );
 
   return (
     <>
@@ -123,21 +193,17 @@ const ProductDetailPage = () => {
                 <div className="typeProduct">
                   <h4>Size:</h4>
                   <div className="blockTypeProduct">
-                    {data.variants
-                      .sort(
-                        (a, b) => a.attributes[0].value - b.attributes[0].value
-                      )
-                      .map((el) => (
-                        <div
-                          className={`btnTypeProduct ${
-                            param === el.id ? 'active' : ''
-                          }`}
-                          key={`param-${el.id}`}
-                          onClick={() => setParam(el.id)}
-                        >
-                          {el.attributes[0].value}
-                        </div>
-                      ))}
+                    {data.variants.map((el) => (
+                      <div
+                        className={`btnTypeProduct ${
+                          param === el.id ? 'active' : ''
+                        }`}
+                        key={`param-${el.id}`}
+                        onClick={() => setParam(el.id)}
+                      >
+                        {el.attributes[0].value}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -157,27 +223,13 @@ const ProductDetailPage = () => {
                     </div>
                   )}
                 </div>
-                <div className="countProduct">
-                  <div
-                    className="prevCountProduct"
-                    onClick={() => {
-                      if (countProduct <= 1) setCountProduct(1);
-                      else setCountProduct(countProduct - 1);
-                    }}
-                  >
-                    -
-                  </div>
-                  <div className="numbCountProduct">{countProduct}</div>
-                  <div
-                    className="nextCountProduct"
-                    onClick={() => {
-                      setCountProduct(countProduct + 1);
-                    }}
-                  >
-                    +
-                  </div>
+                <div
+                  className={`addCartProduct ${inCart ? 'inCart' : ''}`}
+                  onClick={inCart ? undefined : onClickBtnHandler}
+                >
+                  {' '}
+                  {inCart ? 'Added' : 'Add to cart'}
                 </div>
-                <div className="addCartProduct">Add to cart</div>
               </div>
             </div>
           </div>

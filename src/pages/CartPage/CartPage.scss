@@ -246,3 +246,116 @@
   width: 100%;
   padding: 12px 20px;
 }
+
+.btnCartInfo {
+  width: 100%;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    var(--color-start-gradient),
+    var(--color-end-gradient)
+  );
+  color: var(--color-white);
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.btnCartInfo:hover {
+  box-shadow: 0 0 15px 3px var(--color-grey-dark);
+}
+
+.totalCartInfo {
+  font-size: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.emptyCartBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 10px 0;
+  flex: 1 0 auto;
+}
+
+.bcgEmptyCart {
+  display: flex;
+  background: url('../../shared/assets/images/womenWithCart.png') no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  min-width: 100%;
+  flex: 0 1 500px;
+}
+
+.btnEmptyCart {
+  cursor: pointer;
+}
+
+.btnEmptyCart:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+  .propertyItemCart {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+  }
+
+  .countProductCart {
+    flex: 0 auto;
+    max-width: 274px;
+    width: 100%;
+    margin: 15px 10px 0;
+  }
+
+  .cartProducts {
+    width: 56%;
+  }
+
+  .cartInfo {
+    width: 41%;
+  }
+}
+
+@media (max-width: 800px) {
+  .cartPage {
+    font-size: 14px;
+  }
+
+  .cartBox {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cartProducts {
+    width: 100%;
+  }
+
+  .cartInfo {
+    width: 70%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .cartPage {
+    font-size: 12px;
+  }
+}
