@@ -14,6 +14,7 @@ eCommerce Application RSS task
 ## The technology stack used:
 - React
 - TypeScript
+- SDK Commercetools
 
 ### Start the project
 
