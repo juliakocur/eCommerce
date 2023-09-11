@@ -1,5 +1,7 @@
 .mainPage {
   padding: 60px 0 80px;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -97,6 +99,29 @@
 .upArrow {
   transform: rotate(180deg);
   transition: all 0.5s ease-out;
+}
+
+.pagination {
+  display: flex;
+  gap: 20px;
+  padding-top: 40px;
+  margin: auto;
+
+  .numberPage {
+    background-color: var(--color-grey);
+    border-radius: 5px;
+    color: var(--color-grey-light);
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+    padding: 12px 20px;
+    margin-top: auto;
+
+    &.active {
+      color: var(--color-grey-dark);
+      border: 1px solid var(--color-grey-dark);
+    }
+  }
 }
 
 @media (max-width: 1445px) {
