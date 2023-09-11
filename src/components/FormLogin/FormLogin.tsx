@@ -7,7 +7,11 @@ import { re, passwordRegex } from '../../shared/constants/Constants';
 import { useAppDispatch } from '../../store';
 import { buildClientWithPasswordFlow } from '../../api/BuildClient';
 import { loginCustomer } from '../../api/methods';
-import { changeCustomerState, changeUserId } from '../../store/rootReducer';
+import {
+  changeCartId,
+  changeCustomerState,
+  changeUserId,
+} from '../../store/rootReducer';
 import {
   AppNotification,
   NotificationType,
@@ -85,6 +89,7 @@ const FormRegistration = () => {
 
       await loginCustomer(email, password)
         .then(({ body }) => {
+          body.cart?.id && dispatch(changeCartId(body.cart.id));
           dispatch(changeUserId(body.customer.id));
           dispatch(changeCustomerState(true));
           AppNotification({
