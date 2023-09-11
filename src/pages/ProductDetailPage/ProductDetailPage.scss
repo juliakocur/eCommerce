@@ -219,6 +219,7 @@
 }
 
 .addCartProduct {
+  margin-top: 10px;
   width: 100%;
   padding: 12px 0;
   display: flex;
@@ -233,6 +234,14 @@
   color: var(--color-white);
   cursor: pointer;
   border-radius: 3px;
+
+  &.inCart {
+    cursor: not-allowed;
+    background: linear-gradient(
+      var(--color-grey-dark),
+      var(--color-grey-light)
+    );
+  }
 }
 
 .addCartProduct:hover {

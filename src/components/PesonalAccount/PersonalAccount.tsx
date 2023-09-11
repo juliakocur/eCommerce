@@ -6,13 +6,21 @@ import ChangeSurname from '../Popup/ChangeSurname';
 import PopupRoot from '../Popup/PopupRoot';
 import './PersonalAccount.scss';
 import ChangeBirthday from '../Popup/ChangeBirthday';
-import { useAppSelector } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../store';
 import { getDataUser } from '../../api/methods';
 import { Customer } from '@commercetools/platform-sdk';
 import ChangeEmail from '../Popup/ChangeEmail';
 import ChangePassword from '../Popup/ChangePassword';
 import Address from './Address';
 import AddAddress from '../Popup/AddAddress';
+import {
+  changeCartId,
+  changeCustomerState,
+  changeUserId,
+  resetTokenCache,
+} from '../../store/rootReducer';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '../../routes/AppRouter';
 
 const PersonalAccount = () => {
   const [userData, setUserData] = useState<Customer | null>(null);
@@ -24,6 +32,16 @@ const PersonalAccount = () => {
   const [openBirthday, setOpenBirthday] = useState(false);
   const [openEmail, setOpenEmail] = useState(false);
   const [openPassword, setOpenPassword] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(changeUserId(''));
+    dispatch(changeCartId(''));
+    dispatch(changeCustomerState(false));
+    dispatch(resetTokenCache());
+    navigate(`../../${routes.main.path}`);
+  };
 
   const getUserInfo = async () => {
     const { body } = await getDataUser();
@@ -40,7 +58,12 @@ const PersonalAccount = () => {
   return (
     <div className="wrapperFormPopup">
       <div className="wrapperForm">
-        <div className="titlePersonalAccount">Personal account</div>
+        <div className="titlePersonalAccount">
+          <span>Personal account</span>
+          <div className="logout" onClick={logout}>
+            Logout
+          </div>
+        </div>
         <h2 className="aboutAccount">About user</h2>
         <form className="formRegistr">
           <div className="nameContainer">

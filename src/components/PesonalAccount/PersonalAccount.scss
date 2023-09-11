@@ -44,9 +44,17 @@
 }
 
 .titlePersonalAccount {
-  color: var(--color-black);
-  font-size: 40px;
-  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  span {
+    color: var(--color-black);
+    font-size: 40px;
+    font-weight: 600;
+  }
 }
 
 .descriptionUser {
@@ -77,7 +85,8 @@
   cursor: pointer;
 }
 
-.titleAddress > .delete {
+.titleAddress > .delete,
+.titlePersonalAccount > .logout {
   margin-left: auto;
   font-size: 16px;
   font-weight: 400;

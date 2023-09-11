@@ -1,26 +1,11 @@
-import './HeaderNav.scss';
-import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../store';
-import {
-  changeCustomerState,
-  changeUserId,
-  resetTokenCache,
-} from '../../../store/rootReducer';
-import { routes } from '../../../routes/AppRouter';
+import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../../store';
+import './HeaderNav.scss';
 
 const HeaderNav = () => {
   const { userId } = useAppSelector((state) => state.auth);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [openMenu, setOpenMenu] = useState(false);
-
-  const logout = () => {
-    dispatch(changeUserId(''));
-    dispatch(changeCustomerState(false));
-    dispatch(resetTokenCache());
-    navigate(`../../${routes.main.path}`);
-  };
 
   return (
     <>
@@ -37,11 +22,6 @@ const HeaderNav = () => {
               Registration
             </NavLink>
           </>
-        )}
-        {userId && (
-          <div className="link" onClick={logout}>
-            Logout
-          </div>
         )}
       </div>
       <button

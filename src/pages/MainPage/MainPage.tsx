@@ -1,15 +1,24 @@
-import './MainPage.scss';
+import { Category, LineItem, Product } from '@commercetools/platform-sdk';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { getCartById, getCategories, getProductList } from '../../api/methods';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import { useCallback, useEffect, useState } from 'react';
-import search from '../../shared/assets/icons/search.svg';
 import arrow from '../../shared/assets/icons/arrow.svg';
-import { getCategories, getProductList } from '../../api/methods';
-import { Product, Category } from '@commercetools/platform-sdk';
+import search from '../../shared/assets/icons/search.svg';
+import { useAppSelector } from '../../store';
+import './MainPage.scss';
 
 const allSize = [38, 39, 40, 41, 42, 43];
 
+export interface IDataCart {
+  version: number;
+  items: LineItem[];
+}
+
 const MainPage = () => {
+  const [activePage, setActivePage] = useState(1);
+  const { cartId } = useAppSelector((state) => state.auth);
   const [listProduct, setListProduct] = useState<[] | Product[]>([]);
+  const [total, setTotal] = useState<number>(0);
   const [openCategories, setOpenCategories] = useState(false);
   const [openSizes, setOpenSizes] = useState(false);
   const [category, setCategory] = useState<Category | null>(null);
@@ -18,16 +27,35 @@ const MainPage = () => {
   const [suggestions, setSuggestions] = useState<[] | Product[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const clickHandler = (cat: Category) => {
+    setActivePage(1);
     setCategory(cat);
     setOpenCategories(false);
   };
+  const [refresh, setRefresh] = useState(false);
+  const [dataCart, setDataCart] = useState<null | IDataCart>(null);
+
+  useEffect(() => {
+    if (cartId || refresh) {
+      getCartById(cartId).then((res) => {
+        if (res.body.lineItems?.length) {
+          setDataCart({
+            version: res.body.version,
+            items: res.body.lineItems,
+          });
+        }
+      });
+      setRefresh(false);
+    }
+  }, [cartId, refresh]);
 
   const getListProductItems = async () => {
     await getProductList(
+      activePage ? (activePage - 1) * 8 : 8,
       category ? category.id : undefined,
       size ? size : undefined
     )
       .then(({ body }) => {
+        setTotal(body.total);
         setListProduct(body.results);
       })
       .catch(() => setListProduct([]));
@@ -45,10 +73,10 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (category || size) {
+    if (category || size || activePage) {
       getListProductItems();
     }
-  }, [category, size]);
+  }, [category, size, activePage]);
 
   const searchHandler = useCallback(() => {
     if (searchValue && listProduct.length) {
@@ -70,6 +98,21 @@ const MainPage = () => {
   useEffect(() => {
     searchHandler();
   }, [searchValue, searchHandler]);
+
+  const allPages = useMemo(() => {
+    if (suggestions.length && total) {
+      const countPages = Math.ceil(total / 8);
+
+      return Array.from({ length: countPages }, (_, index) => index + 1);
+    }
+
+    return null;
+  }, [suggestions.length, total, search]);
+
+  const changePage = (num: number) => {
+    setActivePage(num);
+    document.body.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  };
 
   return (
     <div className="mainPage">
@@ -125,7 +168,10 @@ const MainPage = () => {
                   {allSize.map((el) => (
                     <div
                       className={`dropLink`}
-                      onClick={() => setSize(el)}
+                      onClick={() => {
+                        setSize(el);
+                        setActivePage(1);
+                      }}
                       key={el}
                     >
                       {el}
@@ -149,8 +195,28 @@ const MainPage = () => {
       </div>
       <div className="wrapperCardsProducts">
         {!!suggestions.length &&
-          suggestions.map((el) => <ProductCard info={el} key={el.id} />)}
+          suggestions.map((el) => (
+            <ProductCard
+              dataCart={dataCart}
+              setRefresh={() => setRefresh(true)}
+              info={el}
+              key={el.id}
+            />
+          ))}
       </div>
+      {!!(allPages && allPages.length > 1) && (
+        <div className="pagination">
+          {allPages.map((el) => (
+            <div
+              key={`page-${el}`}
+              className={`numberPage ${el === activePage ? 'active' : ''}`}
+              onClick={() => changePage(el)}
+            >
+              {el}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

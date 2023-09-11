@@ -1,10 +1,12 @@
+import { BaseAddress } from '@commercetools/platform-sdk';
 import { IUserData } from '../shared/types';
 import {
   apiRoot,
   buildClientWithPasswordFlow,
   customerApiRoot,
 } from './BuildClient';
-import { BaseAddress } from '@commercetools/platform-sdk';
+import { store } from '../store';
+import { changeCartId } from '../store/rootReducer';
 
 export const loginCustomer = (email: string, password: string) => {
   return customerApiRoot.login().post({ body: { email, password } }).execute();
@@ -123,6 +125,7 @@ export const getDataUser = () => {
 };
 
 export const getProductList = (
+  offset: number,
   category: string = '',
   size: number | null = null
 ) => {
@@ -142,19 +145,21 @@ export const getProductList = (
         ? {
             queryArgs: {
               where: params,
-              limit: 30,
+              limit: 8,
+              offset,
             },
           }
-        : { queryArgs: { limit: 30 } }
+        : { queryArgs: { limit: 8, offset } }
     )
     .execute();
 };
 
 export const createUser = async (user: IUserData) => {
+  const { anonymousCartId, ...data } = user;
   await apiRoot
     .customers()
     .post({
-      body: user,
+      body: anonymousCartId ? user : data,
     })
     .execute();
 
@@ -234,4 +239,78 @@ export const deleteAddress = (
       },
     })
     .execute();
+};
+
+export const createCart = () => {
+  return apiRoot
+    .carts()
+    .post({
+      body: {
+        currency: 'EUR',
+      },
+    })
+    .execute();
+};
+
+export const getCartById = (id: string) => {
+  return apiRoot.carts().withId({ ID: id }).get().execute();
+};
+
+export const addItemInCart = (
+  id: string,
+  version: number,
+  productId: string,
+  variantId: number,
+  count = 1
+) => {
+  return apiRoot
+    .carts()
+    .withId({ ID: id })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'addLineItem',
+            productId,
+            quantity: count,
+            variantId,
+          },
+        ],
+      },
+    });
+};
+
+export const deleteItemInCart = (
+  id: string,
+  version: number,
+  lineItemId: string,
+  count = 1
+) => {
+  return apiRoot
+    .carts()
+    .withId({ ID: id })
+    .post({
+      body: {
+        version,
+        actions: [
+          {
+            action: 'changeLineItemQuantity',
+            lineItemId,
+            quantity: count,
+          },
+        ],
+      },
+    });
+};
+
+export const deleteAllCart = (id: string, version: number) => {
+  apiRoot
+    .carts()
+    .withId({ ID: id })
+    .delete({ queryArgs: { version } })
+    .execute()
+    .then(() => {
+      store.dispatch(changeCartId(''));
+    });
 };
